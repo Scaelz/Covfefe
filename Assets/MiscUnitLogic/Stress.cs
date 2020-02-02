@@ -13,7 +13,7 @@ public class Stress : MonoBehaviour, IStressable
 
     [SerializeField]
     float loyalty;
-    public float Loyalty { get; }
+    public float Loyalty { get => Mathf.Clamp(loyalty, 0.1f, 100); }
 
     [SerializeField]
     float stressPerTick;
