@@ -4,12 +4,11 @@ using UnityEngine;
 
 public interface ICustomer
 {
-    Queue<Vector3> ShoppingRoute { get; }
+    Transform CurrentTransform { get; }
+    Queue<CashBox> ShoppingRoute { get; }
     bool isInLine { get; }
 
-    void Leave();
-    void GoShoping();
-    void GetInLine();
+    void Leave(Vector3 exitPoint);
     void Idle();
-    void MoveInLine();
+    void MoveInLine(Vector3 newPosition);
 }

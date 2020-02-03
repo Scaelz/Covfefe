@@ -6,52 +6,86 @@ using UnityEngine;
 public class Customer : Unit, ICustomer
 {
     public bool isInLine { get; private set; } = false;
+    public CashBox CurrentCashBox { get; private set; }
+    public Queue<CashBox> ShoppingRoute { get; private set; }
 
-    public Queue<Vector3> ShoppingRoute { get; private set; }
+    public Transform CurrentTransform { get => gameObject.transform; }
 
     private void Start()
     {
         Initialize();
         stressScript.OnStressOut += StressOutHandler;
-        GoShoping();
+        moveScript.OnDestinationReached += ReachedDestinationHandler;
+        moveScript.MoveTo(Cafe.Entrance.position);
     }
 
     void StressOutHandler(object e, EventArgs args)
     {
-        Leave();
+        Leave(Cafe.Exit.position);
     }
 
-    public void GetInLine()
+    void ReachedDestinationHandler()
     {
-        throw new System.NotImplementedException();
+        if (isInLine)
+        {
+            if(CurrentCashBox.CurrentCustomer.GetHashCode() == this.GetHashCode())
+            {
+                Debug.Log("HER");
+                CurrentCashBox.CustomerReady();
+                CurrentCashBox.OnCustomerServiced += GoToNextPoint;
+            }
+            else
+            {
+                RotateTowards(CurrentCashBox.worker.transform.position);
+            }
+        }
+        else
+        {
+            if (ShoppingRoute == null)
+            {
+                BuildShoppingRoute();
+            }
+            else
+            {
+                GoToNextPoint();
+            }
+        }
+    }
+
+    void GoToNextPoint()
+    {
+        if(ShoppingRoute.Count != 0)
+        {
+            if(CurrentCashBox != null)
+            {
+                CurrentCashBox.OnCustomerServiced -= GoToNextPoint;
+            }
+            CurrentCashBox = ShoppingRoute.Dequeue();
+            moveScript.MoveTo(CurrentCashBox.GetPlaceInLine(this));
+            isInLine = true;
+        }
+        else
+        {
+            isInLine = false;
+            Leave(Cafe.Exit.position);
+        }
     }
 
     void BuildShoppingRoute()
     {
-        ShoppingRoute = new Queue<Vector3>();
+
+        ShoppingRoute = new Queue<CashBox>();
         int departmentsToVisit = UnityEngine.Random.Range(1, Cafe.AllDepartments.Count+1);
         while (departmentsToVisit != 0)
         {
-            Vector3 new_destination = Cafe.AllDepartments[UnityEngine.Random.Range(0, Cafe.AllDepartments.Count)].position;
+            CashBox new_destination = Cafe.AllDepartments[UnityEngine.Random.Range(0, Cafe.AllDepartments.Count)];
             if (!ShoppingRoute.Contains(new_destination))
             {
                 ShoppingRoute.Enqueue(new_destination);
                 departmentsToVisit--;
             }
         }
-        ShoppingRoute.Enqueue(Cafe.Exit.position);
-    }
-
-    public void GoShoping()
-    {
-        if(ShoppingRoute == null)
-        {
-            BuildShoppingRoute();
-        }
-        foreach (Vector3 point in ShoppingRoute)
-        {
-            Debug.Log(point);
-        }
+        GoToNextPoint();
     }
 
     public void Idle()
@@ -59,14 +93,14 @@ public class Customer : Unit, ICustomer
         throw new System.NotImplementedException();
     }
 
-    public void Leave()
+    public void Leave(Vector3 exitPoint)
     {
-        moveScript.MoveTo(Cafe.Exit.position);
+        moveScript.MoveTo(exitPoint);
     }
 
-    public void MoveInLine()
+    public void MoveInLine(Vector3 newPosition)
     {
-        Debug.Log("Step forward in line");
+        moveScript.MoveTo(newPosition);
     }
 
     private void RotateTowards(Vector3 target)
@@ -78,15 +112,9 @@ public class Customer : Unit, ICustomer
 
     private void Update()
     {
-        if (isInLine)
-        {
-            stressScript.IncreaseStress();
-        }
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector3 point = ShoppingRoute.Dequeue();
-            moveScript.MoveTo(point);
-            RotateTowards(Cafe.Exit.position);
-        }
+        //if (isInLine)
+        //{
+        //    stressScript.IncreaseStress();
+        //}
     }
 }
