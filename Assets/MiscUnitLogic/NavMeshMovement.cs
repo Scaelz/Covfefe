@@ -18,13 +18,21 @@ public class NavMeshMovement : MonoBehaviour, IMovable
 
     private void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
+        //agent = GetComponent<NavMeshAgent>();
+    }
+
+    public void SetPriority(int value)
+    {
+        agent.avoidancePriority = value;
     }
 
     public void MoveTo(Vector3 position)
     {
-        agent.SetDestination(position);
-        CurrentDestination = position;
+        if (agent.isActiveAndEnabled)
+        {
+            agent.SetDestination(position);
+            CurrentDestination = position;
+        }
     }
 
     public void Stop()
@@ -44,5 +52,12 @@ public class NavMeshMovement : MonoBehaviour, IMovable
         {
             OnDestinationReached?.Invoke();
         }
+    }
+
+    public void RotateTowards(Vector3 target)
+    {
+        Vector3 direction = (target - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 60);
     }
 }

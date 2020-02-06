@@ -9,13 +9,13 @@ public class Cafe : MonoBehaviour
     public Transform entrance;
     public static Transform Entrance { get; private set; }
 
-    public static List<CashBox> AllDepartments { get; private set; } = new List<CashBox>();
+    public static List<Line> AllDepartments { get; private set; } = new List<Line>();
 
     private void Awake()
     {
         Exit = exit;
         Entrance = entrance;
-        foreach (CashBox cashbox in FindObjectsOfType<CashBox>())
+        foreach (Line cashbox in FindObjectsOfType<Line>())
         {
             AllDepartments.Add(cashbox);
         }
