@@ -8,6 +8,7 @@ public class CoffeeWorker : MonoBehaviour, IWorker
     public Transform CurrentTransform { get => transform; }
     [SerializeField]
     float workSpeed;
+    public GameObject idleConfig;
     public bool isWorking { get; private set; } = false;
     public float WorkSpeed { get => workSpeed; }
     [SerializeField]
@@ -53,6 +54,7 @@ public class CoffeeWorker : MonoBehaviour, IWorker
     IEnumerator ProgressWork()
     {
         yield return new WaitForSeconds(WorkSpeed);
+        idleConfig.GetComponent<IdleConfig>().Click();
         OnWorkDone?.Invoke();
     }
 }
