@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stress : MonoBehaviour, IStressable
+public class Stress : MonoBehaviour, IStressable, IClickable
 {
     [SerializeField]
     float maxStress;
@@ -18,23 +18,97 @@ public class Stress : MonoBehaviour, IStressable
     [SerializeField]
     float stressPerTick;
 
+    bool canIncrease = true;
+    bool canDecrease = true;
+
     public event EventHandler OnStressOut;
+    public event EventHandler OnChilled;
+    public event Action<float> OnStressChanged;
+
+
+    private void Start()
+    {
+        OnStressOut += StressOutHandler;
+        OnChilled += OnChilledHandler;
+    }
+
+    private void Update()
+    {
+        Debug.Log($"Update: {CurrentStress} + {this.name}");
+        if (canDecrease)
+        {
+            Debug.Log("tada");
+            DecreaseStress();
+        }
+    }
 
     public void DecreaseStress()
     {
-        CurrentStress -= stressPerTick / 2 / loyalty;
+        Debug.Log($"DecreaseStress: {CurrentStress}");
+        if (CurrentStress > 0)
+        {
+            Debug.Log(2);
+            CurrentStress -= stressPerTick / 2 / loyalty;
+            OnStressChanged?.Invoke(CurrentStress);
+        }
         if (CurrentStress < 0)
         {
-            OnStressOut?.Invoke(this, EventArgs.Empty);
+            CurrentStress = 0;
+            //OnStressOut?.Invoke(this, EventArgs.Empty);
         }
     }
 
     public void IncreaseStress()
     {
-        CurrentStress += stressPerTick / loyalty;
-        if (CurrentStress >= MaxStress)
+        if (canIncrease)
         {
-            OnStressOut?.Invoke(this, EventArgs.Empty);
+            if (CurrentStress < MaxStress)
+            {
+                CurrentStress += stressPerTick / loyalty;
+                OnStressChanged?.Invoke(CurrentStress);
+            }
+
+            if (CurrentStress >= MaxStress)
+            {
+                OnStressOut?.Invoke(this, EventArgs.Empty);
+            }
         }
+    }
+
+    void StressOutHandler(object e, EventArgs args)
+    {
+        canIncrease = false;
+        StartCoroutine(Chill());
+    }
+
+    IEnumerator Chill()
+    {
+        while (CurrentStress != 0)
+        {
+            yield return null;
+            DecreaseStress();
+        }
+        OnChilled?.Invoke(this, EventArgs.Empty);
+    }
+
+    void OnChilledHandler(object e, EventArgs args)
+    {
+        canIncrease = true;
+    }
+
+    public void OnDown()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnHold()
+    {
+        canDecrease = false; 
+        IncreaseStress();
+    }
+
+    public void OnUp()
+    {
+        canDecrease = true;
     }
 }

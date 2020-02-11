@@ -37,8 +37,7 @@ public abstract class Line : MonoBehaviour
             return false;
         }
         float distance = Vector3.Distance(CurrentCustomer.CurrentTransform.position, LineSpots[0]);
-        Debug.Log(distance);
-        return distance < 26;
+        return distance < 3;
     }
 
     public bool isJoinable()

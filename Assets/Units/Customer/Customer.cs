@@ -23,7 +23,7 @@ public class Customer : Unit, ICustomer, ILineable
     private void OnEnable()
     {
         Initialize();
-        stressScript.OnStressOut += StressOutHandler;
+        //stressScript.OnStressOut += StressOutHandler;
         BuildShoppingRoute();
         moveScript.SetPriority(50);
         moveScript.MoveTo(Cafe.Entrance.position);

@@ -14,6 +14,8 @@ public class CoffeeWorker : MonoBehaviour, IWorker
     [SerializeField]
     Line currentLine;
     public Line CurrentLine { get; private set; }
+    IStressable stressScript;
+
 
     public event Action OnWorkDone;
     public event Action OnWorkStarted;
@@ -23,6 +25,7 @@ public class CoffeeWorker : MonoBehaviour, IWorker
     void Start()
     {
         CurrentLine = currentLine;
+        stressScript = GetComponent<IStressable>();
         OnWorkDone += WorkStateChangedHandler;
         OnWorkStarted += WorkStateChangedHandler;
         OnWorkDone += CurrentLine.CustomerServicedHandler;

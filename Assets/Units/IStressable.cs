@@ -7,6 +7,8 @@ public interface IStressable
     float CurrentStress { get; }
     float Loyalty { get; }
     event EventHandler OnStressOut;
+    event EventHandler OnChilled;
+    event Action<float> OnStressChanged;
 
     void IncreaseStress();
     void DecreaseStress();
