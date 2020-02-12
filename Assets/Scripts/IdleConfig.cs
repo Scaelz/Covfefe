@@ -6,14 +6,13 @@ using System.Collections.Generic;
 public class IdleConfig : MonoBehaviour
 {
     [Header("Text Fields")]
-    [SerializeField] TextMeshProUGUI coinsText;
+    //[SerializeField] TextMeshProUGUI coinsText;
     [SerializeField] TextMeshProUGUI clickUpgradeText;
     [SerializeField] TextMeshProUGUI currentLevelText;
     [SerializeField] TextMeshProUGUI coinsPerCoffeeText;
     [SerializeField] TextMeshProUGUI buyMaxText;
 
     [Header("Coins Fields")]
-    public double coins;
     public double coinsClickValue = 1;
     public int defaultCoinsPrice = 1;
     public double coinsPerSecond;
@@ -30,21 +29,30 @@ public class IdleConfig : MonoBehaviour
 
     [TextArea]
     public string[] stringFieldsText;
+
+    Coins _coins;
+
     // private
-    double buyMaxLevels;
+    private double buyMaxLevels;
     List<string> charExponent = new List<string>() { "k", "M", "G", "T", "P", "E", "Z", "Y" };
+
+    // Event
+    public event Action<double> OnAddCoins;
+    public event Action<double> OnMinusCoins;
 
     private void Start()
     {
+        //_coins = Coins.Instance;
+        _coins = FindObjectOfType<Coins>();
         SetTextValue();
     }
 
     private void SetTextValue()
     {
-        buyMaxLevels = Math.Floor(Math.Log(coins * (multiply - 1) / (clickUpgradeCost) + 1, multiply)); // * Math.Pow(multiply, 0)
+        buyMaxLevels = Math.Floor(Math.Log(_coins.GetCoins() * (multiply - 1) / (clickUpgradeCost) + 1, multiply)); // * Math.Pow(multiply, 0)
 
         currentLevelText.text = stringFieldsText[0] + clickUpgradeLevel;
-        SetExponentText(Math.Round(coins), coinsText, stringFieldsText[1]);
+        //SetExponentText(Math.Round(coins), coinsText, stringFieldsText[1]);
         SetExponentText(coinsClickValue, coinsPerCoffeeText, stringFieldsText[2]);
         SetExponentText(Math.Round(clickUpgradeCost), clickUpgradeText, stringFieldsText[3]);
         SetExponentText(Math.Round(buyMaxLevels), buyMaxText, stringFieldsText[4]);
@@ -107,21 +115,25 @@ public class IdleConfig : MonoBehaviour
     // Buttons
     public void Click()
     {
-        coins += coinsClickValue;
+        Debug.Log(_coins.GetCoins());
+        OnAddCoins?.Invoke(coinsClickValue);
+
+        //_coins.coins += coinsClickValue;
+        //coins += coinsClickValue;
         SetTextValue();
     }
 
     public void BuyClickUpgrade1()
     {
-        if (Math.Round(coins) >= Math.Round(clickUpgradeCost)) 
+        if (Math.Round(_coins.GetCoins()) >= Math.Round(clickUpgradeCost)) 
         { 
             clickUpgradeLevel++;
-            coins -= clickUpgradeCost;
-            if (coins < 0) coins = 0;
+            OnMinusCoins?.Invoke(clickUpgradeCost);
+
+            if (_coins.GetCoins() < 0) _coins.SetCoins(0);
             clickUpgradeCost *= multiply;
             coinsClickValue += defaultCoinsPrice;
             ClickUpgradeMultyplyCost();
-
             SetTextValue();
         }
     }
