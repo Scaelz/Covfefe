@@ -3,6 +3,8 @@ using System;
 
 public interface IStressable
 {
+    float Multiplier { get; }
+
     float MaxStress { get; }
     float CurrentStress { get; }
     float Loyalty { get; }

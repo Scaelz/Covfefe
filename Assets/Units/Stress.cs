@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class Stress : MonoBehaviour, IStressable, IClickable
 {
+    float defaultMultiplier;
+    [SerializeField]
+    float multiplier;
+    public float Multiplier { get => multiplier; }
+
     [SerializeField]
     float maxStress;
     public float MaxStress { get => maxStress; }
@@ -28,27 +33,43 @@ public class Stress : MonoBehaviour, IStressable, IClickable
 
     private void Start()
     {
+        defaultMultiplier = multiplier;
         OnStressOut += StressOutHandler;
         OnChilled += OnChilledHandler;
+        OnStressChanged += BoostMultiplier;
     }
 
     private void Update()
     {
-        Debug.Log($"Update: {CurrentStress} + {this.name}");
         if (canDecrease)
         {
-            Debug.Log("tada");
             DecreaseStress();
         }
     }
 
+    void ReduceMultiplier()
+    {
+        multiplier = defaultMultiplier / 4;
+    }
+
+    void BoostMultiplier(float stressValue)
+    {
+        if (canIncrease)
+        {
+            multiplier = defaultMultiplier + 3 * stressValue / 100 ;
+        }
+    }
+
+    void RestoreMultiplier()
+    {
+        multiplier = defaultMultiplier;
+    }
+
     public void DecreaseStress()
     {
-        Debug.Log($"DecreaseStress: {CurrentStress}");
         if (CurrentStress > 0)
         {
-            Debug.Log(2);
-            CurrentStress -= stressPerTick / 2 / loyalty;
+            CurrentStress -= stressPerTick / 6 * Multiplier / loyalty;
             OnStressChanged?.Invoke(CurrentStress);
         }
         if (CurrentStress < 0)
@@ -78,6 +99,7 @@ public class Stress : MonoBehaviour, IStressable, IClickable
     void StressOutHandler(object e, EventArgs args)
     {
         canIncrease = false;
+        ReduceMultiplier();
         StartCoroutine(Chill());
     }
 
@@ -94,6 +116,7 @@ public class Stress : MonoBehaviour, IStressable, IClickable
     void OnChilledHandler(object e, EventArgs args)
     {
         canIncrease = true;
+        RestoreMultiplier();
     }
 
     public void OnDown()

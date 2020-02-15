@@ -10,6 +10,7 @@ public class StressUI : MonoBehaviour
     [SerializeField]
     GameObject stressAbleObject;
     IStressable stress;
+    
     // Start is called before the first frame update
     void Start()
     {

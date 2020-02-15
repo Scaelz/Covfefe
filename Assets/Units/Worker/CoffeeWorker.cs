@@ -8,6 +8,10 @@ public class CoffeeWorker : MonoBehaviour, IWorker
     public Transform CurrentTransform { get => transform; }
     [SerializeField]
     float workSpeed;
+    [SerializeField]
+    float timeToEndWork;
+    float workTimer = 0;
+    public float TimeToEndWork { get => timeToEndWork; }
     public GameObject idleConfig;
     public bool isWorking { get; private set; } = false;
     public float WorkSpeed { get => workSpeed; }
@@ -54,10 +58,21 @@ public class CoffeeWorker : MonoBehaviour, IWorker
         StartCoroutine(ProgressWork());
     }
 
+    float StressedWorkSpeed()
+    {
+        return WorkSpeed * stressScript.Multiplier;
+    }
+
     IEnumerator ProgressWork()
     {
-        yield return new WaitForSeconds(WorkSpeed);
+        while (workTimer < TimeToEndWork)
+        {
+            float currentSpeed = StressedWorkSpeed();
+            yield return new WaitForSeconds(WorkSpeed);
+            workTimer += currentSpeed;
+        }
         idleConfig.GetComponent<IdleConfig>().Click();
         OnWorkDone?.Invoke();
+        workTimer = 0;
     }
 }
