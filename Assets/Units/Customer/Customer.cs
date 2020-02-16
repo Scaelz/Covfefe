@@ -13,16 +13,40 @@ public class Customer : Unit, ICustomer, ILineable
     public bool isInLine { get; private set; } = false;
     public int PositionInLine { get; private set; }
     public Line CurrentLine { get; private set; }
+    [SerializeField]
+    CustomerAnimator animation;
+
 
     private void Start()
     {
-        
+        animation = GetComponent<CustomerAnimator>();
+        moveScript.OnDestinationReached += LookInLine;
+        moveScript.OnDestinationReached += SetIdleAnimation;
+        moveScript.OnStartMoving += SetWalkingAnimation;
+    }
 
+    void SetWalkingAnimation()
+    {
+        animation.Play(ClientAnims.walk);
+    }
+
+    void SetIdleAnimation()
+    {
+        animation.Play(ClientAnims.idle);
+    }
+
+    void LookInLine()
+    {
+        if (CurrentLine != null)
+        {
+            moveScript.RotateTowards(CurrentLine.transform.position);
+        }
     }
 
     private void OnEnable()
     {
         Initialize();
+        LeaveLine();
         //stressScript.OnStressOut += StressOutHandler;
         BuildShoppingRoute();
         moveScript.SetPriority(50);
@@ -54,7 +78,7 @@ public class Customer : Unit, ICustomer, ILineable
 
     public void JoinLine(Line line)
     {
-        if (line.isJoinable())
+        if (line.isJoinable(this))
         {
             CurrentLine = line;
             PositionInLine = line.JoinLine(this);
@@ -67,7 +91,10 @@ public class Customer : Unit, ICustomer, ILineable
 
     public void LeaveLine()
     {
-        CurrentLine.OnCustomerServiced -= MoveInLine;
+        if (CurrentLine != null)
+        {
+            CurrentLine.OnCustomerServiced -= MoveInLine;
+        }
         CurrentLine = null;
         isInLine = false;
         PositionInLine = -1;
@@ -75,16 +102,19 @@ public class Customer : Unit, ICustomer, ILineable
 
     public void MoveInLine()
     {
-        if (PositionInLine == 1)
+        if(CurrentLine != null)
         {
-            LeaveLine();
-            Shopping();
-        }
-        else
-        {
-            PositionInLine--;
-            Vector3 newPosition = CurrentLine.GetProperSpot(PositionInLine);
-            moveScript.MoveTo(newPosition);
+            if (PositionInLine == 1)
+            {
+                LeaveLine();
+                Shopping();
+            }
+            else
+            {
+                PositionInLine--;// = CurrentLine.GetFreePosition(this);
+                Vector3 newPosition = CurrentLine.GetProperSpot(PositionInLine);
+                moveScript.MoveTo(newPosition);
+            }
         }
     }
 
@@ -112,71 +142,4 @@ public class Customer : Unit, ICustomer, ILineable
             moveScript.MoveTo(Cafe.Exit.position);
         }
     }
-
-    //void ReachedDestinationHandler()
-    //{
-    //    if (isInLine)
-    //    {
-    //        if(CurrentCashBox.CurrentCustomer.GetHashCode() == this.GetHashCode())
-    //        {
-    //            CurrentCashBox.CustomerReady();
-    //            CurrentCashBox.OnCustomerServiced += GoToNextPoint;
-    //        }
-    //        else
-    //        {
-    //            moveScript.RotateTowards(CurrentCashBox.worker.transform.position);
-    //        }
-    //    }
-    //    else
-    //    {
-    //        if (ShoppingRoute == null)
-    //        {
-    //            BuildShoppingRoute();
-    //        }
-    //        else
-    //        {
-    //            GoToNextPoint();
-    //        }
-    //    }
-    //}
-
-    //void GoToNextPoint()
-    //{
-    //    if(ShoppingRoute.Count != 0)
-    //    {
-    //        if(CurrentCashBox != null)
-    //        {
-    //            CurrentCashBox.OnCustomerServiced -= GoToNextPoint;
-    //        }
-    //        CurrentCashBox = ShoppingRoute.Dequeue();
-    //        moveScript.MoveTo(CurrentCashBox.GetPlaceInLine(this));
-    //        isInLine = true;
-    //    }
-    //    else
-    //    {
-    //        isInLine = false;
-    //        Leave(Cafe.Exit.position);
-    //    }
-    //}
-
-
-
-    //public void Idle()
-    //{
-    //    throw new System.NotImplementedException();
-    //}
-
-
-    //public void MoveInLine(Vector3 newPosition)
-    //{
-    //    moveScript.MoveTo(newPosition);
-    //}
-
-    //private void Update()
-    //{
-    //    //if (isInLine)
-    //    //{
-    //    //    stressScript.IncreaseStress();
-    //    //}
-    //}
 }

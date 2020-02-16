@@ -5,6 +5,10 @@ using UnityEngine;
 public class CoffeeCashBox : Line
 {
 
+    private void Update()
+    {
+    }
+
     private void Start()
     {
         base.GenerateLineSpots();

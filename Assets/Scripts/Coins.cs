@@ -31,13 +31,13 @@ public class Coins : MonoBehaviour
 
     public double GetCoins()
     {
-        Debug.Log("Coins: " + coins);
+        //Debug.Log("Coins: " + coins);
         return coins;
     }
 
     public void SetCoins(double value)
     {
-        Debug.Log("Set coins: " + coins);
+        //Debug.Log("Set coins: " + coins);
         coins = value;
     }
 
@@ -49,7 +49,7 @@ public class Coins : MonoBehaviour
 
     private void AddCoins(double value)
     {
-        Debug.Log(value);
+        //Debug.Log(value);
         coins += value;
         SetCoinsText();
     }

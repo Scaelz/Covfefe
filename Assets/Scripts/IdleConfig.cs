@@ -115,7 +115,7 @@ public class IdleConfig : MonoBehaviour
     // Buttons
     public void Click()
     {
-        Debug.Log(_coins.GetCoins());
+        //Debug.Log(_coins.GetCoins());
         OnAddCoins?.Invoke(coinsClickValue);
 
         //_coins.coins += coinsClickValue;

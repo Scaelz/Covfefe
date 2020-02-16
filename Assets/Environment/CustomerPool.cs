@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CustomerPool : MonoBehaviour
@@ -7,7 +8,13 @@ public class CustomerPool : MonoBehaviour
     static Queue<Customer> poolQueue = new Queue<Customer>();
     [SerializeField]
     Customer prefab;
-
+    private static System.Random random = new System.Random();
+    public static string RandomString(int length)
+    {
+        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        return new string(Enumerable.Repeat(chars, length)
+          .Select(s => s[random.Next(s.Length)]).ToArray());
+    }
     private void Awake()
     {
         Instance = this;
@@ -19,6 +26,7 @@ public class CustomerPool : MonoBehaviour
         if (poolQueue.Count == 0)
         {
             customer = CreateInstance();
+            customer.CurrentTransform.name = RandomString(5);
         }
         else
         {

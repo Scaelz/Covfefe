@@ -30,8 +30,6 @@ public class WorkerAnimator : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(animator.GetCurrentAnimatorStateInfo(0).length);
-        Debug.Log(animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
     }
 
     void IdleHandler()

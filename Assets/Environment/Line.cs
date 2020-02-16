@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public abstract class Line : MonoBehaviour
@@ -10,7 +11,7 @@ public abstract class Line : MonoBehaviour
     [SerializeField]
     float lineSpread = 1.2f;
     Vector3[] LineSpots { get; set; }
-    Queue<ICustomer> line = new Queue<ICustomer>();
+    protected Queue<ICustomer> line = new Queue<ICustomer>();
     public ICustomer CurrentCustomer
     {
         get
@@ -40,8 +41,12 @@ public abstract class Line : MonoBehaviour
         return distance < 3;
     }
 
-    public bool isJoinable()
+    public bool isJoinable(ICustomer customer)
     {
+        if (line.Contains(customer))
+        {
+            return false;
+        }
         return !(GetLineLength() == maxLength);
     }
 
@@ -72,15 +77,35 @@ public abstract class Line : MonoBehaviour
         }
     }
 
+    public int GetFreePosition(ICustomer customer)
+    {
+        foreach (var item in line)
+        {
+            if(item == customer)
+            {
+                return line.ToArray().ToList().IndexOf(item);
+            }
+        }
+        return 1;
+    }
+
     public int JoinLine(ICustomer newCustomer)
     {
         line.Enqueue(newCustomer);
-        return GetLineLength();
+        //Debug.Log($"ENQUED: {newCustomer}");
+        int number = GetFreePosition(newCustomer);//GetLineLength();
+        return line.Count;
     }
 
     protected void Dequeue()
     {
-        line.Dequeue();
+
+        ICustomer customer = line.Dequeue();
+        Debug.Log($"Leaved line: {customer}");
+        foreach (var item in line)
+        {
+            Debug.Log($"Still in line: {item.CurrentTransform.name}");
+        }
     }
 
     public void CustomerServicedHandler()

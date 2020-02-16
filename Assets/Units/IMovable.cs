@@ -5,6 +5,7 @@ public interface IMovable
 {
     Vector3 CurrentDestination { get; }
     event Action OnDestinationReached;
+    event Action OnStartMoving;
     float Speed { get; }
 
 

@@ -15,6 +15,7 @@ public class NavMeshMovement : MonoBehaviour, IMovable
     private NavMeshAgent agent;
 
     public event Action OnDestinationReached;
+    public event Action OnStartMoving;
 
     private void Awake()
     {
@@ -30,6 +31,7 @@ public class NavMeshMovement : MonoBehaviour, IMovable
     {
         if (agent.isActiveAndEnabled)
         {
+            OnStartMoving?.Invoke();
             agent.SetDestination(position);
             CurrentDestination = position;
         }
@@ -48,7 +50,8 @@ public class NavMeshMovement : MonoBehaviour, IMovable
     private void Update()
     {
         float dist = agent.remainingDistance;
-        if (dist != Mathf.Infinity && agent.pathStatus == NavMeshPathStatus.PathComplete && agent.remainingDistance <= .1f)
+        //if (dist != Mathf.Infinity && agent.pathStatus == NavMeshPathStatus.PathComplete && agent.remainingDistance <= .3f)
+        if (agent.remainingDistance <= agent.stoppingDistance)
         {
             OnDestinationReached?.Invoke();
         }
@@ -58,6 +61,6 @@ public class NavMeshMovement : MonoBehaviour, IMovable
     {
         Vector3 direction = (target - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 60);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5);
     }
 }
