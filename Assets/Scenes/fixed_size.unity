@@ -1582,6 +1582,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8957473782473926044, guid: e70e10cf6eb46a447b5b03c0755b3697,
+        type: 3}
+      propertyPath: stressPerTick
+      value: 0.75
+      objectReference: {fileID: 0}
     - target: {fileID: 8957473782473926047, guid: e70e10cf6eb46a447b5b03c0755b3697,
         type: 3}
       propertyPath: idleConfig
