@@ -18,7 +18,12 @@ ModelImporter:
   - first:
       74: 5393026577348178861
     second: Working
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: 6fd2e72d29f1f504ea271f896b93775d, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
