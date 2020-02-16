@@ -10,7 +10,14 @@ public class StressUI : MonoBehaviour
     [SerializeField]
     GameObject stressAbleObject;
     IStressable stress;
-    
+    [SerializeField]
+    Camera cam;
+
+    private void LateUpdate()
+    {
+        transform.LookAt(transform.position + cam.transform.forward) ;
+    }
+
     // Start is called before the first frame update
     void Start()
     {

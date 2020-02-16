@@ -22,8 +22,26 @@ public class WorkerAnimator : MonoBehaviour
     private void Start()
     {
         worker = GetComponent<CoffeeWorker>();
-        worker.OnWorkStarted += WorkStartedHandler;
-        worker.OnWorkDone += WorkDoneHandler;
+        //worker.OnWorkStarted += WorkStartedHandler;
+        //worker.OnWorkDone += WorkDoneHandler;
+        //worker.OnFreeLine += IdleHandler;
+        //worker.OnGreetCustomer += GreetHandle;
+    }
+
+    private void Update()
+    {
+        Debug.Log(animator.GetCurrentAnimatorStateInfo(0).length);
+        Debug.Log(animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
+    }
+
+    void IdleHandler()
+    {
+        Play(CoffeeWorkerAnimation.Idle);
+    }
+
+    void GreetHandle()
+    {
+        Play(CoffeeWorkerAnimation.Greet);
     }
 
     void WorkDoneHandler()
@@ -66,6 +84,7 @@ public class WorkerAnimator : MonoBehaviour
             default:
                 break;
         }
+        
         animator.Play(clipName);
     }
 }

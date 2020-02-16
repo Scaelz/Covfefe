@@ -1513,6 +1513,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.15
       objectReference: {fileID: 0}
+    - target: {fileID: 8957473781286675696, guid: e70e10cf6eb46a447b5b03c0755b3697,
+        type: 3}
+      propertyPath: camera
+      value: 
+      objectReference: {fileID: 1335752872}
+    - target: {fileID: 8957473781286675696, guid: e70e10cf6eb46a447b5b03c0755b3697,
+        type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 1335752872}
     - target: {fileID: 8957473781286675697, guid: e70e10cf6eb46a447b5b03c0755b3697,
         type: 3}
       propertyPath: m_Camera

@@ -23,7 +23,8 @@ public class CoffeeWorker : MonoBehaviour, IWorker
 
     public event Action OnWorkDone;
     public event Action OnWorkStarted;
-
+    public event Action OnGreetCustomer;
+    public event Action OnFreeLine;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +34,18 @@ public class CoffeeWorker : MonoBehaviour, IWorker
         OnWorkDone += WorkStateChangedHandler;
         OnWorkStarted += WorkStateChangedHandler;
         OnWorkDone += CurrentLine.CustomerServicedHandler;
+    }
+
+    void CheckForCustomers()
+    {
+        if (CurrentLine.CurrentCustomer != null)
+        {
+            OnGreetCustomer?.Invoke();
+        }
+        else
+        {
+            OnFreeLine?.Invoke();
+        }
     }
 
     void WorkStateChangedHandler()
@@ -47,7 +60,7 @@ public class CoffeeWorker : MonoBehaviour, IWorker
         {
             if (CurrentLine.isCustomerReady())
             {
-                GetToWork();
+                GetToWork() ;
             }
         }
     }
