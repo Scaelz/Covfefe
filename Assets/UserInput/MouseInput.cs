@@ -24,7 +24,6 @@ public class MouseInput : MonoBehaviour
     public void OnHoldHandler()
     {
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             IClickable clickable = hit.transform.GetComponent<IClickable>();

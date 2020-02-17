@@ -1,10 +1,17 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Customer : Unit, ICustomer, ILineable
 {
+    [SerializeField]
+    TextMeshProUGUI tmp;
+    [SerializeField]
+    Camera cam;
+
+
     bool routeBuilt = false;
     public Queue<Line> ShoppingRoute { get; private set; }
 
@@ -19,6 +26,7 @@ public class Customer : Unit, ICustomer, ILineable
 
     private void Start()
     {
+        cam = Camera.main;
         animation = GetComponent<CustomerAnimator>();
         moveScript.OnDestinationReached += LookInLine;
         moveScript.OnDestinationReached += SetIdleAnimation;
@@ -78,14 +86,14 @@ public class Customer : Unit, ICustomer, ILineable
 
     public void JoinLine(Line line)
     {
-        if (line.isJoinable(this))
+        PositionInLine = line.JoinLine(this);
+        if (PositionInLine != -1)
         {
             CurrentLine = line;
-            PositionInLine = line.JoinLine(this);
-            Vector3 lineSpot = line.GetProperSpot(PositionInLine);
             CurrentLine.OnCustomerServiced += MoveInLine;
-            moveScript.MoveTo(lineSpot);
             isInLine = true;
+            Vector3 lineSpot = line.GetProperSpot(PositionInLine);
+            moveScript.MoveTo(lineSpot);
         }
     }
 
@@ -104,7 +112,7 @@ public class Customer : Unit, ICustomer, ILineable
     {
         if(CurrentLine != null)
         {
-            if (PositionInLine == 1)
+            if (PositionInLine == 0)
             {
                 LeaveLine();
                 Shopping();
@@ -135,11 +143,23 @@ public class Customer : Unit, ICustomer, ILineable
 
     private void OnTriggerEnter(Collider other)
     {
-        Shopping();
-        if (!isInLine)
+        if (other.tag == "Finish")
         {
-            moveScript.SetPriority(1);
-            moveScript.MoveTo(Cafe.Exit.position);
+            Shopping(); 
+            if (!isInLine)
+            {
+                Debug.Log($"Leaving: {transform.name}");
+                
+                moveScript.SetPriority(1);
+
+                moveScript.MoveTo(Cafe.Exit.position);
+            }
         }
+    }
+
+    private void LateUpdate()
+    {
+        tmp.text = transform.name;
+        tmp.transform.parent.LookAt(tmp.transform.parent.position + cam.transform.forward);
     }
 }

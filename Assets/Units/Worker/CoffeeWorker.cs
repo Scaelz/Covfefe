@@ -60,7 +60,7 @@ public class CoffeeWorker : MonoBehaviour, IWorker
         {
             if (CurrentLine.isCustomerReady())
             {
-                GetToWork() ;
+                GetToWork();
             }
         }
     }

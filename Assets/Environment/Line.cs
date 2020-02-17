@@ -10,8 +10,10 @@ public abstract class Line : MonoBehaviour
     int maxLength;
     [SerializeField]
     float lineSpread = 1.2f;
-    Vector3[] LineSpots { get; set; }
-    protected Queue<ICustomer> line = new Queue<ICustomer>();
+    protected Vector3[] LineSpots { get; set; }
+
+    public  Queue<ICustomer> line = new Queue<ICustomer>();
+
     public ICustomer CurrentCustomer
     {
         get
@@ -28,7 +30,7 @@ public abstract class Line : MonoBehaviour
 
     public Vector3 GetProperSpot(int index)
     {
-        return LineSpots[index-1];
+        return LineSpots[index];
     }
 
     public bool isCustomerReady()
@@ -91,21 +93,27 @@ public abstract class Line : MonoBehaviour
 
     public int JoinLine(ICustomer newCustomer)
     {
-        line.Enqueue(newCustomer);
-        //Debug.Log($"ENQUED: {newCustomer}");
-        int number = GetFreePosition(newCustomer);//GetLineLength();
-        return line.Count;
+        if (line.Count < maxLength)
+        {
+            line.Enqueue(newCustomer);
+            //Debug.Log($"ENQUED: {newCustomer}");
+            int number = GetFreePosition(newCustomer);//GetLineLength();
+            return number ;
+        }
+        return -1;
     }
 
     protected void Dequeue()
     {
-
         ICustomer customer = line.Dequeue();
-        Debug.Log($"Leaved line: {customer}");
         foreach (var item in line)
         {
-            Debug.Log($"Still in line: {item.CurrentTransform.name}");
+            if (customer == item)
+            {
+                //Debug.Log("At last");
+            }
         }
+        //Debug.Log($"Leaved line: {customer}");
     }
 
     public void CustomerServicedHandler()
