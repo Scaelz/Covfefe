@@ -6,12 +6,7 @@ using UnityEngine;
 
 public class Customer : Unit, ICustomer, ILineable
 {
-    [SerializeField]
-    TextMeshProUGUI tmp;
-    [SerializeField]
-    Camera cam;
-
-
+    public    bool withCoffe = false;
     bool routeBuilt = false;
     public Queue<Line> ShoppingRoute { get; private set; }
 
@@ -26,7 +21,6 @@ public class Customer : Unit, ICustomer, ILineable
 
     private void Start()
     {
-        cam = Camera.main;
         animation = GetComponent<CustomerAnimator>();
         moveScript.OnDestinationReached += LookInLine;
         moveScript.OnDestinationReached += SetIdleAnimation;
@@ -35,7 +29,14 @@ public class Customer : Unit, ICustomer, ILineable
 
     void SetWalkingAnimation()
     {
-        animation.Play(ClientAnims.walk);
+        if (withCoffe)
+        {
+            animation.Play(ClientAnims.take);
+        }
+        else
+        {
+            animation.Play(ClientAnims.walk);
+        }
     }
 
     void SetIdleAnimation()
@@ -55,6 +56,7 @@ public class Customer : Unit, ICustomer, ILineable
     {
         Initialize();
         LeaveLine();
+        withCoffe = false;
         //stressScript.OnStressOut += StressOutHandler;
         BuildShoppingRoute();
         moveScript.SetPriority(50);
@@ -103,9 +105,11 @@ public class Customer : Unit, ICustomer, ILineable
         {
             CurrentLine.OnCustomerServiced -= MoveInLine;
         }
+
         CurrentLine = null;
         isInLine = false;
         PositionInLine = -1;
+        
     }
 
     public void MoveInLine()
@@ -115,6 +119,8 @@ public class Customer : Unit, ICustomer, ILineable
             if (PositionInLine == 0)
             {
                 LeaveLine();
+                withCoffe = true;
+                //SetWalkingWithCoffe();
                 Shopping();
             }
             else
@@ -147,19 +153,11 @@ public class Customer : Unit, ICustomer, ILineable
         {
             Shopping(); 
             if (!isInLine)
-            {
-                Debug.Log($"Leaving: {transform.name}");
-                
+            {   
                 moveScript.SetPriority(1);
 
                 moveScript.MoveTo(Cafe.Exit.position);
             }
         }
-    }
-
-    private void LateUpdate()
-    {
-        tmp.text = transform.name;
-        tmp.transform.parent.LookAt(tmp.transform.parent.position + cam.transform.forward);
     }
 }

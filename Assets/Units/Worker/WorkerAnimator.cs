@@ -22,14 +22,20 @@ public class WorkerAnimator : MonoBehaviour
     private void Start()
     {
         worker = GetComponent<CoffeeWorker>();
-        //worker.OnWorkStarted += WorkStartedHandler;
-        //worker.OnWorkDone += WorkDoneHandler;
+        worker.OnWorkStarted += WorkStartedHandler;
+        worker.OnWorkDone += WorkDoneHandler;
         //worker.OnFreeLine += IdleHandler;
         //worker.OnGreetCustomer += GreetHandle;
     }
 
     private void Update()
     {
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName(done.name) &&
+            animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        {
+            worker.OnCoffeePassedHandler();
+            IdleHandler();
+        }
     }
 
     void IdleHandler()

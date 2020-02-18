@@ -25,15 +25,22 @@ public class CoffeeWorker : MonoBehaviour, IWorker
     public event Action OnWorkStarted;
     public event Action OnGreetCustomer;
     public event Action OnFreeLine;
+    public event Action OnPassedCofee;
 
     // Start is called before the first frame update
     void Start()
     {
         CurrentLine = currentLine;
         stressScript = GetComponent<IStressable>();
-        OnWorkDone += WorkStateChangedHandler;
+        OnPassedCofee += WorkStateChangedHandler;
         OnWorkStarted += WorkStateChangedHandler;
-        OnWorkDone += CurrentLine.CustomerServicedHandler;
+        OnPassedCofee += CurrentLine.CustomerServicedHandler;
+        CurrentLine.OnFirstInLineChanged += GreetCustomer;
+    }
+
+    void GreetCustomer()
+    {
+        OnGreetCustomer?.Invoke();
     }
 
     void CheckForCustomers()
@@ -87,5 +94,10 @@ public class CoffeeWorker : MonoBehaviour, IWorker
         idleConfig.GetComponent<IdleConfig>().Click();
         OnWorkDone?.Invoke();
         workTimer = 0;
+    }
+
+    public void OnCoffeePassedHandler()
+    {
+        OnPassedCofee?.Invoke();
     }
 }

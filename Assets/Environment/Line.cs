@@ -10,9 +10,9 @@ public abstract class Line : MonoBehaviour
     int maxLength;
     [SerializeField]
     float lineSpread = 1.2f;
-    protected Vector3[] LineSpots { get; set; }
+    Vector3[] LineSpots { get; set; }
 
-    public  Queue<ICustomer> line = new Queue<ICustomer>();
+    Queue<ICustomer> line = new Queue<ICustomer>();
 
     public ICustomer CurrentCustomer
     {
@@ -22,6 +22,7 @@ public abstract class Line : MonoBehaviour
         }
     }
     public event Action OnCustomerServiced;
+    public event Action OnFirstInLineChanged;
 
     private void Start()
     {
@@ -96,6 +97,10 @@ public abstract class Line : MonoBehaviour
         if (line.Count < maxLength)
         {
             line.Enqueue(newCustomer);
+            if (line.Count == 1)
+            {
+                OnFirstInLineChanged?.Invoke();
+            }
             //Debug.Log($"ENQUED: {newCustomer}");
             int number = GetFreePosition(newCustomer);//GetLineLength();
             return number ;
@@ -106,14 +111,6 @@ public abstract class Line : MonoBehaviour
     protected void Dequeue()
     {
         ICustomer customer = line.Dequeue();
-        foreach (var item in line)
-        {
-            if (customer == item)
-            {
-                //Debug.Log("At last");
-            }
-        }
-        //Debug.Log($"Leaved line: {customer}");
     }
 
     public void CustomerServicedHandler()
