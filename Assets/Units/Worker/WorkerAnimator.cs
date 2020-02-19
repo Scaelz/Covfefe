@@ -24,8 +24,16 @@ public class WorkerAnimator : MonoBehaviour
         worker = GetComponent<CoffeeWorker>();
         worker.OnWorkStarted += WorkStartedHandler;
         worker.OnWorkDone += WorkDoneHandler;
+        worker.OnGreetCustomer += GreetHandle;
+        worker.OnPassedCofee += GreetHandle;
+        worker.OnSpeedMultiplierChanged += ChangeAnimatorSpeed;
         //worker.OnFreeLine += IdleHandler;
         //worker.OnGreetCustomer += GreetHandle;
+    }
+
+    void ChangeAnimatorSpeed(float value)
+    {
+        animator.speed = value;
     }
 
     private void Update()
@@ -34,7 +42,7 @@ public class WorkerAnimator : MonoBehaviour
             animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
         {
             worker.OnCoffeePassedHandler();
-            IdleHandler();
+            //IdleHandler();
         }
     }
 
@@ -55,7 +63,8 @@ public class WorkerAnimator : MonoBehaviour
 
     void WorkStartedHandler()
     {
-        Play(CoffeeWorkerAnimation.Working);
+        animator.SetTrigger("goWork");
+        //Play(CoffeeWorkerAnimation.Working);
     }
 
     public void ChangeSpeed(float value)
