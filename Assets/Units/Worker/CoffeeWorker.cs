@@ -12,7 +12,7 @@ public class CoffeeWorker : MonoBehaviour, IWorker
     float timeToEndWork;
     float workTimer = 0;
     public float TimeToEndWork { get => timeToEndWork; }
-    public GameObject idleConfig;
+    IdleConfig idleConfig;
     public bool isWorking { get; private set; } = false;
     public float WorkSpeed { get => workSpeed; }
     [SerializeField]
@@ -26,16 +26,24 @@ public class CoffeeWorker : MonoBehaviour, IWorker
     public event Action OnGreetCustomer;
     public event Action OnFreeLine;
     public event Action OnPassedCofee;
+    public event Action<float> OnSpeedMultiplierChanged;
 
     // Start is called before the first frame update
     void Start()
     {
+        idleConfig = FindObjectOfType<IdleConfig>();
         CurrentLine = currentLine;
         stressScript = GetComponent<IStressable>();
         OnPassedCofee += WorkStateChangedHandler;
         OnWorkStarted += WorkStateChangedHandler;
         OnPassedCofee += CurrentLine.CustomerServicedHandler;
         CurrentLine.OnFirstInLineChanged += GreetCustomer;
+        stressScript.OnStressChanged += StressChangedHandler;
+    }
+
+    void StressChangedHandler(float value)
+    {
+        OnSpeedMultiplierChanged?.Invoke(stressScript.Multiplier);
     }
 
     void GreetCustomer()

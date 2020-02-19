@@ -111,6 +111,7 @@ public class Stress : MonoBehaviour, IStressable, IClickable
             DecreaseStress();
         }
         OnChilled?.Invoke(this, EventArgs.Empty);
+        OnStressChanged?.Invoke(CurrentStress);
     }
 
     void OnChilledHandler(object e, EventArgs args)
