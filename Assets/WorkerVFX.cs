@@ -7,9 +7,8 @@ public class WorkerVFX : MonoBehaviour
 {
     [SerializeField]
     ParticleSystem stressEffectPrefab;
-
-
     CoffeeWorker worker;
+
     private void Start()
     {
         worker = GetComponent<CoffeeWorker>();
@@ -18,7 +17,6 @@ public class WorkerVFX : MonoBehaviour
 
     void ControllSystem(float value)
     {
-        Debug.Log(value);
         var emission = stressEffectPrefab.emission;
         emission.rateOverTime = 5 * value;
         if (value - 1 < .1f)

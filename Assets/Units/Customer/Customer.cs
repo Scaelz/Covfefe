@@ -67,7 +67,7 @@ public class Customer : Unit, ICustomer, ILineable
     {
         if(ShoppingRoute.Count == 0)
         {
-            moveScript.MoveTo(Cafe.Exit.position);
+            Leave();
         }
         else
         {
@@ -76,14 +76,14 @@ public class Customer : Unit, ICustomer, ILineable
         }
     }
 
-    public void Leave(Vector3 exitPoint)
+    public void Leave()
     {
-        moveScript.MoveTo(exitPoint);
+        moveScript.MoveTo(Cafe.GetExitPoint());
     }
 
     void StressOutHandler(object e, EventArgs args)
     {
-        Leave(Cafe.Exit.position);
+        Leave();
     }
 
     public void JoinLine(Line line)
@@ -156,7 +156,7 @@ public class Customer : Unit, ICustomer, ILineable
             {   
                 moveScript.SetPriority(1);
 
-                moveScript.MoveTo(Cafe.Exit.position);
+                Leave();
             }
         }
     }

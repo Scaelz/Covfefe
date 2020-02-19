@@ -7,5 +7,5 @@ public interface ICustomer
     Transform CurrentTransform { get; }
     Queue<Line> ShoppingRoute { get; }
 
-    void Leave(Vector3 exitPoint);
+    void Leave();
 }
