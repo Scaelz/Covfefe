@@ -1,23 +1,22 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
 public class Customer : Unit, ICustomer, ILineable
 {
-    public    bool withCoffe = false;
+    bool withCoffe = false;
     bool routeBuilt = false;
     public Queue<Line> ShoppingRoute { get; private set; }
-
     public Transform CurrentTransform { get => gameObject.transform; }
-
     public bool isInLine { get; private set; } = false;
     public int PositionInLine { get; private set; }
     public Line CurrentLine { get; private set; }
+    
     [SerializeField]
     CustomerAnimator animation;
-
 
     private void Start()
     {
@@ -105,11 +104,9 @@ public class Customer : Unit, ICustomer, ILineable
         {
             CurrentLine.OnCustomerServiced -= MoveInLine;
         }
-
         CurrentLine = null;
         isInLine = false;
         PositionInLine = -1;
-        
     }
 
     public void MoveInLine()
@@ -120,7 +117,7 @@ public class Customer : Unit, ICustomer, ILineable
             {
                 LeaveLine();
                 withCoffe = true;
-                //SetWalkingWithCoffe();
+                moveScript.SetPriority(1);
                 Shopping();
             }
             else
@@ -135,27 +132,38 @@ public class Customer : Unit, ICustomer, ILineable
     void BuildShoppingRoute()
     {
         ShoppingRoute = new Queue<Line>();
-        int departmentstovisit = UnityEngine.Random.Range(1, Cafe.AllDepartments.Count + 1);
-        while (departmentstovisit != 0)
+        
+        Line new_destination = Cafe.AllDepartments.OrderBy(x => x.GetLineLength()).FirstOrDefault();
+        if (!ShoppingRoute.Contains(new_destination))
         {
-            Line new_destination = Cafe.AllDepartments[UnityEngine.Random.Range(0, Cafe.AllDepartments.Count)];
-            if (!ShoppingRoute.Contains(new_destination))
-            {
-                ShoppingRoute.Enqueue(new_destination);
-                departmentstovisit--;
-            }
+            ShoppingRoute.Enqueue(new_destination);
         }
+        //int departmentstovisit = 1;// UnityEngine.Random.Range(1, Cafe.AllDepartments.Count + 1);
+        //while (departmentstovisit != 0)
+        //{
+        //    Line new_destination = Cafe.AllDepartments.OrderBy(x => x.GetLineLength()).FirstOrDefault();
+        //    //Line new_destination = Cafe.AllDepartments[UnityEngine.Random.Range(0, Cafe.AllDepartments.Count)];
+        //    if (!ShoppingRoute.Contains(new_destination))
+        //    {
+        //        ShoppingRoute.Enqueue(new_destination);
+        //        departmentstovisit--;
+        //    }
+        //}
+        routeBuilt = true;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Finish")
         {
-            Shopping(); 
+            Shopping();
             if (!isInLine)
-            {   
-                moveScript.SetPriority(1);
-
+            {
+                BuildShoppingRoute();
+                Shopping();
+            }
+            if (!isInLine)
+            {
                 Leave();
             }
         }
