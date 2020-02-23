@@ -75,6 +75,7 @@ public class Stress : MonoBehaviour, IStressable, IClickable
         if (CurrentStress < 0)
         {
             CurrentStress = 0;
+            OnStressChanged?.Invoke(CurrentStress);
             //OnStressOut?.Invoke(this, EventArgs.Empty);
         }
     }

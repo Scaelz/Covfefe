@@ -53,11 +53,13 @@ public class Customer : Unit, ICustomer, ILineable
 
     private void OnEnable()
     {
+        routeBuilt = false;
         Initialize();
         LeaveLine();
         withCoffe = false;
+        SetWalkingAnimation();
         //stressScript.OnStressOut += StressOutHandler;
-        BuildShoppingRoute();
+        //BuildShoppingRoute();
         moveScript.SetPriority(50);
         moveScript.MoveTo(Cafe.Entrance.position);
     }
@@ -133,11 +135,12 @@ public class Customer : Unit, ICustomer, ILineable
     void BuildShoppingRoute()
     {
         ShoppingRoute = new Queue<Line>();
-        
-        Line new_destination = Cafe.AllDepartments.OrderBy(x => x.GetLineLength()).FirstOrDefault();
-        if (!ShoppingRoute.Contains(new_destination))
+
+        //Line new_destination = Cafe.AllDepartments.OrderBy(x => x.GetLineLength()).FirstOrDefault();
+        var new_destination = Cafe.AllDepartments.OrderBy(x => x.GetLineLength());
+        if (!ShoppingRoute.Contains(new_destination.FirstOrDefault()))
         {
-            ShoppingRoute.Enqueue(new_destination);
+            ShoppingRoute.Enqueue(new_destination.FirstOrDefault());
         }
         //int departmentstovisit = 1;// UnityEngine.Random.Range(1, Cafe.AllDepartments.Count + 1);
         //while (departmentstovisit != 0)
@@ -157,6 +160,10 @@ public class Customer : Unit, ICustomer, ILineable
     {
         if (other.tag == "Finish")
         {
+            if (!routeBuilt)
+            {
+                BuildShoppingRoute();
+            }
             Shopping();
             //if (!isInLine)
             //{

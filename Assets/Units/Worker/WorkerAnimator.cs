@@ -17,6 +17,9 @@ public class WorkerAnimator : MonoBehaviour
     [SerializeField]
     AnimationClip idle, working, done, greet ;
 
+    [SerializeField]
+    GameObject coffeecup;
+
     CoffeeWorker worker;
 
     private void Start()
@@ -48,21 +51,25 @@ public class WorkerAnimator : MonoBehaviour
 
     void IdleHandler()
     {
+        coffeecup.SetActive(false);
         Play(CoffeeWorkerAnimation.Idle);
     }
 
     void GreetHandle()
     {
+        coffeecup.SetActive(false);
         Play(CoffeeWorkerAnimation.Greet);
     }
 
     void WorkDoneHandler()
     {
+        coffeecup.SetActive(true);
         Play(CoffeeWorkerAnimation.Pass);
     }
 
     void WorkStartedHandler()
     {
+        coffeecup.SetActive(false);
         animator.SetTrigger("goWork");
         //Play(CoffeeWorkerAnimation.Working);
     }

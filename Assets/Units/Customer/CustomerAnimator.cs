@@ -20,19 +20,24 @@ public class CustomerAnimator : MonoBehaviour
     [SerializeField]
     AnimationClip idle, anger, walk, take;
 
+    [SerializeField]
+    GameObject coffeecup;
+
     public void Play(ClientAnims animType)
     {
         string clipName = "idle";
-
+        //coffeecup.SetActive(false);
         switch (animType)
         {
             case ClientAnims.angry:
                 clipName = anger.name;
                 break;
             case ClientAnims.take:
+                coffeecup.SetActive(true);
                 clipName = take.name;
                 break;
             case ClientAnims.walk:
+                coffeecup.SetActive(false);
                 clipName = walk.name;
                 break;
             case ClientAnims.idle:
@@ -41,6 +46,7 @@ public class CustomerAnimator : MonoBehaviour
             default:
                 break;
         }
+
         animator.Play(clipName);
     }
 }
