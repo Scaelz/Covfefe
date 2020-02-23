@@ -11,6 +11,8 @@ public abstract class Line : MonoBehaviour
     [SerializeField]
     float lineSpread = 1.2f;
     Vector3[] LineSpots { get; set; }
+    [SerializeField]
+    Transform LeaveSpot;
 
     Queue<ICustomer> line = new Queue<ICustomer>();
 
@@ -116,5 +118,10 @@ public abstract class Line : MonoBehaviour
     public void CustomerServicedHandler()
     {
         OnCustomerServiced?.Invoke();
+    }
+
+    public Vector3 GetLeaveSpot()
+    {
+        return LeaveSpot.position;
     }
 }

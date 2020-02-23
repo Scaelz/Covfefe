@@ -115,10 +115,11 @@ public class Customer : Unit, ICustomer, ILineable
         {
             if (PositionInLine == 0)
             {
-                LeaveLine();
                 withCoffe = true;
-                moveScript.SetPriority(1);
-                Shopping();
+                moveScript.MoveTo(CurrentLine.GetLeaveSpot());
+                LeaveLine();
+                //moveScript.SetPriority(1);
+                //Shopping();
             }
             else
             {
@@ -157,15 +158,19 @@ public class Customer : Unit, ICustomer, ILineable
         if (other.tag == "Finish")
         {
             Shopping();
-            if (!isInLine)
-            {
-                BuildShoppingRoute();
-                Shopping();
-            }
+            //if (!isInLine)
+            //{
+            //    BuildShoppingRoute();
+            //    Shopping();
+            //}
             if (!isInLine)
             {
                 Leave();
             }
+        }
+        else if (other.tag == "Leave")
+        {
+            Leave();
         }
     }
 }
