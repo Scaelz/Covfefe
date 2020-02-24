@@ -9,12 +9,15 @@ public class Customer : Unit, ICustomer, ILineable
 {
     bool withCoffe = false;
     bool routeBuilt = false;
+    bool happyTrigger = false;
     public Queue<Line> ShoppingRoute { get; private set; }
     public Transform CurrentTransform { get => gameObject.transform; }
     public bool isInLine { get; private set; } = false;
     public int PositionInLine { get; private set; }
     public Line CurrentLine { get; private set; }
-    
+    public event Action OnHappy;
+    public event Action OnRage;
+
     [SerializeField]
     CustomerAnimator animation;
 
@@ -57,6 +60,7 @@ public class Customer : Unit, ICustomer, ILineable
         Initialize();
         LeaveLine();
         withCoffe = false;
+        happyTrigger = false;
         SetWalkingAnimation();
         //stressScript.OnStressOut += StressOutHandler;
         //BuildShoppingRoute();
@@ -92,6 +96,10 @@ public class Customer : Unit, ICustomer, ILineable
         PositionInLine = line.JoinLine(this);
         if (PositionInLine != -1)
         {
+            if (PositionInLine == 0)
+            {
+                happyTrigger = true;
+            }
             CurrentLine = line;
             CurrentLine.OnCustomerServiced += MoveInLine;
             isInLine = true;
@@ -109,6 +117,10 @@ public class Customer : Unit, ICustomer, ILineable
         CurrentLine = null;
         isInLine = false;
         PositionInLine = -1;
+        if (happyTrigger)
+        {
+            OnHappy?.Invoke();
+        }
     }
 
     public void MoveInLine()
