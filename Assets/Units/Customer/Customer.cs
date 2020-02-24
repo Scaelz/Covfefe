@@ -96,10 +96,7 @@ public class Customer : Unit, ICustomer, ILineable
         PositionInLine = line.JoinLine(this);
         if (PositionInLine != -1)
         {
-            if (PositionInLine == 0)
-            {
-                happyTrigger = true;
-            }
+            happyTrigger = UnityEngine.Random.Range(0, 1) < 0.35f ? true : false;
             CurrentLine = line;
             CurrentLine.OnCustomerServiced += MoveInLine;
             isInLine = true;
@@ -184,6 +181,7 @@ public class Customer : Unit, ICustomer, ILineable
             //}
             if (!isInLine)
             {
+                OnRage?.Invoke();
                 Leave();
             }
         }

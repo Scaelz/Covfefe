@@ -16,16 +16,16 @@ public class CustomerVFX : MonoBehaviour
     {
         customer = GetComponent<Customer>();
         customer.OnHappy += PlayHappyEffect;
+        customer.OnRage += PlayRageEffect;
     }
 
     void PlayRageEffect()
     {
-
+        rageEffect.Play();
     }
 
     void PlayHappyEffect()
     {
-        Debug.Log("Happy");
         happyEffect.Play();
     }
 }

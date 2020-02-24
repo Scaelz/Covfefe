@@ -56,6 +56,6 @@ public class Coins : MonoBehaviour
     
     private void SetCoinsText()
     {
-        coinsText.text = "Coins: " + coins.ToString("F0");
+        coinsText.text = coins.ToString("F0");
     }
 }
