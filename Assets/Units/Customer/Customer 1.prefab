@@ -247,6 +247,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rageEffect: {fileID: 197385126766294018}
   happyEffect: {fileID: 3077140909360611576}
+  materials:
+  - {fileID: 2100000, guid: 2dd09b1d13ab3d14bbf972a39ef1d910, type: 2}
+  - {fileID: 2100000, guid: eacbf3af9fdba6447b06c79823c2268c, type: 2}
+  renderer: {fileID: 1416166028334566144}
 --- !u!1 &4076802838056552108
 GameObject:
   m_ObjectHideFlags: 0

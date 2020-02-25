@@ -17,7 +17,7 @@ public class Customer : Unit, ICustomer, ILineable
     public Line CurrentLine { get; private set; }
     public event Action OnHappy;
     public event Action OnRage;
-
+    public event Action OnEnabling;
     [SerializeField]
     CustomerAnimator anim;
 
@@ -65,6 +65,7 @@ public class Customer : Unit, ICustomer, ILineable
         //stressScript.OnStressOut += StressOutHandler;
         //BuildShoppingRoute();
         moveScript.SetPriority(50);
+        OnEnabling?.Invoke();
         moveScript.MoveTo(Cafe.Entrance.position);
     }
 
