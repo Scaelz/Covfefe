@@ -25,8 +25,5 @@ public class CameraMovement : MonoBehaviour
         transform.Translate(move, Space.World);
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, min_x, max_x), 
                                          transform.position.y, transform.position.z);
-
-
-        Debug.Log(move);
     }
 }
