@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92d74d13587f3da40aa2e3f4d4dfe411, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animation: {fileID: 1761202075}
+  anim: {fileID: 1761202075}
 --- !u!195 &5845035859650534396
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -19,11 +19,11 @@ public class Customer : Unit, ICustomer, ILineable
     public event Action OnRage;
 
     [SerializeField]
-    CustomerAnimator animation;
+    CustomerAnimator anim;
 
     private void Start()
     {
-        animation = GetComponent<CustomerAnimator>();
+        //anim = GetComponent<CustomerAnimator>();
         moveScript.OnDestinationReached += LookInLine;
         moveScript.OnDestinationReached += SetIdleAnimation;
         moveScript.OnStartMoving += SetWalkingAnimation;
@@ -33,17 +33,17 @@ public class Customer : Unit, ICustomer, ILineable
     {
         if (withCoffe)
         {
-            animation.Play(ClientAnims.take);
+            anim.Play(ClientAnims.take);
         }
         else
         {
-            animation.Play(ClientAnims.walk);
+            anim.Play(ClientAnims.walk);
         }
     }
 
     void SetIdleAnimation()
     {
-        animation.Play(ClientAnims.idle);
+        anim.Play(ClientAnims.idle);
     }
 
     void LookInLine()

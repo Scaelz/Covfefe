@@ -11,7 +11,7 @@ public class Stress : MonoBehaviour, IStressable, IClickable
     public float Multiplier { get => multiplier; }
 
     [SerializeField]
-    float maxStress;
+    float maxStress = 100f;
     public float MaxStress { get => maxStress; }
 
     public float CurrentStress { get; private set; }

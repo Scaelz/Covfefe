@@ -15,6 +15,11 @@ public class Cafe : MonoBehaviour
     {
         Exit = exit;
         Entrance = entrance;
+        RefreshDepartments();
+    }
+
+    public static void RefreshDepartments()
+    {
         foreach (Line cashbox in FindObjectsOfType<Line>())
         {
             AllDepartments.Add(cashbox);

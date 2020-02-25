@@ -5,7 +5,7 @@ using UnityEngine;
 public class MouseInput : MonoBehaviour
 {
     [SerializeField]
-    Camera camera;
+    Camera cam;
 
     private void Update()
     {
@@ -23,7 +23,7 @@ public class MouseInput : MonoBehaviour
 
     public void OnHoldHandler()
     {
-        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             IClickable clickable = hit.transform.GetComponent<IClickable>();
@@ -34,7 +34,7 @@ public class MouseInput : MonoBehaviour
 
     public void OnUpHandler()
     {
-        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
