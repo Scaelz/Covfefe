@@ -11,6 +11,7 @@ public class IdleConfig : MonoBehaviour
     [SerializeField] TextMeshProUGUI currentLevelText;
     [SerializeField] TextMeshProUGUI coinsPerCoffeeText;
     [SerializeField] TextMeshProUGUI buyMaxText;
+    [SerializeField] TextMeshProUGUI spawnFrequincyText;
 
     [Header("Coins Fields")]
     public double coinsClickValue = 1;
@@ -44,7 +45,13 @@ public class IdleConfig : MonoBehaviour
     {
         //_coins = Coins.Instance;
         _coins = FindObjectOfType<Coins>();
+        FindObjectOfType<CustomerSpawner>().OnSpawnFrequencyChanged += UpdateFrequencyText;
         SetTextValue();
+    }
+
+    void UpdateFrequencyText(float value)
+    {
+        spawnFrequincyText.text = Math.Round(value, 2).ToString() + " s";
     }
 
     private void SetTextValue()

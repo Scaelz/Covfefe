@@ -20,13 +20,25 @@ public class Customer : Unit, ICustomer, ILineable
     public event Action OnEnabling;
     [SerializeField]
     CustomerAnimator anim;
-
+    
     private void Start()
     {
         //anim = GetComponent<CustomerAnimator>();
         moveScript.OnDestinationReached += LookInLine;
         moveScript.OnDestinationReached += SetIdleAnimation;
         moveScript.OnStartMoving += SetWalkingAnimation;
+        OnHappy += RecommendPlace;
+        OnRage += UnRecommendPlace;
+    }
+    
+    void RecommendPlace()
+    {
+        PopularitySystem.Instance.AddPopularity();
+    }
+
+    void UnRecommendPlace()
+    {
+        PopularitySystem.Instance.DecreasePopularity();
     }
 
     void SetWalkingAnimation()

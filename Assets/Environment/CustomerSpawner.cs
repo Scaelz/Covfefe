@@ -1,17 +1,30 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class CustomerSpawner : MonoBehaviour
 {
     [SerializeField]
     float spawnFrequency = 2.0f;
+    float defaultFrequency;
     [SerializeField]
     Transform[] spawnPoints;
     [SerializeField]
     float spawnOffset;
     float timer;
 
+    public event Action<float> OnSpawnFrequencyChanged;
+
     private void Start()
     {
+        defaultFrequency = spawnFrequency;
+        PopularitySystem.Instance.OnPopularityChanged += ChangeSpawnFrequency;
+        ChangeSpawnFrequency(PopularitySystem.Instance.GetPopularity());
+    }
+
+    void ChangeSpawnFrequency(float popularity)
+    {
+        spawnFrequency = defaultFrequency - popularity / 2;
+        OnSpawnFrequencyChanged?.Invoke(1 / spawnFrequency);
     }
 
     private void Update()
@@ -35,11 +48,11 @@ public class CustomerSpawner : MonoBehaviour
 
     Vector3 GetSpawnPosition()
     {
-        int index = Random.Range(0, spawnPoints.Length);
+        int index = UnityEngine.Random.Range(0, spawnPoints.Length);
 
-        Vector3 result = new Vector3(spawnPoints[index].position.x + Random.Range(0, spawnOffset),
+        Vector3 result = new Vector3(spawnPoints[index].position.x + UnityEngine.Random.Range(0, spawnOffset),
                                      spawnPoints[index].position.y,
-                                     spawnPoints[index].position.z + Random.Range(0, spawnOffset));
+                                     spawnPoints[index].position.z + UnityEngine.Random.Range(0, spawnOffset));
         return result;
     }
 }

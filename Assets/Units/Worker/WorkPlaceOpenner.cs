@@ -10,6 +10,9 @@ public class WorkPlaceOpenner : MonoBehaviour, IClickable
     [SerializeField] GameObject workPlaceObject;
     [SerializeField] Color[] colors;
     [SerializeField] TextMeshPro priceText;
+    [SerializeField] ParticleSystem pSystem;
+    [SerializeField] float deactivationDelay;
+    MeshRenderer renderer;
     IdleConfig config;
     Coins coins;
     bool state = false;
@@ -18,7 +21,8 @@ public class WorkPlaceOpenner : MonoBehaviour, IClickable
     {
         config = FindObjectOfType<IdleConfig>();
         coins = FindObjectOfType<Coins>();
-        material = GetComponent<MeshRenderer>().material;
+        renderer = GetComponent<MeshRenderer>();
+        material = renderer.material;
         config.OnAddCoins += CoinsAddedHandler;
         config.OnMinusCoins += CoinsAddedHandler;
         SetConvertedPrice(workPlace.price);
@@ -67,14 +71,28 @@ public class WorkPlaceOpenner : MonoBehaviour, IClickable
     {
         if (state)
         {
-            gameObject.SetActive(false);
+            priceText.enabled = false;
+            renderer.enabled = false;
+            StartCoroutine(DelayedDeactivate(deactivationDelay));
             ActivateWorkPlace();
+            PlayEffect();
         }
+    }
+
+    IEnumerator DelayedDeactivate(float time)
+    {
+        yield return new WaitForSeconds(time);
+        gameObject.SetActive(false);
     }
 
     void ActivateWorkPlace()
     {
         workPlaceObject.SetActive(true);
         Cafe.RefreshDepartments();
+    }
+
+    void PlayEffect()
+    {
+        pSystem.Play();
     }
 }
