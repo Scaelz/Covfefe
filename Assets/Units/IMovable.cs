@@ -14,4 +14,6 @@ public interface IMovable
     bool isMoving();
     void RotateTowards(Vector3 target);
     void SetPriority(int priority);
+
+    void SetQuality(bool state);
 }

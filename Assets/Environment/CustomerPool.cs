@@ -7,7 +7,7 @@ public class CustomerPool : MonoBehaviour
     public static CustomerPool Instance;
     static Queue<Customer> poolQueue = new Queue<Customer>();
     [SerializeField]
-    Customer prefab;
+    Customer[] prefab;
     private static System.Random random = new System.Random();
     public static string RandomString(int length)
     {
@@ -38,7 +38,8 @@ public class CustomerPool : MonoBehaviour
 
     Customer CreateInstance()
     {
-        return Instantiate(Instance.prefab);
+        Customer new_prefab = prefab[Random.Range(0, prefab.Length)];
+        return Instantiate(new_prefab);
     }
 
     public void AddToPool(int count)

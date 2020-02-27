@@ -9,7 +9,7 @@ public class PopularitySystem : MonoBehaviour
 
     [SerializeField] float currentPopularity = 0;
     [SerializeField] float negativeTik = 0.1f;
-    [SerializeField] float positiveTik = 0.15f;
+    [SerializeField] float positiveTik = 0.25f;
 
     public event Action<float> OnPopularityChanged;
 
@@ -45,6 +45,6 @@ public class PopularitySystem : MonoBehaviour
 
     void ClampPopularity(float value)
     {
-        currentPopularity = Mathf.Clamp(value, 0, 1);
+        currentPopularity = Mathf.Clamp(value, -2, 10);
     }
 }

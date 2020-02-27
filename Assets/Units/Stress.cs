@@ -69,7 +69,8 @@ public class Stress : MonoBehaviour, IStressable, IClickable
     {
         if (CurrentStress > 0)
         {
-            CurrentStress -= stressPerTick / 6 * Multiplier / loyalty;
+            float chillingCorrector = !canIncrease ? 3 : 1;
+            CurrentStress -= stressPerTick / loyalty * Time.deltaTime * 100 / chillingCorrector;
             OnStressChanged?.Invoke(CurrentStress);
         }
         if (CurrentStress < 0)
@@ -86,7 +87,7 @@ public class Stress : MonoBehaviour, IStressable, IClickable
         {
             if (CurrentStress < MaxStress)
             {
-                CurrentStress += stressPerTick / loyalty;
+                CurrentStress += stressPerTick / loyalty + Time.deltaTime * CurrentStress * 2.75f;
                 OnStressChanged?.Invoke(CurrentStress);
             }
 
@@ -109,7 +110,6 @@ public class Stress : MonoBehaviour, IStressable, IClickable
         while (CurrentStress != 0)
         {
             yield return null;
-            DecreaseStress();
         }
         OnChilled?.Invoke(this, EventArgs.Empty);
         OnStressChanged?.Invoke(CurrentStress);
@@ -128,8 +128,11 @@ public class Stress : MonoBehaviour, IStressable, IClickable
 
     public void OnHold()
     {
-        canDecrease = false; 
-        IncreaseStress();
+        if (canIncrease)
+        {
+            canDecrease = false; 
+            IncreaseStress();
+        }
     }
 
     public void OnUp()
