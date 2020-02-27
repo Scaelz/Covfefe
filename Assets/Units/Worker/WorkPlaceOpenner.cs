@@ -6,6 +6,7 @@ using UnityEngine;
 public class WorkPlaceOpenner : MonoBehaviour, IClickable
 {
     Material material;
+    [SerializeField] int index;
     [SerializeField] WorkPlace workPlace;
     [SerializeField] GameObject workPlaceObject;
     [SerializeField] Color[] colors;
@@ -27,6 +28,17 @@ public class WorkPlaceOpenner : MonoBehaviour, IClickable
         config.OnMinusCoins += CoinsAddedHandler;
         SetConvertedPrice(workPlace.price);
         CoinsAddedHandler(0);
+        LoadPrefs();
+    }
+
+    void LoadPrefs()
+    {
+        int prefs_index = PlayerPrefs.GetInt(PrefsUtils.cashbox);
+        if(prefs_index >= index)
+        {
+            Debug.Log("oppening");
+            OpenNewWorkPlace(silent: true);
+        }
     }
 
     void SetConvertedPrice(float price)
@@ -71,12 +83,30 @@ public class WorkPlaceOpenner : MonoBehaviour, IClickable
     {
         if (state)
         {
-            priceText.enabled = false;
-            renderer.enabled = false;
-            StartCoroutine(DelayedDeactivate(deactivationDelay));
-            ActivateWorkPlace();
-            PlayEffect();
+            OpenNewWorkPlace(silent: false);
         }
+    }
+
+    public void OpenNewWorkPlace(bool silent = false)
+    {
+        float activationTime = silent ? deactivationDelay : 0;
+
+        priceText.enabled = false;
+        renderer.enabled = false;
+        StartCoroutine(DelayedDeactivate(deactivationDelay));
+        ActivateWorkPlace();
+        if (!silent)
+        {
+            PlayEffect();
+            config.SpentCoins(workPlace.price);
+            SaveProgress();
+        }
+    }
+
+    void SaveProgress()
+    {
+        PlayerPrefs.SetInt(PrefsUtils.cashbox, index);
+        PlayerPrefs.Save();
     }
 
     IEnumerator DelayedDeactivate(float time)

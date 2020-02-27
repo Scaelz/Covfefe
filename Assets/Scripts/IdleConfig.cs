@@ -152,6 +152,11 @@ public class IdleConfig : MonoBehaviour
         }
     }
 
+    public void SpentCoins(double value)
+    {
+        OnMinusCoins?.Invoke(value);
+    }
+
     public void BuyClickUpgrade1(bool save_progress=true)
     {
         if (Math.Round(_coins.GetCoins()) >= Math.Round(clickUpgradeCost)) 
@@ -192,6 +197,7 @@ public class IdleConfig : MonoBehaviour
     {
         PlayerPrefs.SetInt(PrefsUtils.coffee_lvl, 0);
         PlayerPrefs.SetFloat(PrefsUtils.money, 0);
+        PlayerPrefs.SetInt(PrefsUtils.cashbox, 0);
         PlayerPrefs.Save();
     }
 }

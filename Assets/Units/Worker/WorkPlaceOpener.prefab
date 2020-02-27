@@ -312,6 +312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8ebd7d27df6e1d4a8e2566e2b71d65d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  index: 1
   workPlace: {fileID: 11400000, guid: 29f8f84574fdf284a91b93289b18d92b, type: 2}
   workPlaceObject: {fileID: 0}
   colors:

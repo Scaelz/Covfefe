@@ -6302,6 +6302,26 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -73
       objectReference: {fileID: 0}
+    - target: {fileID: 6278602862669499616, guid: 74c5345b5118ed54ba5552e1ee3414b4,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6278602862669499616, guid: 74c5345b5118ed54ba5552e1ee3414b4,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6278602862669499616, guid: 74c5345b5118ed54ba5552e1ee3414b4,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6278602862669499616, guid: 74c5345b5118ed54ba5552e1ee3414b4,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8168060157464403497, guid: 74c5345b5118ed54ba5552e1ee3414b4,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -14456,6 +14476,11 @@ PrefabInstance:
       propertyPath: workPlaceObject
       value: 
       objectReference: {fileID: 934960471}
+    - target: {fileID: 4014229080982370634, guid: a9f8ac420e314184c9b9ba73fe073180,
+        type: 3}
+      propertyPath: index
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4014229080982370635, guid: a9f8ac420e314184c9b9ba73fe073180,
         type: 3}
       propertyPath: m_Name
@@ -14596,6 +14621,11 @@ PrefabInstance:
       propertyPath: workPlaceObject
       value: 
       objectReference: {fileID: 1897117078}
+    - target: {fileID: 3807003104874888494, guid: 6317361408257614e8684904790caff8,
+        type: 3}
+      propertyPath: index
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3807003104874888495, guid: 6317361408257614e8684904790caff8,
         type: 3}
       propertyPath: m_Name
@@ -14839,6 +14869,11 @@ PrefabInstance:
       propertyPath: workPlaceObject
       value: 
       objectReference: {fileID: 727013064}
+    - target: {fileID: 8370821847171644686, guid: 274d58afab0cf5b47b8650c2dcd35c03,
+        type: 3}
+      propertyPath: index
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8370821847171644687, guid: 274d58afab0cf5b47b8650c2dcd35c03,
         type: 3}
       propertyPath: m_Name
