@@ -24,11 +24,23 @@ public class Coins : MonoBehaviour
             Destroy(gameObject);
         }
         */
+        coins = PlayerPrefs.GetFloat(PrefsUtils.money);
         _coins = FindObjectOfType<IdleConfig>();
         _coins.OnAddCoins += AddCoins;
         _coins.OnMinusCoins += MinusCoins;
+        _coins.OnAddCoins += SaveProgress;
+        _coins.OnMinusCoins += SaveProgress;
+        SetCoinsText();
+
+
     }
     
+
+    void SaveProgress(double value)
+    {
+        PlayerPrefs.SetFloat(PrefsUtils.money, (float)coins);
+        PlayerPrefs.Save();
+    }
 
     public double GetCoins()
     {
