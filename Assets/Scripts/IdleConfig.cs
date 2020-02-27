@@ -16,10 +16,11 @@ public class IdleConfig : MonoBehaviour
     [Header("Coins Fields")]
     public double coinsClickValue = 1;
     public int defaultCoinsPrice = 1;
-    public double coinsPerSecond;
+    //public double coinsPerSecond;
 
     [Header("Upgrade Fields")]
-    public double clickUpgradeCost = 10;
+    private double clickUpgradeCost;
+    public double clickUpgradeCostStarting = 10;
     public int clickUpgradeLevel;
 
     [Header("Multyply")]
@@ -44,6 +45,7 @@ public class IdleConfig : MonoBehaviour
     private void Start()
     {
         //_coins = Coins.Instance;
+        clickUpgradeCost = clickUpgradeCostStarting;
         _coins = FindObjectOfType<Coins>();
         FindObjectOfType<CustomerSpawner>().OnSpawnFrequencyChanged += UpdateFrequencyText;
         SetTextValue();
@@ -66,7 +68,7 @@ public class IdleConfig : MonoBehaviour
     }
 
     // Exponent
-    private void SetExponentText(double numberChange, TextMeshProUGUI fieldText, string formatString = "{0}")
+    public void SetExponentText(double numberChange, TextMeshProUGUI fieldText, string formatString = "{0}")
     {
         if (numberChange >= 1000)
         {
@@ -105,16 +107,16 @@ public class IdleConfig : MonoBehaviour
                 coinsClickValue *= multyplyUpgrade[0];
                 break;
             case int n when (clickUpgradeLevel % 100 == 50):
-                defaultCoinsPrice *= multyplyUpgrade[0];
-                coinsClickValue *= multyplyUpgrade[0];
+                defaultCoinsPrice *= multyplyUpgrade[1];
+                coinsClickValue *= multyplyUpgrade[1];
                 break;
             case int n when (clickUpgradeLevel % 100 == 75):
-                defaultCoinsPrice *= multyplyUpgrade[0];
-                coinsClickValue *= multyplyUpgrade[0];
+                defaultCoinsPrice *= multyplyUpgrade[2];
+                coinsClickValue *= multyplyUpgrade[2];
                 break;
             case int n when (n >= 100 & clickUpgradeLevel % 100 == 0):
-                defaultCoinsPrice *= multyplyUpgrade[0];
-                coinsClickValue *= multyplyUpgrade[0];
+                defaultCoinsPrice *= multyplyUpgrade[3];
+                coinsClickValue *= multyplyUpgrade[3];
                 break;
         }
     }
@@ -134,12 +136,13 @@ public class IdleConfig : MonoBehaviour
     {
         if (Math.Round(_coins.GetCoins()) >= Math.Round(clickUpgradeCost)) 
         { 
-            clickUpgradeLevel++;
             OnMinusCoins?.Invoke(clickUpgradeCost);
 
             if (_coins.GetCoins() < 0) _coins.SetCoins(0);
             clickUpgradeCost *= multiply;
+            //clickUpgradeCost += clickUpgradeCostStarting * clickUpgradeLevel + clickUpgradeCostStarting / Math.Pow(clickUpgradeLevel, multiply);
             coinsClickValue += defaultCoinsPrice;
+            clickUpgradeLevel++;
             ClickUpgradeMultyplyCost();
             SetTextValue();
         }

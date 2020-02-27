@@ -8,8 +8,9 @@ public class Coins : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI coinsText;
     //public static Coins Instance;
-    private double coins;
+    [SerializeField] private double coins;
     //public double CurrentCoins { get => coins; }
+    IdleConfig _coins;
 
     private void Awake()
     {
@@ -23,7 +24,7 @@ public class Coins : MonoBehaviour
             Destroy(gameObject);
         }
         */
-        IdleConfig _coins = FindObjectOfType<IdleConfig>();
+        _coins = FindObjectOfType<IdleConfig>();
         _coins.OnAddCoins += AddCoins;
         _coins.OnMinusCoins += MinusCoins;
     }
@@ -56,6 +57,7 @@ public class Coins : MonoBehaviour
     
     private void SetCoinsText()
     {
-        coinsText.text = coins.ToString("F0");
+        _coins.SetExponentText(coins, coinsText);
+        //coinsText.text = coins.ToString("F0");
     }
 }
