@@ -31,8 +31,6 @@ public class Coins : MonoBehaviour
         _coins.OnAddCoins += SaveProgress;
         _coins.OnMinusCoins += SaveProgress;
         SetCoinsText();
-
-
     }
     
 

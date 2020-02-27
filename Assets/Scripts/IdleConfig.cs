@@ -48,6 +48,10 @@ public class IdleConfig : MonoBehaviour
         clickUpgradeCost = clickUpgradeCostStarting;
         _coins = FindObjectOfType<Coins>();
         FindObjectOfType<CustomerSpawner>().OnSpawnFrequencyChanged += UpdateFrequencyText;
+        clickUpgradeLevel = PlayerPrefs.GetInt(PrefsUtils.coffee_lvl);
+        //ClickUpgradeMultyplyCost();
+        SetCoinsPriceViaLvl();
+        SetUpgradeCostViaLvl();
         SetTextValue();
     }
 
@@ -132,7 +136,23 @@ public class IdleConfig : MonoBehaviour
         SetTextValue();
     }
 
-    public void BuyClickUpgrade1()
+    void SetCoinsPriceViaLvl()
+    {
+        for (int i = 0; i < clickUpgradeLevel; i++)
+        {
+            coinsClickValue += defaultCoinsPrice;
+        }
+    }
+
+    void SetUpgradeCostViaLvl()
+    {
+        for (int i = 0; i < clickUpgradeLevel; i++)
+        {
+            clickUpgradeCost *= multiply;
+        }
+    }
+
+    public void BuyClickUpgrade1(bool save_progress=true)
     {
         if (Math.Round(_coins.GetCoins()) >= Math.Round(clickUpgradeCost)) 
         { 
@@ -146,6 +166,10 @@ public class IdleConfig : MonoBehaviour
             ClickUpgradeMultyplyCost();
             SetTextValue();
         }
+        if (save_progress)
+        {
+            SaveProgress();
+        }
     }
 
     public void BuyMaxLevels()
@@ -153,7 +177,21 @@ public class IdleConfig : MonoBehaviour
         var tempLevel = clickUpgradeLevel + Math.Round(buyMaxLevels);
         while (clickUpgradeLevel < tempLevel)
         {
-            BuyClickUpgrade1();
+            BuyClickUpgrade1(save_progress: false);
         }
+        SaveProgress();
+    }
+
+    void SaveProgress()
+    {
+        PlayerPrefs.SetInt(PrefsUtils.coffee_lvl, clickUpgradeLevel);
+        PlayerPrefs.Save();
+    }
+
+    public void ClearProgress()
+    {
+        PlayerPrefs.SetInt(PrefsUtils.coffee_lvl, 0);
+        PlayerPrefs.SetFloat(PrefsUtils.money, 0);
+        PlayerPrefs.Save();
     }
 }
