@@ -41,6 +41,11 @@ public class CoffeeWorker : MonoBehaviour, IWorker
         stressScript.OnStressChanged += StressChangedHandler;
     }
 
+    public float GetWorkSpeed()
+    {
+        return timeToEndWork;
+    }
+
     void StressChangedHandler(float value)
     {
         OnSpeedMultiplierChanged?.Invoke(stressScript.Multiplier);

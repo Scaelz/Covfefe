@@ -7,12 +7,19 @@ public class WorkerVFX : MonoBehaviour
 {
     [SerializeField]
     ParticleSystem stressEffectPrefab;
+    [SerializeField] FloatingText floatingText;
     CoffeeWorker worker;
 
     private void Start()
     {
         worker = GetComponent<CoffeeWorker>();
         worker.OnSpeedMultiplierChanged += ControllSystem;
+        worker.OnWorkDone += SpawnAnnotation;
+    }
+
+    void SpawnAnnotation()
+    {
+        floatingText.StartFloat();
     }
 
     void ControllSystem(float value)
