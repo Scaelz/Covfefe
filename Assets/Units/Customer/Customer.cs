@@ -74,8 +74,6 @@ public class Customer : Unit, ICustomer, ILineable
         withCoffe = false;
         happyTrigger = false;
         SetWalkingAnimation();
-        //stressScript.OnStressOut += StressOutHandler;
-        //BuildShoppingRoute();
         moveScript.SetPriority(50);
         moveScript.MoveTo(Cafe.Entrance.position);
     }
@@ -141,12 +139,10 @@ public class Customer : Unit, ICustomer, ILineable
                 withCoffe = true;
                 moveScript.MoveTo(CurrentLine.GetLeaveSpot());
                 LeaveLine();
-                //moveScript.SetPriority(1);
-                //Shopping();
             }
             else
             {
-                PositionInLine--;// = CurrentLine.GetFreePosition(this);
+                PositionInLine--;
                 Vector3 newPosition = CurrentLine.GetProperSpot(PositionInLine);
                 moveScript.MoveTo(newPosition);
             }
@@ -156,24 +152,11 @@ public class Customer : Unit, ICustomer, ILineable
     void BuildShoppingRoute()
     {
         ShoppingRoute = new Queue<Line>();
-
-        //Line new_destination = Cafe.AllDepartments.OrderBy(x => x.GetLineLength()).FirstOrDefault();
         var new_destination = Cafe.AllDepartments.OrderBy(x => x.GetLineLength());
         if (!ShoppingRoute.Contains(new_destination.FirstOrDefault()))
         {
             ShoppingRoute.Enqueue(new_destination.FirstOrDefault());
         }
-        //int departmentstovisit = 1;// UnityEngine.Random.Range(1, Cafe.AllDepartments.Count + 1);
-        //while (departmentstovisit != 0)
-        //{
-        //    Line new_destination = Cafe.AllDepartments.OrderBy(x => x.GetLineLength()).FirstOrDefault();
-        //    //Line new_destination = Cafe.AllDepartments[UnityEngine.Random.Range(0, Cafe.AllDepartments.Count)];
-        //    if (!ShoppingRoute.Contains(new_destination))
-        //    {
-        //        ShoppingRoute.Enqueue(new_destination);
-        //        departmentstovisit--;
-        //    }
-        //}
         routeBuilt = true;
     }
 
@@ -202,11 +185,6 @@ public class Customer : Unit, ICustomer, ILineable
                 BuildShoppingRoute();
             }
             Shopping();
-            //if (!isInLine)
-            //{
-            //    BuildShoppingRoute();
-            //    Shopping();
-            //}
             if (!isInLine)
             {
                 OnRage?.Invoke();

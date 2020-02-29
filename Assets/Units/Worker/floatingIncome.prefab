@@ -58,7 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: 21113905761075906, guid: 3ef5e12a88643e040a70bf1d965f277b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -115,8 +115,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: + 2000 $
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 3ef5e12a88643e040a70bf1d965f277b, type: 2}
+  m_sharedMaterial: {fileID: 21113905761075906, guid: 3ef5e12a88643e040a70bf1d965f277b,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -220,7 +221,7 @@ MonoBehaviour:
   color: {r: 0.06896883, g: 0.5471698, b: 0.018066937, a: 1}
   currentColor: {r: 0.06896883, g: 0.5471698, b: 0.018066937, a: 0.014159869}
   decayColor: {r: 0.06896883, g: 0.5471698, b: 0.018066937, a: 0}
-  speed: 3
-  decaySpeed: 0.05
+  speed: 4
+  decaySpeed: 0.02
   cam: {fileID: 0}
   textMesh: {fileID: 3456167576654910029}
