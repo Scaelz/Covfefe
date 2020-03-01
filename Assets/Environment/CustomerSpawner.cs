@@ -23,7 +23,9 @@ public class CustomerSpawner : MonoBehaviour
 
     void ChangeSpawnFrequency(float popularity)
     {
-        spawnFrequency = defaultFrequency - popularity / 2;
+        spawnFrequency = defaultFrequency / popularity;
+        Debug.Log(defaultFrequency);
+        Debug.Log(popularity);
         OnSpawnFrequencyChanged?.Invoke(1 / spawnFrequency);
     }
 

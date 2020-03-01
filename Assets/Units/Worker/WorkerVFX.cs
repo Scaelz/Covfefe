@@ -9,12 +9,19 @@ public class WorkerVFX : MonoBehaviour
     ParticleSystem stressEffectPrefab;
     [SerializeField] FloatingText floatingText;
     CoffeeWorker worker;
+    [SerializeField] AudioSource audioSource;
 
     private void Start()
     {
         worker = GetComponent<CoffeeWorker>();
         worker.OnSpeedMultiplierChanged += ControllSystem;
         worker.OnWorkDone += SpawnAnnotation;
+        worker.OnWorkDone += PlaySound;
+    }
+
+    void PlaySound()
+    {
+        audioSource.Play();
     }
 
     void SpawnAnnotation()

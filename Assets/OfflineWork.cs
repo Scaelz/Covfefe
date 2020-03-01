@@ -21,6 +21,9 @@ public class OfflineWork : MonoBehaviour
         {
             int cachboxCount = PlayerPrefs.GetInt(PrefsUtils.cashbox) + 1;
             float avSpeed = GetAverageWorkTime(cachboxCount);
+            Debug.Log(avSpeed);
+            Debug.Log(cachboxCount);
+            Debug.Log(config.coinsClickValue);
             CalculateOfflineIncome(avSpeed, cachboxCount, config.coinsClickValue);
         }
         else
@@ -34,7 +37,6 @@ public class OfflineWork : MonoBehaviour
     float GetAverageWorkTime(int cashboxCount)
     {
         CoffeeWorker[] workers = FindObjectsOfType<CoffeeWorker>();
-        Debug.Log(workers.Length);
         float totalSpeed = 0;
         foreach (CoffeeWorker worker in workers)
         {

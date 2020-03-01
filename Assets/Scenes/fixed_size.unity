@@ -4797,7 +4797,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d8c580e8e5415740bef2dacc44dc687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPopularity: 0
+  currentPopularity: 1
   negativeTik: 0.1
   positiveTik: 0.15
 --- !u!4 &858945651 stripped
@@ -5970,7 +5970,7 @@ PrefabInstance:
     - target: {fileID: 662997186426600861, guid: 74c5345b5118ed54ba5552e1ee3414b4,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1217651368912140075, guid: 74c5345b5118ed54ba5552e1ee3414b4,
         type: 3}

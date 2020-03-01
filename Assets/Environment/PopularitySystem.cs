@@ -7,21 +7,20 @@ public class PopularitySystem : MonoBehaviour
 {
     public static PopularitySystem Instance;
 
-    [SerializeField] float currentPopularity = 0;
+    [SerializeField] float currentPopularity = 0.25f;
     [SerializeField] float negativeTik = 0.1f;
-    [SerializeField] float positiveTik = 0.25f;
+    [SerializeField] float positiveTik = 0.85f;
 
     public event Action<float> OnPopularityChanged;
 
     // Start is called before the first frame update
     void Start()
     {
+        currentPopularity = ClampPopularity(currentPopularity);
         if (Instance == null)
         {
             Instance = this;
         }
-
-        OnPopularityChanged += ClampPopularity;
     }
 
     public float GetPopularity()
@@ -31,20 +30,18 @@ public class PopularitySystem : MonoBehaviour
 
     public void AddPopularity()
     {
-        currentPopularity += positiveTik;
+        currentPopularity = ClampPopularity(currentPopularity + positiveTik);
         OnPopularityChanged?.Invoke(currentPopularity);
-        Debug.Log("Increased");
     }
 
     public void DecreasePopularity()
     {
-        currentPopularity -= negativeTik;
+        currentPopularity = ClampPopularity(currentPopularity - negativeTik);
         OnPopularityChanged?.Invoke(currentPopularity);
-        Debug.Log("Decrease");
     }
 
-    void ClampPopularity(float value)
+    float ClampPopularity(float value)
     {
-        currentPopularity = Mathf.Clamp(value, -2, 10);
+        return Mathf.Clamp(value, .25f, 5);
     }
 }

@@ -91,23 +91,36 @@ public class CoffeeWorker : MonoBehaviour, IWorker
         StartCoroutine(ProgressWork());
     }
 
-    float StressedWorkSpeed()
-    {
-        return WorkSpeed * stressScript.Multiplier;
-    }
+    //float StressedWorkSpeed()
+    //{
+    //    return WorkSpeed * stressScript.Multiplier;
+    //}
 
     IEnumerator ProgressWork()
     {
         while (workTimer < TimeToEndWork)
         {
-            float currentSpeed = StressedWorkSpeed();
-            yield return new WaitForSeconds(WorkSpeed);
-            workTimer += currentSpeed;
+            //float currentSpeed = StressedWorkSpeed();
+            yield return null;
+            workTimer += Time.deltaTime * stressScript.Multiplier;
         }
         idleConfig.GetComponent<IdleConfig>().Click();
         OnWorkDone?.Invoke();
         workTimer = 0;
     }
+
+    //IEnumerator ProgressWork()
+    //{
+    //    while (workTimer < TimeToEndWork)
+    //    {
+    //        float currentSpeed = StressedWorkSpeed();
+    //        yield return new WaitForSeconds(WorkSpeed);
+    //        workTimer += currentSpeed;
+    //    }
+    //    idleConfig.GetComponent<IdleConfig>().Click();
+    //    OnWorkDone?.Invoke();
+    //    workTimer = 0;
+    //}
 
     public void OnCoffeePassedHandler()
     {
