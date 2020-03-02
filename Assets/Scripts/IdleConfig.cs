@@ -11,14 +11,16 @@ public class IdleConfig : MonoBehaviour
     [SerializeField] TextMeshProUGUI currentLevelText;
     [SerializeField] TextMeshProUGUI coinsPerCoffeeText;
     [SerializeField] TextMeshProUGUI buyMaxText;
+    [SerializeField] TextMeshProUGUI spawnFrequincyText;
 
     [Header("Coins Fields")]
     public double coinsClickValue = 1;
     public int defaultCoinsPrice = 1;
-    public double coinsPerSecond;
+    //public double coinsPerSecond;
 
     [Header("Upgrade Fields")]
-    public double clickUpgradeCost = 10;
+    private double clickUpgradeCost;
+    public double clickUpgradeCostStarting = 10;
     public int clickUpgradeLevel;
 
     [Header("Multyply")]
@@ -43,8 +45,19 @@ public class IdleConfig : MonoBehaviour
     private void Start()
     {
         //_coins = Coins.Instance;
+        clickUpgradeCost = clickUpgradeCostStarting;
         _coins = FindObjectOfType<Coins>();
+        FindObjectOfType<CustomerSpawner>().OnSpawnFrequencyChanged += UpdateFrequencyText;
+        clickUpgradeLevel = PlayerPrefs.GetInt(PrefsUtils.coffee_lvl);
+        //ClickUpgradeMultyplyCost();
+        SetCoinsPriceViaLvl();
+        SetUpgradeCostViaLvl();
         SetTextValue();
+    }
+
+    void UpdateFrequencyText(float value)
+    {
+        spawnFrequincyText.text = Math.Round(value, 2).ToString() + " s";
     }
 
     private void SetTextValue()
@@ -59,7 +72,7 @@ public class IdleConfig : MonoBehaviour
     }
 
     // Exponent
-    private void SetExponentText(double numberChange, TextMeshProUGUI fieldText, string formatString = "{0}")
+    public void SetExponentText(double numberChange, TextMeshProUGUI fieldText, string formatString = "{0}")
     {
         if (numberChange >= 1000)
         {
@@ -98,43 +111,72 @@ public class IdleConfig : MonoBehaviour
                 coinsClickValue *= multyplyUpgrade[0];
                 break;
             case int n when (clickUpgradeLevel % 100 == 50):
-                defaultCoinsPrice *= multyplyUpgrade[0];
-                coinsClickValue *= multyplyUpgrade[0];
+                defaultCoinsPrice *= multyplyUpgrade[1];
+                coinsClickValue *= multyplyUpgrade[1];
                 break;
             case int n when (clickUpgradeLevel % 100 == 75):
-                defaultCoinsPrice *= multyplyUpgrade[0];
-                coinsClickValue *= multyplyUpgrade[0];
+                defaultCoinsPrice *= multyplyUpgrade[2];
+                coinsClickValue *= multyplyUpgrade[2];
                 break;
             case int n when (n >= 100 & clickUpgradeLevel % 100 == 0):
-                defaultCoinsPrice *= multyplyUpgrade[0];
-                coinsClickValue *= multyplyUpgrade[0];
+                defaultCoinsPrice *= multyplyUpgrade[3];
+                coinsClickValue *= multyplyUpgrade[3];
                 break;
         }
     }
 
     // Buttons
-    public void Click()
+    public void Click(double value = default)
     {
-        Debug.Log(_coins.GetCoins());
-        OnAddCoins?.Invoke(coinsClickValue);
+        if (value == default)
+        {
+            value = coinsClickValue;
+        }
 
+        OnAddCoins?.Invoke(value);
         //_coins.coins += coinsClickValue;
         //coins += coinsClickValue;
         SetTextValue();
     }
 
-    public void BuyClickUpgrade1()
+    void SetCoinsPriceViaLvl()
+    {
+        for (int i = 0; i < clickUpgradeLevel; i++)
+        {
+            coinsClickValue += defaultCoinsPrice;
+        }
+    }
+
+    void SetUpgradeCostViaLvl()
+    {
+        for (int i = 0; i < clickUpgradeLevel; i++)
+        {
+            clickUpgradeCost *= multiply;
+        }
+    }
+
+    public void SpentCoins(double value)
+    {
+        OnMinusCoins?.Invoke(value);
+    }
+
+    public void BuyClickUpgrade1(bool save_progress=true)
     {
         if (Math.Round(_coins.GetCoins()) >= Math.Round(clickUpgradeCost)) 
         { 
-            clickUpgradeLevel++;
             OnMinusCoins?.Invoke(clickUpgradeCost);
 
             if (_coins.GetCoins() < 0) _coins.SetCoins(0);
             clickUpgradeCost *= multiply;
+            //clickUpgradeCost += clickUpgradeCostStarting * clickUpgradeLevel + clickUpgradeCostStarting / Math.Pow(clickUpgradeLevel, multiply);
             coinsClickValue += defaultCoinsPrice;
+            clickUpgradeLevel++;
             ClickUpgradeMultyplyCost();
             SetTextValue();
+        }
+        if (save_progress)
+        {
+            SaveProgress();
         }
     }
 
@@ -143,7 +185,23 @@ public class IdleConfig : MonoBehaviour
         var tempLevel = clickUpgradeLevel + Math.Round(buyMaxLevels);
         while (clickUpgradeLevel < tempLevel)
         {
-            BuyClickUpgrade1();
+            BuyClickUpgrade1(save_progress: false);
         }
+        SaveProgress();
+    }
+
+    void SaveProgress()
+    {
+        PlayerPrefs.SetInt(PrefsUtils.coffee_lvl, clickUpgradeLevel);
+        PlayerPrefs.Save();
+    }
+
+    public void ClearProgress()
+    {
+        PlayerPrefs.SetInt(PrefsUtils.coffee_lvl, 0);
+        PlayerPrefs.SetFloat(PrefsUtils.money, 0);
+        PlayerPrefs.SetInt(PrefsUtils.cashbox, 0);
+        PlayerPrefs.SetString(PrefsUtils.onlineDate, "");
+        PlayerPrefs.Save();
     }
 }

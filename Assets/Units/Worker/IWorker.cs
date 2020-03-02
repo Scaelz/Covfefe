@@ -6,6 +6,7 @@ using UnityEngine;
 public interface IWorker
 {
     Transform CurrentTransform { get; }
+    float TimeToEndWork { get; }
     float WorkSpeed { get; }
     Line CurrentLine { get; }
     bool isWorking { get; }

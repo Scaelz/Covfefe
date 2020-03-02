@@ -8,24 +8,64 @@ public class CoffeeWorker : MonoBehaviour, IWorker
     public Transform CurrentTransform { get => transform; }
     [SerializeField]
     float workSpeed;
-    public GameObject idleConfig;
+    [SerializeField]
+    float timeToEndWork;
+    float workTimer = 0;
+    public float TimeToEndWork { get => timeToEndWork; }
+    IdleConfig idleConfig;
     public bool isWorking { get; private set; } = false;
     public float WorkSpeed { get => workSpeed; }
     [SerializeField]
     Line currentLine;
     public Line CurrentLine { get; private set; }
+    IStressable stressScript;
+
 
     public event Action OnWorkDone;
     public event Action OnWorkStarted;
-
+    public event Action OnGreetCustomer;
+    public event Action OnFreeLine;
+    public event Action OnPassedCofee;
+    public event Action<float> OnSpeedMultiplierChanged;
 
     // Start is called before the first frame update
     void Start()
     {
+        idleConfig = FindObjectOfType<IdleConfig>();
         CurrentLine = currentLine;
-        OnWorkDone += WorkStateChangedHandler;
+        stressScript = GetComponent<IStressable>();
+        OnPassedCofee += WorkStateChangedHandler;
         OnWorkStarted += WorkStateChangedHandler;
-        OnWorkDone += CurrentLine.CustomerServicedHandler;
+        OnPassedCofee += CurrentLine.CustomerServicedHandler;
+        CurrentLine.OnFirstInLineChanged += GreetCustomer;
+        stressScript.OnStressChanged += StressChangedHandler;
+    }
+
+    public float GetWorkSpeed()
+    {
+        return timeToEndWork;
+    }
+
+    void StressChangedHandler(float value)
+    {
+        OnSpeedMultiplierChanged?.Invoke(stressScript.Multiplier);
+    }
+
+    void GreetCustomer()
+    {
+        OnGreetCustomer?.Invoke();
+    }
+
+    void CheckForCustomers()
+    {
+        if (CurrentLine.CurrentCustomer != null)
+        {
+            OnGreetCustomer?.Invoke();
+        }
+        else
+        {
+            OnFreeLine?.Invoke();
+        }
     }
 
     void WorkStateChangedHandler()
@@ -51,10 +91,39 @@ public class CoffeeWorker : MonoBehaviour, IWorker
         StartCoroutine(ProgressWork());
     }
 
+    //float StressedWorkSpeed()
+    //{
+    //    return WorkSpeed * stressScript.Multiplier;
+    //}
+
     IEnumerator ProgressWork()
     {
-        yield return new WaitForSeconds(WorkSpeed);
+        while (workTimer < TimeToEndWork)
+        {
+            //float currentSpeed = StressedWorkSpeed();
+            yield return null;
+            workTimer += Time.deltaTime * stressScript.Multiplier;
+        }
         idleConfig.GetComponent<IdleConfig>().Click();
         OnWorkDone?.Invoke();
+        workTimer = 0;
+    }
+
+    //IEnumerator ProgressWork()
+    //{
+    //    while (workTimer < TimeToEndWork)
+    //    {
+    //        float currentSpeed = StressedWorkSpeed();
+    //        yield return new WaitForSeconds(WorkSpeed);
+    //        workTimer += currentSpeed;
+    //    }
+    //    idleConfig.GetComponent<IdleConfig>().Click();
+    //    OnWorkDone?.Invoke();
+    //    workTimer = 0;
+    //}
+
+    public void OnCoffeePassedHandler()
+    {
+        OnPassedCofee?.Invoke();
     }
 }

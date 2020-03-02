@@ -1,30 +1,79 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class Customer : Unit, ICustomer, ILineable
 {
+    bool withCoffe = false;
     bool routeBuilt = false;
+    bool happyTrigger = false;
     public Queue<Line> ShoppingRoute { get; private set; }
-
     public Transform CurrentTransform { get => gameObject.transform; }
-
     public bool isInLine { get; private set; } = false;
     public int PositionInLine { get; private set; }
     public Line CurrentLine { get; private set; }
+    public event Action OnHappy;
+    public event Action OnRage;
 
+    [SerializeField]
+    CustomerAnimator anim;
+    
     private void Start()
     {
-        
+        //anim = GetComponent<CustomerAnimator>();
+        moveScript.OnDestinationReached += LookInLine;
+        moveScript.OnDestinationReached += SetIdleAnimation;
+        moveScript.OnStartMoving += SetWalkingAnimation;
+        OnHappy += RecommendPlace;
+        OnRage += UnRecommendPlace;
+    }
+    
+    void RecommendPlace()
+    {
+        PopularitySystem.Instance.AddPopularity();
+    }
 
+    void UnRecommendPlace()
+    {
+        PopularitySystem.Instance.DecreasePopularity();
+    }
+
+    void SetWalkingAnimation()
+    {
+        if (withCoffe)
+        {
+            anim.Play(ClientAnims.take);
+        }
+        else
+        {
+            anim.Play(ClientAnims.walk);
+        }
+    }
+
+    void SetIdleAnimation()
+    {
+        anim.Play(ClientAnims.idle);
+    }
+
+    void LookInLine()
+    {
+        if (CurrentLine != null)
+        {
+            moveScript.RotateTowards(CurrentLine.transform.position);
+        }
     }
 
     private void OnEnable()
     {
+        routeBuilt = false;
         Initialize();
-        stressScript.OnStressOut += StressOutHandler;
-        BuildShoppingRoute();
+        LeaveLine();
+        withCoffe = false;
+        happyTrigger = false;
+        SetWalkingAnimation();
         moveScript.SetPriority(50);
         moveScript.MoveTo(Cafe.Entrance.position);
     }
@@ -33,7 +82,7 @@ public class Customer : Unit, ICustomer, ILineable
     {
         if(ShoppingRoute.Count == 0)
         {
-            moveScript.MoveTo(Cafe.Exit.position);
+            Leave();
         }
         else
         {
@@ -42,141 +91,109 @@ public class Customer : Unit, ICustomer, ILineable
         }
     }
 
-    public void Leave(Vector3 exitPoint)
+    public void Leave()
     {
-        moveScript.MoveTo(exitPoint);
+        moveScript.MoveTo(Cafe.GetExitPoint());
     }
 
     void StressOutHandler(object e, EventArgs args)
     {
-        Leave(Cafe.Exit.position);
+        Leave();
     }
 
     public void JoinLine(Line line)
     {
-        if (line.isJoinable())
+        PositionInLine = line.JoinLine(this);
+        if (PositionInLine != -1)
         {
+            happyTrigger = UnityEngine.Random.value < 0.35f ? true : false;
             CurrentLine = line;
-            PositionInLine = line.JoinLine(this);
-            Vector3 lineSpot = line.GetProperSpot(PositionInLine);
             CurrentLine.OnCustomerServiced += MoveInLine;
-            moveScript.MoveTo(lineSpot);
             isInLine = true;
+            Vector3 lineSpot = line.GetProperSpot(PositionInLine);
+            moveScript.MoveTo(lineSpot);
         }
     }
 
     public void LeaveLine()
     {
-        CurrentLine.OnCustomerServiced -= MoveInLine;
+        if (CurrentLine != null)
+        {
+            CurrentLine.OnCustomerServiced -= MoveInLine;
+        }
         CurrentLine = null;
         isInLine = false;
         PositionInLine = -1;
+        if (happyTrigger)
+        {
+            OnHappy?.Invoke();
+        }
     }
 
     public void MoveInLine()
     {
-        if (PositionInLine == 1)
+        if(CurrentLine != null)
         {
-            LeaveLine();
-            Shopping();
-        }
-        else
-        {
-            PositionInLine--;
-            Vector3 newPosition = CurrentLine.GetProperSpot(PositionInLine);
-            moveScript.MoveTo(newPosition);
+            if (PositionInLine == 0)
+            {
+                withCoffe = true;
+                moveScript.MoveTo(CurrentLine.GetLeaveSpot());
+                LeaveLine();
+            }
+            else
+            {
+                PositionInLine--;
+                Vector3 newPosition = CurrentLine.GetProperSpot(PositionInLine);
+                moveScript.MoveTo(newPosition);
+            }
         }
     }
 
     void BuildShoppingRoute()
     {
         ShoppingRoute = new Queue<Line>();
-        int departmentstovisit = UnityEngine.Random.Range(1, Cafe.AllDepartments.Count + 1);
-        while (departmentstovisit != 0)
+        var new_destination = Cafe.AllDepartments.OrderBy(x => x.GetLineLength());
+        if (!ShoppingRoute.Contains(new_destination.FirstOrDefault()))
         {
-            Line new_destination = Cafe.AllDepartments[UnityEngine.Random.Range(0, Cafe.AllDepartments.Count)];
-            if (!ShoppingRoute.Contains(new_destination))
-            {
-                ShoppingRoute.Enqueue(new_destination);
-                departmentstovisit--;
-            }
+            ShoppingRoute.Enqueue(new_destination.FirstOrDefault());
+        }
+        routeBuilt = true;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.tag == "CollisionTag")
+        {
+            moveScript.SetQuality(false);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "CollisionTag")
+        {
+            moveScript.SetQuality(true);
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Shopping();
-        if (!isInLine)
+        if (other.tag == "Finish")
         {
-            moveScript.SetPriority(1);
-            moveScript.MoveTo(Cafe.Exit.position);
+            if (!routeBuilt)
+            {
+                BuildShoppingRoute();
+            }
+            Shopping();
+            if (!isInLine)
+            {
+                OnRage?.Invoke();
+                Leave();
+            }
+        }
+        else if (other.tag == "Leave")
+        {
+            Leave();
         }
     }
-
-    //void ReachedDestinationHandler()
-    //{
-    //    if (isInLine)
-    //    {
-    //        if(CurrentCashBox.CurrentCustomer.GetHashCode() == this.GetHashCode())
-    //        {
-    //            CurrentCashBox.CustomerReady();
-    //            CurrentCashBox.OnCustomerServiced += GoToNextPoint;
-    //        }
-    //        else
-    //        {
-    //            moveScript.RotateTowards(CurrentCashBox.worker.transform.position);
-    //        }
-    //    }
-    //    else
-    //    {
-    //        if (ShoppingRoute == null)
-    //        {
-    //            BuildShoppingRoute();
-    //        }
-    //        else
-    //        {
-    //            GoToNextPoint();
-    //        }
-    //    }
-    //}
-
-    //void GoToNextPoint()
-    //{
-    //    if(ShoppingRoute.Count != 0)
-    //    {
-    //        if(CurrentCashBox != null)
-    //        {
-    //            CurrentCashBox.OnCustomerServiced -= GoToNextPoint;
-    //        }
-    //        CurrentCashBox = ShoppingRoute.Dequeue();
-    //        moveScript.MoveTo(CurrentCashBox.GetPlaceInLine(this));
-    //        isInLine = true;
-    //    }
-    //    else
-    //    {
-    //        isInLine = false;
-    //        Leave(Cafe.Exit.position);
-    //    }
-    //}
-
-
-
-    //public void Idle()
-    //{
-    //    throw new System.NotImplementedException();
-    //}
-
-
-    //public void MoveInLine(Vector3 newPosition)
-    //{
-    //    moveScript.MoveTo(newPosition);
-    //}
-
-    //private void Update()
-    //{
-    //    //if (isInLine)
-    //    //{
-    //    //    stressScript.IncreaseStress();
-    //    //}
-    //}
 }
