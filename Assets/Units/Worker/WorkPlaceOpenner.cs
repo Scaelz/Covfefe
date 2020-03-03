@@ -36,7 +36,6 @@ public class WorkPlaceOpenner : MonoBehaviour, IClickable
         int prefs_index = PlayerPrefs.GetInt(PrefsUtils.cashbox);
         if(prefs_index >= index)
         {
-            Debug.Log("oppening");
             OpenNewWorkPlace(silent: true);
         }
     }

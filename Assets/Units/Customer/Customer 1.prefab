@@ -113,6 +113,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92d74d13587f3da40aa2e3f4d4dfe411, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textures:
+  - {fileID: 2800000, guid: eceaa441fcd6bf84abac871575c77944, type: 3}
+  - {fileID: 2800000, guid: 0cf08fa8c2446a041b14a0bf53128311, type: 3}
+  - {fileID: 2800000, guid: ffaf3d517b6cd604a8f488c096696110, type: 3}
+  - {fileID: 2800000, guid: cd1617fc6a0726e4f8e11fc4fd431a5e, type: 3}
+  - {fileID: 2800000, guid: de46665d67a77c4478cd4f9a5ca175f7, type: 3}
+  - {fileID: 2800000, guid: add69e14b6e4fb14e93ee8c52f68538f, type: 3}
+  - {fileID: 2800000, guid: 87cd86957ef731840a9e9503e28b8ac8, type: 3}
+  - {fileID: 2800000, guid: e108e78bd2d7821408a57354a3594c4d, type: 3}
+  - {fileID: 2800000, guid: a9df66980f884fe44ba9454334860e14, type: 3}
+  - {fileID: 2800000, guid: 65b8149e903510748b077bb42b516467, type: 3}
+  renderer: {fileID: 1416166028334566144}
   anim: {fileID: 1761202075}
 --- !u!195 &5845035859650534396
 NavMeshAgent:
@@ -247,10 +259,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rageEffect: {fileID: 197385126766294018}
   happyEffect: {fileID: 3077140909360611576}
-  materials:
-  - {fileID: 2100000, guid: 2dd09b1d13ab3d14bbf972a39ef1d910, type: 2}
-  - {fileID: 2100000, guid: eacbf3af9fdba6447b06c79823c2268c, type: 2}
-  renderer: {fileID: 1416166028334566144}
 --- !u!1 &4076802838056552108
 GameObject:
   m_ObjectHideFlags: 0

@@ -24,7 +24,7 @@ public class StressUI : MonoBehaviour
 
     private void LateUpdate()
     {
-        transform.LookAt(transform.position + cam.transform.forward) ;
+        transform.LookAt(transform.position + cam.transform.forward);
     }
 
     // Start is called before the first frame update

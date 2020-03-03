@@ -126,11 +126,14 @@ public class IdleConfig : MonoBehaviour
     }
 
     // Buttons
-    public void Click()
+    public void Click(double value = default)
     {
-        //Debug.Log(_coins.GetCoins());
-        OnAddCoins?.Invoke(coinsClickValue);
+        if (value == default)
+        {
+            value = coinsClickValue;
+        }
 
+        OnAddCoins?.Invoke(value);
         //_coins.coins += coinsClickValue;
         //coins += coinsClickValue;
         SetTextValue();
@@ -198,6 +201,7 @@ public class IdleConfig : MonoBehaviour
         PlayerPrefs.SetInt(PrefsUtils.coffee_lvl, 0);
         PlayerPrefs.SetFloat(PrefsUtils.money, 0);
         PlayerPrefs.SetInt(PrefsUtils.cashbox, 0);
+        PlayerPrefs.SetString(PrefsUtils.onlineDate, "");
         PlayerPrefs.Save();
     }
 }
