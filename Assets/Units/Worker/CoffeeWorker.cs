@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoffeeWorker : MonoBehaviour, IWorker
+public class CoffeeWorker : MonoBehaviour, IWorker, IUpgradeable
 {
     public Transform CurrentTransform { get => transform; }
     [SerializeField]
@@ -125,5 +125,10 @@ public class CoffeeWorker : MonoBehaviour, IWorker
     public void OnCoffeePassedHandler()
     {
         OnPassedCofee?.Invoke();
+    }
+
+    public void Upgrade()
+    {
+        throw new NotImplementedException();
     }
 }

@@ -5,7 +5,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 
-public class Customer : Unit, ICustomer, ILineable
+public class Customer : Unit, ICustomer, ILineable, IUpgradeable
 {
     bool withCoffe = false;
     bool routeBuilt = false;
@@ -195,5 +195,10 @@ public class Customer : Unit, ICustomer, ILineable
         {
             Leave();
         }
+    }
+
+    public void Upgrade()
+    {
+        throw new NotImplementedException();
     }
 }
