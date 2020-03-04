@@ -22,12 +22,16 @@ public class UpgradeMenuUI : MonoBehaviour
     public void SetInfo(int lvl, int maxLvl, string name, string description, 
         double price, int maxUpgradesPossible, double maxPrice, Sprite sprite)
     {
-        tmLvl.text = $"{lvl}/{maxLvl}";
+        UpdateLevelText(lvl, maxLvl);
         tmName.text = name;
         tmDescription.text = description;
-        tmPriceForOne.text = price.ToString();
-        UpdateBuyMaxCountAndPrice(maxUpgradesPossible, maxPrice);
+        UpgradePricesTexts(price, maxPrice, maxUpgradesPossible);
         icon.sprite = sprite;
+    }
+
+    public void UpdateLevelText(int lvl, int maxLvl)
+    {
+        tmLvl.text = $"{lvl}/{maxLvl}";
     }
 
     public void SingleUpgradeButtonState(bool state)
@@ -40,10 +44,11 @@ public class UpgradeMenuUI : MonoBehaviour
         buttonMax.interactable = state;
     }
 
-    public void UpdateBuyMaxCountAndPrice(int count, double price)
+    public void UpgradePricesTexts(double single, double max, int upgradesCount)
     {
-        tmPriceForMax.text = price.ToString();
-        tmBuyMaxButtonText.text = $"Buy max ({count.ToString()})";
+        tmPriceForOne.text = single.ToString();
+        tmPriceForMax.text = max.ToString();
+        tmBuyMaxButtonText.text = $"Buy max ({upgradesCount.ToString()})";
     }
 
     public void SingleUpgradeHandler()

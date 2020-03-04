@@ -29,6 +29,11 @@ abstract public class BaseUpgrade: MonoBehaviour
     public string GetDescription() => description;
     public Sprite GetIconSprite() => sprite;
 
+    public void IncreaseLevel(int value)
+    {
+        Level += value;
+    }
+
     public bool IsActive()
     {
         return default;
@@ -41,20 +46,28 @@ abstract public class BaseUpgrade: MonoBehaviour
     public int GetPossibleUpgradeCount(double currentCoins, out double cost)
     {
         double price = 0;
-        cost = 7878;
+        cost = 0;
         int result = 0;
-        for (int i = 1; i < maxLevel + 1; i++)
+        int times = 0;
+        for (int i = Level; i < maxLevel + 1; i++)
         {
             price += startPrice * i;
             if(price >= currentCoins)
             {
-                price -= startPrice * i;
+                if (times != 0)
+                {
+                    price -= startPrice * i;
+                }
+                else
+                {
+                    times = 1;
+                }
                 cost = price;
-                result = i - 1;
                 break;
             }
+            times++;
         }
-        return result;
+        return times;
     }
 
     public virtual void ApplyUpgrade(int times = 1)

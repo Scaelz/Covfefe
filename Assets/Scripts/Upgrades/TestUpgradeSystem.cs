@@ -21,6 +21,7 @@ public class TestUpgradeSystem : MonoBehaviour
         
         InitializeUpgrades();
         coins.OnCoinsChanged += CoinsUpdatedHandler;
+        CoinsUpdatedHandler(coins.GetCoins());
     }
 
     void InitializeUpgrades()
@@ -35,7 +36,7 @@ public class TestUpgradeSystem : MonoBehaviour
             UpgradeMenuUI menuUI = menu.GetComponent<UpgradeMenuUI>();
             upgrades.Add(upgrade, menuUI);
 
-            int upgradesCount = upgrade.GetPossibleUpgradeCount(1500, out double cost);
+            int upgradesCount = upgrade.GetPossibleUpgradeCount(coins.GetCoins(), out double cost);
             menuUI.SetInfo(upgrade.GetLevel(), upgrade.GetMaxLevel(), upgrade.GetName(), upgrade.GetDescription(),
                 upgrade.GetPrice(), upgradesCount, cost, upgrade.GetIconSprite());
             menuUI.OnSingleUpgradeClicked += SingleClickHandler;
@@ -50,30 +51,43 @@ public class TestUpgradeSystem : MonoBehaviour
 
     void SingleClickHandler(UpgradeMenuUI menuUI)
     {
-        GetUpgradeByUI(menuUI).ApplyUpgrade();
+        BaseUpgrade upgrade = GetUpgradeByUI(menuUI);
+        upgrade.ApplyUpgrade();
+        double current_cost = upgrade.GetPrice();
+        IncreaseUpgradeLevel(upgrade, menuUI, 1);
+        config.SpentCoins(current_cost);
     }
 
     void MaxClickHandler(UpgradeMenuUI menuUI)
     {
         BaseUpgrade upgrade = GetUpgradeByUI(menuUI);
         int count = upgrade.GetPossibleUpgradeCount(coins.GetCoins(), out double cost);
+        IncreaseUpgradeLevel(upgrade, menuUI, count);
         upgrade.ApplyUpgrade(count);
+        config.SpentCoins(cost);
+    }
+
+    void IncreaseUpgradeLevel(BaseUpgrade upgrade, UpgradeMenuUI menuUI, int value)
+    {
+        upgrade.IncreaseLevel(value);
+        menuUI.UpdateLevelText(upgrade.GetLevel(), upgrade.GetMaxLevel());
     }
 
     void CoinsUpdatedHandler(double value)
     {
+
         foreach (KeyValuePair<BaseUpgrade, UpgradeMenuUI> upgrade in upgrades)
         {
             if (!QuerySingleUpgradePossibility(upgrade.Key, value))
             {
                 ChangeUpgradeButtonsState(upgrade.Value, false);
-                upgrade.Value.UpdateBuyMaxCountAndPrice(1, upgrade.Key.GetPrice());
+                upgrade.Value.UpgradePricesTexts(upgrade.Key.GetPrice(), upgrade.Key.GetPrice(), 1);
                 continue;
             }
 
             int count = upgrade.Key.GetPossibleUpgradeCount(coins.GetCoins(), out double cost);
             ChangeUpgradeButtonsState(upgrade.Value, true);
-            upgrade.Value.UpdateBuyMaxCountAndPrice(count, cost);
+            upgrade.Value.UpgradePricesTexts(upgrade.Key.GetPrice(), cost, count);
         }
     }
 
@@ -85,6 +99,6 @@ public class TestUpgradeSystem : MonoBehaviour
 
     bool QuerySingleUpgradePossibility(BaseUpgrade upgrade, double value)
     {
-        return upgrade.GetPrice() < value;
+        return upgrade.GetPrice() <= value;
     }
 }
