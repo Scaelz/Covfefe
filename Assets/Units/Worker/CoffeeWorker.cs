@@ -127,7 +127,7 @@ public class CoffeeWorker : MonoBehaviour, IWorker, IUpgradeable
         OnPassedCofee?.Invoke();
     }
 
-    public void Upgrade()
+    public void Upgrade(CustomUpgrade upgrade)
     {
         throw new NotImplementedException();
     }

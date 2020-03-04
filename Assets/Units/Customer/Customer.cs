@@ -197,7 +197,7 @@ public class Customer : Unit, ICustomer, ILineable, IUpgradeable
         }
     }
 
-    public void Upgrade()
+    public void Upgrade(CustomUpgrade upgrade)
     {
         throw new NotImplementedException();
     }

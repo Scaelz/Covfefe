@@ -8,5 +8,9 @@ public class PrefsUtils : MonoBehaviour
     public static string coffee_lvl = "coffee_lvl";
     public static string money = "money";
     public static string onlineDate = "OnlineDate";
-
+    public static string customerSpeedUpgrade = "CustomerSpeedUpgrade";
+    public static string coffeeCostUpgrade = "CoffeeCostUpgrade";
+    public static string baristaSpeedUpgrade = "Barista{0}SpeedUpgrade";
+    public static string customerHappyPower = "CustomerHappyPowerUpgrade";
+    public static string customerHappyPercent = "CustomerHappyPecentUpgrade";
 }

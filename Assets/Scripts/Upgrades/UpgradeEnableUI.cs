@@ -10,7 +10,7 @@ public class UpgradeEnableUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        menu.SetActive(menuEnabled);
+        //menu.SetActive(menuEnabled);
     }
     public void OnEnabled()
     {

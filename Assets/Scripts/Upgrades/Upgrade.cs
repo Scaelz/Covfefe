@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 public enum CustomUpgrade
 {
@@ -10,6 +12,7 @@ public enum CustomUpgrade
     WorkSpeed,
     LineLength,
     Popularity,
+    CoffeeCost
 }
 
 abstract public class BaseUpgrade: MonoBehaviour
@@ -28,10 +31,17 @@ abstract public class BaseUpgrade: MonoBehaviour
     public string GetName() => upgradeName;
     public string GetDescription() => description;
     public Sprite GetIconSprite() => sprite;
+    public CustomUpgrade GetCustomType() => upgradeType;
 
-    public void IncreaseLevel(int value)
+    public bool IncreaseLevel(int value)
     {
         Level += value;
+        if (Level >= maxLevel)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     public bool IsActive()
@@ -47,7 +57,6 @@ abstract public class BaseUpgrade: MonoBehaviour
     {
         double price = 0;
         cost = 0;
-        int result = 0;
         int times = 0;
         for (int i = Level; i < maxLevel + 1; i++)
         {
@@ -72,18 +81,44 @@ abstract public class BaseUpgrade: MonoBehaviour
 
     public virtual void ApplyUpgrade(int times = 1)
     {
-        Debug.Log($"Upgrade ({upgradeName}) applied {times} times");
+        UpdateObjectsList();
+        foreach (IUpgradeable item in objectsToUpgrade)
+        {
+            item.Upgrade(upgradeType);
+        }
+
+        SaveData();
     }
+
+    abstract public List<IUpgradeable> UpdateObjectsList();
+
+    abstract public Type GetUserType();
+
+    abstract public void SaveData();
+
+    abstract public void LoadData();
 }
 
 abstract public class Upgrade<T> : BaseUpgrade where T: Object, IUpgradeable
 {
-    public virtual List<IUpgradeable> UpdateObjectsList()
+    private void Start()
     {
-        if (objectsToUpgrade == null)
+        UpdateObjectsList();
+        Debug.Log(objectsToUpgrade);
+    }
+
+    public override List<IUpgradeable> UpdateObjectsList()
+    {
+        objectsToUpgrade = new List<IUpgradeable>();
+        foreach (IUpgradeable item in FindObjectsOfType<T>())
         {
-            objectsToUpgrade = new List<T>(FindObjectsOfType<T>()) as List<IUpgradeable>;
-        }
+            objectsToUpgrade.Add(item);
+        } 
         return objectsToUpgrade;
+    }
+
+    public override Type GetUserType()
+    {
+        return typeof(T);
     }
 }

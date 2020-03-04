@@ -3,7 +3,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 
-public class IdleConfig : MonoBehaviour
+public class IdleConfig : MonoBehaviour, IUpgradeable
 {
     [Header("Text Fields")]
     //[SerializeField] TextMeshProUGUI coinsText;
@@ -53,6 +53,7 @@ public class IdleConfig : MonoBehaviour
         SetCoinsPriceViaLvl();
         SetUpgradeCostViaLvl();
         SetTextValue();
+        Upgrade(CustomUpgrade.CoffeeCost);
     }
 
     void UpdateFrequencyText(float value)
@@ -64,11 +65,11 @@ public class IdleConfig : MonoBehaviour
     {
         buyMaxLevels = Math.Floor(Math.Log(_coins.GetCoins() * (multiply - 1) / (clickUpgradeCost) + 1, multiply)); // * Math.Pow(multiply, 0)
 
-        currentLevelText.text = stringFieldsText[0] + clickUpgradeLevel;
+        //currentLevelText.text = stringFieldsText[0] + clickUpgradeLevel;
         //SetExponentText(Math.Round(coins), coinsText, stringFieldsText[1]);
         SetExponentText(coinsClickValue, coinsPerCoffeeText, stringFieldsText[2]);
-        SetExponentText(Math.Round(clickUpgradeCost), clickUpgradeText, stringFieldsText[3]);
-        SetExponentText(Math.Round(buyMaxLevels), buyMaxText, stringFieldsText[4]);
+        //SetExponentText(Math.Round(clickUpgradeCost), clickUpgradeText, stringFieldsText[3]);
+        //SetExponentText(Math.Round(buyMaxLevels), buyMaxText, stringFieldsText[4]);
     }
 
     // Exponent
@@ -202,6 +203,21 @@ public class IdleConfig : MonoBehaviour
         PlayerPrefs.SetFloat(PrefsUtils.money, 0);
         PlayerPrefs.SetInt(PrefsUtils.cashbox, 0);
         PlayerPrefs.SetString(PrefsUtils.onlineDate, "");
+        PlayerPrefs.SetInt(PrefsUtils.customerSpeedUpgrade, 1);
+        PlayerPrefs.SetInt(PrefsUtils.coffeeCostUpgrade, 1);
+        PlayerPrefs.SetInt(PrefsUtils.baristaSpeedUpgrade, 1);
+        PlayerPrefs.SetInt(PrefsUtils.customerHappyPower, 1);
+        PlayerPrefs.SetInt(PrefsUtils.customerHappyPercent, 1);
+
         PlayerPrefs.Save();
+    }
+
+    public void Upgrade(CustomUpgrade upgrade)
+    {
+        TestUpgradeSystem upgradeSystem = FindObjectOfType<TestUpgradeSystem>();
+        int lvl = upgradeSystem.GetUpgradesData(GetType(), upgrade);
+
+        coinsClickValue = lvl * 2.43f;
+        SetTextValue();
     }
 }

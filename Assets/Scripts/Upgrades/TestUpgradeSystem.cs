@@ -69,7 +69,12 @@ public class TestUpgradeSystem : MonoBehaviour
 
     void IncreaseUpgradeLevel(BaseUpgrade upgrade, UpgradeMenuUI menuUI, int value)
     {
-        upgrade.IncreaseLevel(value);
+        bool maxReached = upgrade.IncreaseLevel(value);
+        if (maxReached)
+        {
+            ChangeUpgradeButtonsState(menuUI, false);
+            upgrades.Remove(upgrade);
+        }
         menuUI.UpdateLevelText(upgrade.GetLevel(), upgrade.GetMaxLevel());
     }
 
@@ -100,5 +105,11 @@ public class TestUpgradeSystem : MonoBehaviour
     bool QuerySingleUpgradePossibility(BaseUpgrade upgrade, double value)
     {
         return upgrade.GetPrice() <= value;
+    }
+
+    public int GetUpgradesData(Type type, CustomUpgrade upgrade)
+    {
+        BaseUpgrade baseUpgrade = all_upgradable.Where(x => x.GetCustomType() == upgrade && x.GetUserType() == type).FirstOrDefault();
+        return baseUpgrade.GetLevel();
     }
 }

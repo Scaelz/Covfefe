@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IUpgradeable
 {
-    void Upgrade();
+    void Upgrade(CustomUpgrade upgrade);
 }
