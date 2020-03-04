@@ -21,9 +21,9 @@ public class OfflineWork : MonoBehaviour
         {
             int cachboxCount = PlayerPrefs.GetInt(PrefsUtils.cashbox) + 1;
             float avSpeed = GetAverageWorkTime(cachboxCount);
-            Debug.Log(avSpeed);
-            Debug.Log(cachboxCount);
-            Debug.Log(config.coinsClickValue);
+            //Debug.Log(avSpeed);
+            //Debug.Log(cachboxCount);
+            //Debug.Log(config.coinsClickValue);
             CalculateOfflineIncome(avSpeed, cachboxCount, config.coinsClickValue);
         }
         else
