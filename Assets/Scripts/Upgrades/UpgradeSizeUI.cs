@@ -28,6 +28,7 @@ public class UpgradeSizeUI : MonoBehaviour
         else
         {
             rectTransform.offsetMin = new Vector2(0, 0);
+            scrollRect.vertical = false;
         }
     }
 }
