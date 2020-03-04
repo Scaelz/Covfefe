@@ -4701,7 +4701,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 855046992}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: 293c9320b41a8724aad30f3575daf893,
     type: 2}
@@ -6526,6 +6526,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_textInfo.pageCount
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7246297215073601574, guid: 74c5345b5118ed54ba5552e1ee3414b4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7728863069064572558, guid: 74c5345b5118ed54ba5552e1ee3414b4,
         type: 3}
@@ -10545,17 +10550,17 @@ PrefabInstance:
     - target: {fileID: 7450179665298317456, guid: 022db624191438942a4287ca4b05e7c7,
         type: 3}
       propertyPath: startPrice
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7450179665298317457, guid: 022db624191438942a4287ca4b05e7c7,
         type: 3}
       propertyPath: startPrice
-      value: 7
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7450179665298317458, guid: 022db624191438942a4287ca4b05e7c7,
         type: 3}
       propertyPath: startPrice
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7450179665298317459, guid: 022db624191438942a4287ca4b05e7c7,
         type: 3}
