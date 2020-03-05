@@ -16,6 +16,7 @@ public class UpgradeMenuUI : MonoBehaviour
     [SerializeField] Button buttonSingle;
     [SerializeField] Button buttonMax;
     [SerializeField] Image icon;
+    [SerializeField] GameObject fillBar;
     public event Action<UpgradeMenuUI> OnSingleUpgradeClicked;
     public event Action<UpgradeMenuUI> OnMaxUpgradeClicked;
 
@@ -23,6 +24,7 @@ public class UpgradeMenuUI : MonoBehaviour
         double price, int maxUpgradesPossible, double maxPrice, Sprite sprite)
     {
         tmLvl.text = $"{lvl}/{maxLvl}";
+        fillBar.GetComponent<Image>().fillAmount = lvl / maxLvl;
         tmName.text = name;
         tmDescription.text = description;
         tmPriceForOne.text = price.ToString();
