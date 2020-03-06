@@ -11,7 +11,7 @@ public class Coins : MonoBehaviour
     [SerializeField] private double coins;
     //public double CurrentCoins { get => coins; }
     IdleConfig _coins;
-
+    public event Action<double> OnCoinsChanged;
     private void Awake()
     {
         /*
@@ -56,6 +56,7 @@ public class Coins : MonoBehaviour
     {
         coins -= value;
         SetCoinsText();
+        OnCoinsChanged?.Invoke(coins);
     }
 
     private void AddCoins(double value)
@@ -63,6 +64,7 @@ public class Coins : MonoBehaviour
         //Debug.Log(value);
         coins += value;
         SetCoinsText();
+        OnCoinsChanged?.Invoke(coins);
     }
     
     private void SetCoinsText()

@@ -1,41 +1,90 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TestUpgradeSystem : MonoBehaviour
 {
-    public BaseUpgrade[] all_upgradable;
-    public Text name;
-    public Text description;
-    public Action<int> buttonBuyOneFunctionOne;
-    public Action buttonBuyOneFunctionMax;
+    BaseUpgrade[] all_upgradable;
+    [SerializeField] GameObject menuPrefab;
+    [SerializeField] Transform MenuContainer;
+    Dictionary<BaseUpgrade, UpgradeMenuUI> upgrades = new Dictionary<BaseUpgrade, UpgradeMenuUI>();
+    Coins coins;
+    IdleConfig config;
+
     void Start()
     {
-        all_upgradable = FindObjectsOfType<BaseUpgrade>();
+        coins = FindObjectOfType<Coins>();
+        config = FindObjectOfType<IdleConfig>();
+        
+        InitializeUpgrades();
+        coins.OnCoinsChanged += CoinsUpdatedHandler;
+    }
 
-        foreach (BaseUpgrade item in all_upgradable)
+    void InitializeUpgrades()
+    {
+        all_upgradable = FindObjectsOfType<BaseUpgrade>();
+        foreach (BaseUpgrade upgrade in all_upgradable)
         {
-            description.text = item.GetDescription();
-            buttonBuyOneFunctionOne = (x) => item.ApplyUpgrade(x);
-            buttonBuyOneFunctionMax = () =>
-            {
-                double cost;
-                int count = item.GetPossibleUpgradeCount(1000, out cost);
-                item.ApplyUpgrade(count);
-            };
+            GameObject menu = Instantiate(menuPrefab);
+            menu.transform.SetParent(MenuContainer);
+            menu.transform.localScale = Vector3.one;
+
+            UpgradeMenuUI menuUI = menu.GetComponent<UpgradeMenuUI>();
+            upgrades.Add(upgrade, menuUI);
+
+            int upgradesCount = upgrade.GetPossibleUpgradeCount(1500, out double cost);
+            menuUI.SetInfo(upgrade.GetLevel(), upgrade.GetMaxLevel(), upgrade.GetName(), upgrade.GetDescription(),
+                upgrade.GetPrice(), upgradesCount, cost, upgrade.GetIconSprite());
+            menuUI.OnSingleUpgradeClicked += SingleClickHandler;
+            menuUI.OnMaxUpgradeClicked += MaxClickHandler;
         }
     }
 
-
-    public void ClickHandler()
+    BaseUpgrade GetUpgradeByUI(UpgradeMenuUI menuUI)
     {
-        buttonBuyOneFunctionOne?.Invoke(1);
+        return upgrades.FirstOrDefault(x => x.Value == menuUI).Key;
     }
 
-    public void ClickHandlerMax()
+    void SingleClickHandler(UpgradeMenuUI menuUI)
     {
-        buttonBuyOneFunctionMax?.Invoke();
+        GetUpgradeByUI(menuUI).ApplyUpgrade();
+    }
+
+    void MaxClickHandler(UpgradeMenuUI menuUI)
+    {
+        BaseUpgrade upgrade = GetUpgradeByUI(menuUI);
+        int count = upgrade.GetPossibleUpgradeCount(coins.GetCoins(), out double cost);
+        upgrade.ApplyUpgrade(count);
+    }
+
+    void CoinsUpdatedHandler(double value)
+    {
+        foreach (KeyValuePair<BaseUpgrade, UpgradeMenuUI> upgrade in upgrades)
+        {
+            if (!QuerySingleUpgradePossibility(upgrade.Key, value))
+            {
+                ChangeUpgradeButtonsState(upgrade.Value, false);
+                upgrade.Value.UpdateBuyMaxCountAndPrice(1, upgrade.Key.GetPrice());
+                continue;
+            }
+
+            int count = upgrade.Key.GetPossibleUpgradeCount(coins.GetCoins(), out double cost);
+            ChangeUpgradeButtonsState(upgrade.Value, true);
+            upgrade.Value.UpdateBuyMaxCountAndPrice(count, cost);
+        }
+    }
+
+    void ChangeUpgradeButtonsState(UpgradeMenuUI menuUi, bool state)
+    {
+        menuUi.MaxUpgradeButtonState(state);
+        menuUi.SingleUpgradeButtonState(state);
+    }
+
+    bool QuerySingleUpgradePossibility(BaseUpgrade upgrade, double value)
+    {
+        return upgrade.GetPrice() < value;
     }
 }
