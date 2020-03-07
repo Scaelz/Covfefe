@@ -107,9 +107,12 @@ public class TestUpgradeSystem : MonoBehaviour
         return upgrade.GetPrice() <= value;
     }
 
-    public int GetUpgradesData(Type type, CustomUpgrade upgrade)
+    public static void UpgradeRequest(Type type, IUpgradeable instance)
     {
-        BaseUpgrade baseUpgrade = all_upgradable.Where(x => x.GetCustomType() == upgrade && x.GetUserType() == type).FirstOrDefault();
-        return baseUpgrade.GetLevel();
+        var baseUpgrades = FindObjectsOfType<BaseUpgrade>().Where(x => x.GetUserType() == type);
+        foreach (BaseUpgrade upgrade in baseUpgrades)
+        {
+            upgrade.UpgradeInstance(instance);
+        }
     }
 }

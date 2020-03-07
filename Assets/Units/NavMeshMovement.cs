@@ -5,11 +5,11 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class NavMeshMovement : MonoBehaviour, IMovable
 {
-    [SerializeField]
-    private float speed;
-    public float Speed { get => speed; private set => speed = value; }
+    [SerializeField] float maxSpeed, startSpeed;
     bool destinationSet = false;
     public Vector3 CurrentDestination { get; private set; }
+
+    public float Speed => agent.speed;
 
     [SerializeField]
     private NavMeshAgent agent;
@@ -19,7 +19,7 @@ public class NavMeshMovement : MonoBehaviour, IMovable
 
     private void Awake()
     {
-        //agent = GetComponent<NavMeshAgent>();
+        agent.speed = startSpeed;
     }
 
     public void SetPriority(int value)
@@ -74,5 +74,20 @@ public class NavMeshMovement : MonoBehaviour, IMovable
         {
             agent.obstacleAvoidanceType = ObstacleAvoidanceType.HighQualityObstacleAvoidance;
         }
+    }
+
+    public void ChangeSpeed(float value)
+    {
+        agent.speed = value;
+    }
+
+    public float GetMaxSpeed()
+    {
+        return maxSpeed;
+    }
+
+    public float GetDefaultSpeed()
+    {
+        return startSpeed;
     }
 }

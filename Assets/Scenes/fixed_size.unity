@@ -4284,6 +4284,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1266106103}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &816664385 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5428492360075722615, guid: 2838d068b0ed9a2458d6e4c6bf50dad1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1147187802}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &819071593
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5991,6 +5997,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 993574351328274596, guid: 74c5345b5118ed54ba5552e1ee3414b4,
+        type: 3}
+      propertyPath: m_Name
+      value: coffeecostinfo
+      objectReference: {fileID: 0}
     - target: {fileID: 1217651368912140075, guid: 74c5345b5118ed54ba5552e1ee3414b4,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -6007,6 +6018,26 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1217651368912140075, guid: 74c5345b5118ed54ba5552e1ee3414b4,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1628651449402138755, guid: 74c5345b5118ed54ba5552e1ee3414b4,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1628651449402138755, guid: 74c5345b5118ed54ba5552e1ee3414b4,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1628651449402138755, guid: 74c5345b5118ed54ba5552e1ee3414b4,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1628651449402138755, guid: 74c5345b5118ed54ba5552e1ee3414b4,
         type: 3}
       propertyPath: m_textInfo.pageCount
       value: 0
@@ -6491,6 +6522,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 6219218560443846648, guid: 74c5345b5118ed54ba5552e1ee3414b4,
+        type: 3}
+      propertyPath: m_Name
+      value: UpgradButtonContainer
+      objectReference: {fileID: 0}
     - target: {fileID: 6278602862669499616, guid: 74c5345b5118ed54ba5552e1ee3414b4,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -6595,6 +6631,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMin.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7448126614400423252, guid: 74c5345b5118ed54ba5552e1ee3414b4,
+        type: 3}
+      propertyPath: m_Name
+      value: upgradebutton
       objectReference: {fileID: 0}
     - target: {fileID: 7728863069064572558, guid: 74c5345b5118ed54ba5552e1ee3414b4,
         type: 3}
@@ -6741,7 +6782,8 @@ PrefabInstance:
       propertyPath: m_CullTransparentMesh
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2023661014842291077, guid: 74c5345b5118ed54ba5552e1ee3414b4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 74c5345b5118ed54ba5552e1ee3414b4, type: 3}
 --- !u!1001 &1029098607
 PrefabInstance:
@@ -7814,6 +7856,11 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 1335752872}
+    - target: {fileID: 5428492360075722615, guid: 2838d068b0ed9a2458d6e4c6bf50dad1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2838d068b0ed9a2458d6e4c6bf50dad1, type: 3}
 --- !u!1001 &1152465548
@@ -9718,6 +9765,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7c4d057f1187c64bad50c0d179a5f39, type: 3}
+--- !u!1 &1418560736 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5428492360075722615, guid: 2838d068b0ed9a2458d6e4c6bf50dad1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1655335766}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1421522305
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11435,6 +11488,11 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 1335752872}
+    - target: {fileID: 5428492360075722615, guid: 2838d068b0ed9a2458d6e4c6bf50dad1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2838d068b0ed9a2458d6e4c6bf50dad1, type: 3}
 --- !u!1001 &1667180200
@@ -14993,7 +15051,7 @@ PrefabInstance:
         type: 3}
       propertyPath: workPlaceObject
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 816664385}
     - target: {fileID: 4014229080982370634, guid: a9f8ac420e314184c9b9ba73fe073180,
         type: 3}
       propertyPath: index
@@ -15138,7 +15196,7 @@ PrefabInstance:
         type: 3}
       propertyPath: workPlaceObject
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1418560736}
     - target: {fileID: 3807003104874888494, guid: 6317361408257614e8684904790caff8,
         type: 3}
       propertyPath: index

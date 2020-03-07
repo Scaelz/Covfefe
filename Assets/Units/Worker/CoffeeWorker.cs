@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CoffeeWorker : MonoBehaviour, IWorker, IUpgradeable
 {
+    [SerializeField] int index;
     public Transform CurrentTransform { get => transform; }
     [SerializeField]
     float workSpeed;
@@ -127,7 +128,7 @@ public class CoffeeWorker : MonoBehaviour, IWorker, IUpgradeable
         OnPassedCofee?.Invoke();
     }
 
-    public void Upgrade(CustomUpgrade upgrade)
+    public void Upgrade(CustomUpgrade upgrade, int lvl, int maxLvl)
     {
         throw new NotImplementedException();
     }

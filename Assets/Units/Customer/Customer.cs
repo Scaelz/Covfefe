@@ -29,6 +29,7 @@ public class Customer : Unit, ICustomer, ILineable, IUpgradeable
         moveScript.OnStartMoving += SetWalkingAnimation;
         OnHappy += RecommendPlace;
         OnRage += UnRecommendPlace;
+        TestUpgradeSystem.UpgradeRequest(GetType(), this);
     }
     
     void RecommendPlace()
@@ -70,7 +71,7 @@ public class Customer : Unit, ICustomer, ILineable, IUpgradeable
     {
         routeBuilt = false;
         Initialize();
-        LeaveLine();
+        //LeaveLine();
         withCoffe = false;
         happyTrigger = false;
         SetWalkingAnimation();
@@ -197,8 +198,30 @@ public class Customer : Unit, ICustomer, ILineable, IUpgradeable
         }
     }
 
-    public void Upgrade(CustomUpgrade upgrade)
+    public void Upgrade(CustomUpgrade upgrade, int lvl, int maxLvl)
     {
-        throw new NotImplementedException();
+        switch (upgrade)
+        {
+            case CustomUpgrade.CustomerSpeed:
+                ApplySpeedUpgrade(lvl, maxLvl);
+                break;
+            case CustomUpgrade.CustomerHappyRate:
+                break;
+            case CustomUpgrade.CustomerHappyPower:
+                break;
+            default:
+                break;
+        }
+    }
+
+    void ApplySpeedUpgrade(int lvl, int maxLvl)
+    {
+        float upgradeTick = (moveScript.GetMaxSpeed() - moveScript.GetDefaultSpeed())/maxLvl;
+        float newSpeed = moveScript.GetDefaultSpeed(); 
+        for (int i = 0; i < lvl; i++)
+        {
+            newSpeed += upgradeTick;
+        }
+        moveScript.ChangeSpeed(newSpeed);
     }
 }

@@ -53,7 +53,7 @@ public class IdleConfig : MonoBehaviour, IUpgradeable
         SetCoinsPriceViaLvl();
         SetUpgradeCostViaLvl();
         SetTextValue();
-        Upgrade(CustomUpgrade.CoffeeCost);
+        TestUpgradeSystem.UpgradeRequest(GetType(), this);
     }
 
     void UpdateFrequencyText(float value)
@@ -212,11 +212,8 @@ public class IdleConfig : MonoBehaviour, IUpgradeable
         PlayerPrefs.Save();
     }
 
-    public void Upgrade(CustomUpgrade upgrade)
+    public void Upgrade(CustomUpgrade upgrade, int lvl, int maxLvl)
     {
-        TestUpgradeSystem upgradeSystem = FindObjectOfType<TestUpgradeSystem>();
-        int lvl = upgradeSystem.GetUpgradesData(GetType(), upgrade);
-
         coinsClickValue = lvl * 2.43f;
         SetTextValue();
     }

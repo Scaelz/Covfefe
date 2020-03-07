@@ -8,7 +8,8 @@ public interface IMovable
     event Action OnStartMoving;
     float Speed { get; }
 
-
+    float GetMaxSpeed();
+    float GetDefaultSpeed();
     void MoveTo(Vector3 position);
     void Stop();
     bool isMoving();
@@ -16,4 +17,6 @@ public interface IMovable
     void SetPriority(int priority);
 
     void SetQuality(bool state);
+
+    void ChangeSpeed(float value);
 }
