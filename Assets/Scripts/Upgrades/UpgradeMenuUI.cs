@@ -7,12 +7,15 @@ using UnityEngine.UI;
 
 public class UpgradeMenuUI : MonoBehaviour
 {
+    [Header("Text")]
     [SerializeField] TextMeshProUGUI tmName;
     [SerializeField] TextMeshProUGUI tmDescription;
     [SerializeField] TextMeshProUGUI tmPriceForOne;
     [SerializeField] TextMeshProUGUI tmPriceForMax;
     [SerializeField] TextMeshProUGUI tmLvl;
     [SerializeField] TextMeshProUGUI tmBuyMaxButtonText;
+    [Header("")]
+    [SerializeField] GameObject progressBarFill;
     [SerializeField] Button buttonSingle;
     [SerializeField] Button buttonMax;
     [SerializeField] Image icon;
@@ -23,6 +26,7 @@ public class UpgradeMenuUI : MonoBehaviour
         double price, int maxUpgradesPossible, double maxPrice, Sprite sprite)
     {
         UpdateLevelText(lvl, maxLvl);
+        UpdateProgressBar(lvl, maxLvl);
         tmName.text = name;
         tmDescription.text = description;
         UpgradePricesTexts(price, maxPrice, maxUpgradesPossible);
@@ -32,6 +36,13 @@ public class UpgradeMenuUI : MonoBehaviour
     public void UpdateLevelText(int lvl, int maxLvl)
     {
         tmLvl.text = $"{lvl}/{maxLvl}";
+    }
+
+    public void UpdateProgressBar(int lvl, int maxLvl)
+    {
+        float percent = lvl * 100 / maxLvl;
+        progressBarFill.GetComponent<Image>().fillAmount = percent/100;
+        progressBarFill.GetComponent<Image>().color = new Color((1 - percent / 100)/3, 0.45f, 0.13f);
     }
 
     public void SingleUpgradeButtonState(bool state)

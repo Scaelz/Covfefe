@@ -21,9 +21,11 @@ abstract public class BaseUpgrade: MonoBehaviour
     public int Level { get; protected set; } = 1;
     [SerializeField] protected int maxLevel;
     [SerializeField] protected string upgradeName;
+    [SerializeField] protected float multiply;
     [SerializeField, TextArea()] protected string description;
     [SerializeField] protected Sprite sprite;
     [SerializeField] protected double startPrice;
+    [SerializeField] protected double currentPrice;
     [SerializeField] protected List<IUpgradeable> objectsToUpgrade;
 
     public int GetLevel() => Level;
@@ -33,6 +35,10 @@ abstract public class BaseUpgrade: MonoBehaviour
     public Sprite GetIconSprite() => sprite;
     public CustomUpgrade GetCustomType() => upgradeType;
 
+    private void Awake()
+    {
+        if (Level <= 1) { currentPrice = startPrice; }
+    }
     public bool IncreaseLevel(int value)
     {
         Level += value;
@@ -50,32 +56,18 @@ abstract public class BaseUpgrade: MonoBehaviour
     }
     public double GetPrice()
     {
-        return startPrice * Level;
+        return currentPrice;
     }
 
     public int GetPossibleUpgradeCount(double currentCoins, out double cost)
     {
-        double price = 0;
-        cost = 0;
-        int times = 0;
-        for (int i = Level; i < maxLevel + 1; i++)
+        int times = (int) Math.Floor(Math.Log(currentCoins * (multiply - 1) / (currentPrice) + 1, multiply));
+        cost = currentPrice;
+        for (int i = 0; i < times; i++)
         {
-            price += startPrice * i;
-            if(price >= currentCoins)
-            {
-                if (times != 0)
-                {
-                    price -= startPrice * i;
-                }
-                else
-                {
-                    times = 1;
-                }
-                cost = price;
-                break;
-            }
-            times++;
+            cost *= multiply;
         }
+        cost = Math.Floor(cost);
         return times;
     }
 
