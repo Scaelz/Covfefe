@@ -76,6 +76,7 @@ public class TestUpgradeSystem : MonoBehaviour
             upgrades.Remove(upgrade);
         }
         menuUI.UpdateLevelText(upgrade.GetLevel(), upgrade.GetMaxLevel());
+        menuUI.UpdateProgressBar(upgrade.GetLevel(), upgrade.GetMaxLevel());
     }
 
     void CoinsUpdatedHandler(double value)
@@ -96,10 +97,10 @@ public class TestUpgradeSystem : MonoBehaviour
         }
     }
 
-    void ChangeUpgradeButtonsState(UpgradeMenuUI menuUi, bool state)
+    void ChangeUpgradeButtonsState(UpgradeMenuUI menuUI, bool state)
     {
-        menuUi.MaxUpgradeButtonState(state);
-        menuUi.SingleUpgradeButtonState(state);
+        menuUI.MaxUpgradeButtonState(state);
+        menuUI.SingleUpgradeButtonState(state);
     }
 
     bool QuerySingleUpgradePossibility(BaseUpgrade upgrade, double value)

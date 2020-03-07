@@ -1684,10 +1684,10 @@ MonoBehaviour:
   tmPriceForMax: {fileID: 7768272057766061335}
   tmLvl: {fileID: 2686661682382063612}
   tmBuyMaxButtonText: {fileID: 1868071232869323673}
+  progressBarFill: {fileID: 8201678733788410490}
   buttonSingle: {fileID: 8770966170754783365}
   buttonMax: {fileID: 8770966170996531833}
   icon: {fileID: 8770966171883411074}
-  fillBar: {fileID: 8201678733788410490}
 --- !u!1 &8770966171655122868
 GameObject:
   m_ObjectHideFlags: 0
