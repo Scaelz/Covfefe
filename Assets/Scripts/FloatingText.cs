@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -60,7 +61,8 @@ public class FloatingText : MonoBehaviour
     private void Reset()
     {
         isActive = false;
-        textMesh.text = $"+ {config.coinsClickValue.ToString()} $";
+        double rounded = Math.Round(config.coinsClickValue, 1);
+        textMesh.text = $"+ {rounded.ToString()} $";
         transform.position = defaultPosition;
         currentColor = color;
         textMesh.color = decayColor;

@@ -104,7 +104,6 @@ abstract public class Upgrade<T> : BaseUpgrade where T: Object, IUpgradeable
     private void Start()
     {
         UpdateObjectsList();
-        Debug.Log(objectsToUpgrade);
     }
 
     public override List<IUpgradeable> UpdateObjectsList()
