@@ -209,7 +209,8 @@ public class IdleConfig : MonoBehaviour, IUpgradeable
         PlayerPrefs.SetInt(PrefsUtils.customerSpeedUpgrade, 1);
         PlayerPrefs.SetInt(PrefsUtils.coffeeCostUpgrade, 1);
         PlayerPrefs.SetFloat(PrefsUtils.coffeeCostUpgradePrice, 0);
-        PlayerPrefs.SetInt(PrefsUtils.baristaSpeedUpgrade, 1);
+        PlayerPrefs.SetInt(String.Format(PrefsUtils.baristaSpeedUpgrade, 1), 1);
+        PlayerPrefs.SetInt(String.Format(PrefsUtils.baristaSpeedUpgradePrice, 1), 0);
         PlayerPrefs.SetInt(PrefsUtils.customerHappyPower, 1);
         PlayerPrefs.SetInt(PrefsUtils.customerHappyPercent, 1);
 

@@ -5,17 +5,31 @@ using UnityEngine;
 
 public class BaristaSpeedUpgrade : Upgrade<CoffeeWorker>
 {
-    [SerializeField] int baristaIndex;
+    string prefName;
+    string pricePrefName;
+
+    new void Awake()
+    {
+        prefName = String.Format(PrefsUtils.baristaSpeedUpgrade, Index.ToString());
+        pricePrefName = String.Format(PrefsUtils.baristaSpeedUpgradePrice, Index.ToString());
+        LoadData();
+        base.Awake();
+    }
 
     public override void SaveData()
     {
-        string prefName = String.Format(PrefsUtils.baristaSpeedUpgrade, baristaIndex.ToString());
         PlayerPrefs.SetInt(prefName, Level);
+        PlayerPrefs.SetFloat(pricePrefName, (float)currentPrice);
         PlayerPrefs.Save();
     }
 
     public override void LoadData()
     {
-        throw new NotImplementedException();
+        Level = PlayerPrefs.GetInt(prefName);
+        float price = PlayerPrefs.GetFloat(pricePrefName);
+        if (price != 0)
+        {
+            startPrice = price;
+        }
     }
 }

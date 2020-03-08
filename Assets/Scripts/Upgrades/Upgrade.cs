@@ -52,6 +52,8 @@ abstract public class BaseUpgrade: MonoBehaviour
         return false;
     }
 
+    public int GetIndex() => Index;
+
     public bool IsActive()
     {
         return default;
@@ -121,7 +123,9 @@ abstract public class Upgrade<T> : BaseUpgrade where T: Object, IUpgradeable
     public override List<IUpgradeable> UpdateObjectsList()
     {
         objectsToUpgrade = new List<IUpgradeable>();
-        foreach (IUpgradeable item in FindObjectsOfType<T>().Where(x => x.UpgradeIndex == Index))
+        var items = FindObjectsOfType<T>().Where(x => x.UpgradeIndex == Index);
+
+        foreach (IUpgradeable item in items)
         {
             objectsToUpgrade.Add(item);
         } 

@@ -17,6 +17,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: Customer
       objectReference: {fileID: 0}
+    - target: {fileID: 4968823114802174247, guid: 914dd3a87d4a9aa45b90c0626fd26e2a,
+        type: 3}
+      propertyPath: textures.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968823114802174247, guid: 914dd3a87d4a9aa45b90c0626fd26e2a,
+        type: 3}
+      propertyPath: textures.Array.data[0]
+      value: 
+      objectReference: {fileID: 2800000, guid: fb2008a4fb9c1574b86f19374009580e, type: 3}
+    - target: {fileID: 4968823114802174247, guid: 914dd3a87d4a9aa45b90c0626fd26e2a,
+        type: 3}
+      propertyPath: textures.Array.data[1]
+      value: 
+      objectReference: {fileID: 2800000, guid: adbd29d5743a5704fbacf3aba2d9d63b, type: 3}
+    - target: {fileID: 4968823114802174247, guid: 914dd3a87d4a9aa45b90c0626fd26e2a,
+        type: 3}
+      propertyPath: textures.Array.data[2]
+      value: 
+      objectReference: {fileID: 2800000, guid: 73c4e8457565284469d5376327f1a741, type: 3}
+    - target: {fileID: 4968823114802174247, guid: 914dd3a87d4a9aa45b90c0626fd26e2a,
+        type: 3}
+      propertyPath: textures.Array.data[3]
+      value: 
+      objectReference: {fileID: 2800000, guid: aa7de3cb693498542956bc976dbe054d, type: 3}
     - target: {fileID: 5093627816020555591, guid: 914dd3a87d4a9aa45b90c0626fd26e2a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -86,7 +111,7 @@ PrefabInstance:
     - target: {fileID: 7281098719661080971, guid: 914dd3a87d4a9aa45b90c0626fd26e2a,
         type: 3}
       propertyPath: m_Name
-      value: Customer 3
+      value: Customer 3 Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 914dd3a87d4a9aa45b90c0626fd26e2a, type: 3}

@@ -978,15 +978,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradeType: 3
   maxLevel: 100
-  upgradeName: Barista 2 work speed
+  upgradeName: Barista 1 work speed
   multiply: 1.85
   description: Motivational, money and ofcourse drinking own coffee forcing barista
     to work faster!
   sprite: {fileID: 21300000, guid: c05c00bed02e38b4e83d1c1843d917d5, type: 3}
-  startPrice: 100
+  startPrice: 1
   currentPrice: 0
-  Index: 0
-  baristaIndex: 2
+  Index: 1
 --- !u!114 &238221765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1001,15 +1000,58 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradeType: 3
   maxLevel: 100
-  upgradeName: Barista 1 work speed
-  multiply: 1.85
+  upgradeName: Barista 2 work speed
+  multiply: 1.95
   description: Motivational, money and ofcourse drinking own coffee forcing barista
     to work faster!
   sprite: {fileID: 21300000, guid: c05c00bed02e38b4e83d1c1843d917d5, type: 3}
-  startPrice: 100
+  startPrice: 1
   currentPrice: 0
-  Index: 0
-  baristaIndex: 1
+  Index: 2
+--- !u!114 &238221766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238221760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d480c9c7ef95eba4e8785dd19c071f80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeType: 3
+  maxLevel: 100
+  upgradeName: Barista 3 work speed
+  multiply: 2.1
+  description: Motivational, money and ofcourse drinking own coffee forcing barista
+    to work faster!
+  sprite: {fileID: 21300000, guid: c05c00bed02e38b4e83d1c1843d917d5, type: 3}
+  startPrice: 1
+  currentPrice: 0
+  Index: 3
+--- !u!114 &238221767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238221760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d480c9c7ef95eba4e8785dd19c071f80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeType: 3
+  maxLevel: 100
+  upgradeName: Barista 4 work speed
+  multiply: 2.55
+  description: Motivational, money and ofcourse drinking own coffee forcing barista
+    to work faster!
+  sprite: {fileID: 21300000, guid: c05c00bed02e38b4e83d1c1843d917d5, type: 3}
+  startPrice: 1
+  currentPrice: 0
+  Index: 4
 --- !u!1001 &243360081
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5564,6 +5606,16 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1335752872}
+    - target: {fileID: 4557886944313500868, guid: d15f17708832dde4fb84fe26a7964d1a,
+        type: 3}
+      propertyPath: timeToEndWork
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557886944313500868, guid: d15f17708832dde4fb84fe26a7964d1a,
+        type: 3}
+      propertyPath: upgradeIndex
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4557886944313500871, guid: d15f17708832dde4fb84fe26a7964d1a,
         type: 3}
       propertyPath: m_Enabled
@@ -10415,7 +10467,7 @@ PrefabInstance:
     - target: {fileID: 4836964974771332973, guid: 022db624191438942a4287ca4b05e7c7,
         type: 3}
       propertyPath: startPrice
-      value: 20
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4836964974771332973, guid: 022db624191438942a4287ca4b05e7c7,
         type: 3}
@@ -11176,6 +11228,11 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 1335752872}
+    - target: {fileID: 6974128956453597928, guid: 2838d068b0ed9a2458d6e4c6bf50dad1,
+        type: 3}
+      propertyPath: upgradeIndex
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2838d068b0ed9a2458d6e4c6bf50dad1, type: 3}
 --- !u!1001 &1667180200
@@ -14266,6 +14323,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4486512199193844975, guid: 3ada17780df00d94b88ba965505823bd,
+        type: 3}
+      propertyPath: upgradeIndex
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6168047138270651495, guid: 3ada17780df00d94b88ba965505823bd,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -14852,7 +14914,7 @@ PrefabInstance:
     - target: {fileID: 4014229080982370641, guid: a9f8ac420e314184c9b9ba73fe073180,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.48
+      value: -9.11
       objectReference: {fileID: 0}
     - target: {fileID: 4014229080982370641, guid: a9f8ac420e314184c9b9ba73fe073180,
         type: 3}
@@ -15554,6 +15616,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 929319642681294063, guid: 138116b6f4380b846bffca13003d51bb,
+        type: 3}
+      propertyPath: upgradeIndex
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3135657492711277427, guid: 138116b6f4380b846bffca13003d51bb,
+        type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 1335752872}
     - target: {fileID: 3135657492711277428, guid: 138116b6f4380b846bffca13003d51bb,
         type: 3}
       propertyPath: m_Mesh

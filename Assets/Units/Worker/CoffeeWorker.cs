@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class CoffeeWorker : MonoBehaviour, IWorker, IUpgradeable
 {
-    [SerializeField] int index;
     public Transform CurrentTransform { get => transform; }
     [SerializeField]
     float workSpeed;
@@ -30,10 +29,15 @@ public class CoffeeWorker : MonoBehaviour, IWorker, IUpgradeable
     public event Action OnPassedCofee;
     public event Action<float> OnSpeedMultiplierChanged;
 
+    void Awake()
+    {
+        UpgradeIndex = upgradeIndex;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        UpgradeIndex = upgradeIndex;
+        TestUpgradeSystem.UpgradeRequest(GetType(), this);
         idleConfig = FindObjectOfType<IdleConfig>();
         CurrentLine = currentLine;
         stressScript = GetComponent<IStressable>();
@@ -132,6 +136,24 @@ public class CoffeeWorker : MonoBehaviour, IWorker, IUpgradeable
 
     public void Upgrade(CustomUpgrade upgrade, int lvl, int maxLvl)
     {
-        throw new NotImplementedException();
+        switch (upgrade)
+        {
+            case CustomUpgrade.WorkSpeed:
+                UpgradeWorkSpeed(lvl, maxLvl);
+                break;
+            default:
+                break;
+        }
+    }
+
+    void UpgradeWorkSpeed(int lvl, int maxLvl)
+    {
+        float upgradeTick = (float)4 / (float)maxLvl;
+        float proxySpeed = 5;
+        for (int i = 0; i < lvl; i++)
+        {
+            proxySpeed -= upgradeTick;
+        }
+        timeToEndWork = proxySpeed;
     }
 }

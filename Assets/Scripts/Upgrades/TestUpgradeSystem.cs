@@ -26,7 +26,7 @@ public class TestUpgradeSystem : MonoBehaviour
 
     void InitializeUpgrades()
     {
-        all_upgradable = FindObjectsOfType<BaseUpgrade>();
+        all_upgradable = GetComponents<BaseUpgrade>();
         foreach (BaseUpgrade upgrade in all_upgradable)
         {
             GameObject menu = Instantiate(menuPrefab);
@@ -110,9 +110,12 @@ public class TestUpgradeSystem : MonoBehaviour
 
     public static void UpgradeRequest(Type type, IUpgradeable instance)
     {
-        var baseUpgrades = FindObjectsOfType<BaseUpgrade>().Where(x => x.GetUserType() == type);
+        var baseUpgrades = FindObjectsOfType<BaseUpgrade>().Where(x => x.GetUserType() == type && x.GetIndex() == instance.UpgradeIndex);
         foreach (BaseUpgrade upgrade in baseUpgrades)
         {
+            Debug.Log(upgrade);
+            Debug.Log(upgrade.GetIndex());
+            Debug.Log(instance.UpgradeIndex);
             upgrade.UpgradeInstance(instance);
         }
     }
