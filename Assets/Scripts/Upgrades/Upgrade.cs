@@ -66,12 +66,14 @@ abstract public class BaseUpgrade: MonoBehaviour
         {
             times = maxLevel - Level;
         }
+        double proxyPrice = currentPrice;
         cost = currentPrice;
         if (times > 1)
         {
-            for (int i = 0; i < times; i++)
+            for (int i = 0; i < times-1; i++)
             {
-                cost *= multiply;
+                proxyPrice *= multiply;
+                cost += proxyPrice;
             }
         }
         cost = Math.Floor(cost);
