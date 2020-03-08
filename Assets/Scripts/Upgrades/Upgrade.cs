@@ -35,9 +35,9 @@ abstract public class BaseUpgrade: MonoBehaviour
     public Sprite GetIconSprite() => sprite;
     public CustomUpgrade GetCustomType() => upgradeType;
 
-    private void Awake()
+    protected void Awake()
     {
-        if (Level <= 1) { currentPrice = startPrice; }
+        currentPrice = startPrice;
     }
     public bool IncreaseLevel(int value)
     {
@@ -62,10 +62,17 @@ abstract public class BaseUpgrade: MonoBehaviour
     public int GetPossibleUpgradeCount(double currentCoins, out double cost)
     {
         int times = (int) Math.Floor(Math.Log(currentCoins * (multiply - 1) / (currentPrice) + 1, multiply));
-        cost = currentPrice;
-        for (int i = 0; i < times; i++)
+        if (times > maxLevel - Level)
         {
-            cost *= multiply;
+            times = maxLevel - Level;
+        }
+        cost = currentPrice;
+        if (times > 1)
+        {
+            for (int i = 0; i < times; i++)
+            {
+                cost *= multiply;
+            }
         }
         cost = Math.Floor(cost);
         return times;
@@ -76,7 +83,11 @@ abstract public class BaseUpgrade: MonoBehaviour
         UpdateObjectsList();
         foreach (IUpgradeable item in objectsToUpgrade)
         {
-            item.Upgrade(upgradeType);
+            for (int i = 0; i < times; i++)
+            {
+                item.Upgrade(upgradeType, Level, maxLevel);
+                currentPrice *= multiply;
+            }
         }
 
         SaveData();
@@ -89,6 +100,11 @@ abstract public class BaseUpgrade: MonoBehaviour
     abstract public void SaveData();
 
     abstract public void LoadData();
+
+    public void UpgradeInstance(IUpgradeable instance)
+    {
+        instance.Upgrade(upgradeType, Level, maxLevel);
+    }
 }
 
 abstract public class Upgrade<T> : BaseUpgrade where T: Object, IUpgradeable

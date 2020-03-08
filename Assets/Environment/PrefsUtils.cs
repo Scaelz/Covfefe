@@ -10,6 +10,7 @@ public class PrefsUtils : MonoBehaviour
     public static string onlineDate = "OnlineDate";
     public static string customerSpeedUpgrade = "CustomerSpeedUpgrade";
     public static string coffeeCostUpgrade = "CoffeeCostUpgrade";
+    public static string coffeeCostUpgradePrice = "CoffeeCostUpgradePrice";
     public static string baristaSpeedUpgrade = "Barista{0}SpeedUpgrade";
     public static string customerHappyPower = "CustomerHappyPowerUpgrade";
     public static string customerHappyPercent = "CustomerHappyPecentUpgrade";

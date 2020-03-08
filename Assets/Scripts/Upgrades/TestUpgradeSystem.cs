@@ -52,10 +52,10 @@ public class TestUpgradeSystem : MonoBehaviour
     void SingleClickHandler(UpgradeMenuUI menuUI)
     {
         BaseUpgrade upgrade = GetUpgradeByUI(menuUI);
-        upgrade.ApplyUpgrade();
         double current_cost = upgrade.GetPrice();
-        IncreaseUpgradeLevel(upgrade, menuUI, 1);
         config.SpentCoins(current_cost);
+        IncreaseUpgradeLevel(upgrade, menuUI, 1);
+        upgrade.ApplyUpgrade();
     }
 
     void MaxClickHandler(UpgradeMenuUI menuUI)
@@ -63,8 +63,8 @@ public class TestUpgradeSystem : MonoBehaviour
         BaseUpgrade upgrade = GetUpgradeByUI(menuUI);
         int count = upgrade.GetPossibleUpgradeCount(coins.GetCoins(), out double cost);
         IncreaseUpgradeLevel(upgrade, menuUI, count);
-        upgrade.ApplyUpgrade(count);
         config.SpentCoins(cost);
+        upgrade.ApplyUpgrade(count);
     }
 
     void IncreaseUpgradeLevel(BaseUpgrade upgrade, UpgradeMenuUI menuUI, int value)
