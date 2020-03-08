@@ -127,6 +127,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: a9df66980f884fe44ba9454334860e14, type: 3}
   - {fileID: 2800000, guid: 65b8149e903510748b077bb42b516467, type: 3}
   renderer: {fileID: 1416166028334566144}
+  upgradeIndex: 0
   anim: {fileID: 1761202075}
 --- !u!195 &5845035859650534396
 NavMeshAgent:

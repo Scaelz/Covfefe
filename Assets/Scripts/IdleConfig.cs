@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 public class IdleConfig : MonoBehaviour, IUpgradeable
 {
+    [SerializeField] int upgradeIndex;
+    public int UpgradeIndex { get; private set; }
     [Header("Text Fields")]
     //[SerializeField] TextMeshProUGUI coinsText;
     [SerializeField] TextMeshProUGUI clickUpgradeText;
@@ -45,6 +47,7 @@ public class IdleConfig : MonoBehaviour, IUpgradeable
     private void Start()
     {
         //_coins = Coins.Instance;
+        UpgradeIndex = upgradeIndex;
         clickUpgradeCost = clickUpgradeCostStarting;
         _coins = FindObjectOfType<Coins>();
         FindObjectOfType<CustomerSpawner>().OnSpawnFrequencyChanged += UpdateFrequencyText;

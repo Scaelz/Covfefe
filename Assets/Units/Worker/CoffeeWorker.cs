@@ -20,7 +20,8 @@ public class CoffeeWorker : MonoBehaviour, IWorker, IUpgradeable
     Line currentLine;
     public Line CurrentLine { get; private set; }
     IStressable stressScript;
-
+    [SerializeField] int upgradeIndex;
+    public int UpgradeIndex { get; private set; }
 
     public event Action OnWorkDone;
     public event Action OnWorkStarted;
@@ -32,6 +33,7 @@ public class CoffeeWorker : MonoBehaviour, IWorker, IUpgradeable
     // Start is called before the first frame update
     void Start()
     {
+        UpgradeIndex = upgradeIndex;
         idleConfig = FindObjectOfType<IdleConfig>();
         CurrentLine = currentLine;
         stressScript = GetComponent<IStressable>();

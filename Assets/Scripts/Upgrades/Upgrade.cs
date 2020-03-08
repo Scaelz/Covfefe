@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -27,6 +28,7 @@ abstract public class BaseUpgrade: MonoBehaviour
     [SerializeField] protected double startPrice;
     [SerializeField] protected double currentPrice;
     [SerializeField] protected List<IUpgradeable> objectsToUpgrade;
+    [SerializeField] protected int Index;
 
     public int GetLevel() => Level;
     public int GetMaxLevel() => maxLevel;
@@ -56,7 +58,7 @@ abstract public class BaseUpgrade: MonoBehaviour
     }
     public double GetPrice()
     {
-        return currentPrice;
+        return Math.Floor(currentPrice);
     }
 
     public int GetPossibleUpgradeCount(double currentCoins, out double cost)
@@ -119,7 +121,7 @@ abstract public class Upgrade<T> : BaseUpgrade where T: Object, IUpgradeable
     public override List<IUpgradeable> UpdateObjectsList()
     {
         objectsToUpgrade = new List<IUpgradeable>();
-        foreach (IUpgradeable item in FindObjectsOfType<T>())
+        foreach (IUpgradeable item in FindObjectsOfType<T>().Where(x => x.UpgradeIndex == Index))
         {
             objectsToUpgrade.Add(item);
         } 

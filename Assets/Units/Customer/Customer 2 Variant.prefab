@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &7867437596437455589
+--- !u!1001 &6069079750237893670
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,13 +10,13 @@ PrefabInstance:
     - target: {fileID: 1210762055338601729, guid: 1fa93a59d526eb54893276a32a538d9e,
         type: 3}
       propertyPath: textures.Array.size
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1210762055338601729, guid: 1fa93a59d526eb54893276a32a538d9e,
         type: 3}
       propertyPath: textures.Array.data[0]
       value: 
-      objectReference: {fileID: 2800000, guid: fb2008a4fb9c1574b86f19374009580e, type: 3}
+      objectReference: {fileID: 2800000, guid: c7b4283ef2919944c9a8b41d6c7d4a8e, type: 3}
     - target: {fileID: 1210762055338601729, guid: 1fa93a59d526eb54893276a32a538d9e,
         type: 3}
       propertyPath: textures.Array.data[1]
@@ -30,6 +30,11 @@ PrefabInstance:
     - target: {fileID: 1210762055338601729, guid: 1fa93a59d526eb54893276a32a538d9e,
         type: 3}
       propertyPath: textures.Array.data[3]
+      value: 
+      objectReference: {fileID: 2800000, guid: aa7de3cb693498542956bc976dbe054d, type: 3}
+    - target: {fileID: 1210762055338601729, guid: 1fa93a59d526eb54893276a32a538d9e,
+        type: 3}
+      propertyPath: textures.Array.data[4]
       value: 
       objectReference: {fileID: 2800000, guid: aa7de3cb693498542956bc976dbe054d, type: 3}
     - target: {fileID: 1335739924187841377, guid: 1fa93a59d526eb54893276a32a538d9e,
@@ -91,17 +96,22 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 9255e9ea33099d6429b2ef8b8018b371, type: 2}
+      objectReference: {fileID: 2100000, guid: 7653b6a61f638d744a85728ba67567cd, type: 2}
     - target: {fileID: 1416166028334566144, guid: 1fa93a59d526eb54893276a32a538d9e,
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 4244100026068286619, guid: 19c9e53a23867f0429dd52127fd969e9,
+      objectReference: {fileID: 3662923931242546957, guid: 36ee75188a1941d4ca33f590898ff80f,
         type: 3}
     - target: {fileID: 3544925911893767597, guid: 1fa93a59d526eb54893276a32a538d9e,
         type: 3}
       propertyPath: m_Name
-      value: Customer 1
+      value: Customer 2 Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 4623387556098003582, guid: 1fa93a59d526eb54893276a32a538d9e,
+        type: 3}
+      propertyPath: m_Name
+      value: Customer_02
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1fa93a59d526eb54893276a32a538d9e, type: 3}

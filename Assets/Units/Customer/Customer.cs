@@ -17,12 +17,15 @@ public class Customer : Unit, ICustomer, ILineable, IUpgradeable
     public Line CurrentLine { get; private set; }
     public event Action OnHappy;
     public event Action OnRage;
+    [SerializeField] int upgradeIndex;
+    public int UpgradeIndex { get; private set; }
 
     [SerializeField]
     CustomerAnimator anim;
     
     private void Start()
     {
+        UpgradeIndex = upgradeIndex;
         //anim = GetComponent<CustomerAnimator>();
         moveScript.OnDestinationReached += LookInLine;
         moveScript.OnDestinationReached += SetIdleAnimation;
