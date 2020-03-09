@@ -10,7 +10,7 @@ public class UpgradeEnableUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        EnableMenu(false);
+        //EnableMenu(false);
     }
 
     public void EnableMenu(bool state)

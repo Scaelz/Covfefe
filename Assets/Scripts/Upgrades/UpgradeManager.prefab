@@ -11,6 +11,12 @@ GameObject:
   - component: {fileID: 7450179665298317463}
   - component: {fileID: 7450179665298317459}
   - component: {fileID: 4836964974771332973}
+  - component: {fileID: 238221768}
+  - component: {fileID: 4261630270307908632}
+  - component: {fileID: 4850399072254601097}
+  - component: {fileID: 238221765}
+  - component: {fileID: 238221766}
+  - component: {fileID: 238221767}
   m_Layer: 0
   m_Name: UpgradeManager
   m_TagString: Untagged
@@ -62,9 +68,148 @@ MonoBehaviour:
   upgradeType: 6
   maxLevel: 110
   upgradeName: Coffee recipe
-  multiply: 1.07
+  multiply: 1.47
   description: Add even more love in every cup. As a result even more money for single
     cup!
-  sprite: {fileID: 21300000, guid: f086d920e17dbef4d80ce5c76b06fbd1, type: 3}
-  startPrice: 10
+  sprite: {fileID: 21300000, guid: 90a227cc41a84284a9231ce610bcd29a, type: 3}
+  startPrice: 15
   currentPrice: 0
+  Index: 0
+  isLocked: 0
+--- !u!114 &238221768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7450179665298317462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31195c7e3f9e3484c8823a01aa6c7538, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeType: 0
+  maxLevel: 100
+  upgradeName: Customers speed
+  multiply: 1.55
+  description: Increase coffee aroma to speed up hungry clients!
+  sprite: {fileID: 21300000, guid: 474bb2ecb7d256d4aa0840477854350d, type: 3}
+  startPrice: 250
+  currentPrice: 0
+  Index: 0
+  isLocked: 0
+--- !u!114 &4261630270307908632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7450179665298317462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0b3ae863a8e95442b965fe22ff82c40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeType: 0
+  maxLevel: 100
+  upgradeName: Loyalty
+  multiply: 2.25
+  description: Special treatment to every client. As a result too much of loyalty
+    - cafe populrity grows up much quicker!
+  sprite: {fileID: 21300000, guid: 270debd24d1154144b6d00b5253688bc, type: 3}
+  startPrice: 500
+  currentPrice: 0
+  Index: 0
+  isLocked: 0
+--- !u!114 &4850399072254601097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7450179665298317462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d480c9c7ef95eba4e8785dd19c071f80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeType: 3
+  maxLevel: 100
+  upgradeName: Barista 1 work speed
+  multiply: 1.85
+  description: Motivational, money and ofcourse drinking own coffee forcing barista
+    to work faster!
+  sprite: {fileID: 21300000, guid: c05c00bed02e38b4e83d1c1843d917d5, type: 3}
+  startPrice: 100
+  currentPrice: 0
+  Index: 1
+  isLocked: 0
+--- !u!114 &238221765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7450179665298317462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d480c9c7ef95eba4e8785dd19c071f80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeType: 3
+  maxLevel: 100
+  upgradeName: Barista 2 work speed
+  multiply: 1.95
+  description: Motivational, money and ofcourse drinking own coffee forcing barista
+    to work faster!
+  sprite: {fileID: 21300000, guid: c05c00bed02e38b4e83d1c1843d917d5, type: 3}
+  startPrice: 200
+  currentPrice: 0
+  Index: 2
+  isLocked: 1
+--- !u!114 &238221766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7450179665298317462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d480c9c7ef95eba4e8785dd19c071f80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeType: 3
+  maxLevel: 300
+  upgradeName: Barista 3 work speed
+  multiply: 2.1
+  description: Motivational, money and ofcourse drinking own coffee forcing barista
+    to work faster!
+  sprite: {fileID: 21300000, guid: c05c00bed02e38b4e83d1c1843d917d5, type: 3}
+  startPrice: 1
+  currentPrice: 0
+  Index: 3
+  isLocked: 1
+--- !u!114 &238221767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7450179665298317462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d480c9c7ef95eba4e8785dd19c071f80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeType: 3
+  maxLevel: 100
+  upgradeName: Barista 4 work speed
+  multiply: 1.85
+  description: Motivational, money and ofcourse drinking own coffee forcing barista
+    to work faster!
+  sprite: {fileID: 21300000, guid: c05c00bed02e38b4e83d1c1843d917d5, type: 3}
+  startPrice: 400
+  currentPrice: 0
+  Index: 4
+  isLocked: 1

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d074ad9da665cc45b32f6b2708b3dff, type: 3}
   m_Name: WorkPlace_second
   m_EditorClassIdentifier: 
-  price: 20
+  price: 2500

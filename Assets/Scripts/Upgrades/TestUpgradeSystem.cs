@@ -41,6 +41,9 @@ public class TestUpgradeSystem : MonoBehaviour
                 upgrade.GetPrice(), upgradesCount, cost, upgrade.GetIconSprite());
             menuUI.OnSingleUpgradeClicked += SingleClickHandler;
             menuUI.OnMaxUpgradeClicked += MaxClickHandler;
+            menuUI.SetBlockScreenState(upgrade.IsLocked());
+            upgrade.OnLockIsOff += menuUI.SetBlockScreenState;
+            //Debug.Log($"{menuUI.name} is set to {!upgrade.IsLocked()}");
         }
     }
 
@@ -53,9 +56,9 @@ public class TestUpgradeSystem : MonoBehaviour
     {
         BaseUpgrade upgrade = GetUpgradeByUI(menuUI);
         double current_cost = upgrade.GetPrice();
-        config.SpentCoins(current_cost);
-        IncreaseUpgradeLevel(upgrade, menuUI, 1);
         upgrade.ApplyUpgrade();
+        IncreaseUpgradeLevel(upgrade, menuUI, 1);
+        config.SpentCoins(current_cost);
     }
 
     void MaxClickHandler(UpgradeMenuUI menuUI)
@@ -63,8 +66,8 @@ public class TestUpgradeSystem : MonoBehaviour
         BaseUpgrade upgrade = GetUpgradeByUI(menuUI);
         int count = upgrade.GetPossibleUpgradeCount(coins.GetCoins(), out double cost);
         IncreaseUpgradeLevel(upgrade, menuUI, count);
-        config.SpentCoins(cost);
         upgrade.ApplyUpgrade(count);
+        config.SpentCoins(cost);
     }
 
     void IncreaseUpgradeLevel(BaseUpgrade upgrade, UpgradeMenuUI menuUI, int value)
@@ -81,7 +84,6 @@ public class TestUpgradeSystem : MonoBehaviour
 
     void CoinsUpdatedHandler(double value)
     {
-
         foreach (KeyValuePair<BaseUpgrade, UpgradeMenuUI> upgrade in upgrades)
         {
             if (!QuerySingleUpgradePossibility(upgrade.Key, value))
@@ -113,9 +115,6 @@ public class TestUpgradeSystem : MonoBehaviour
         var baseUpgrades = FindObjectsOfType<BaseUpgrade>().Where(x => x.GetUserType() == type && x.GetIndex() == instance.UpgradeIndex);
         foreach (BaseUpgrade upgrade in baseUpgrades)
         {
-            Debug.Log(upgrade);
-            Debug.Log(upgrade.GetIndex());
-            Debug.Log(instance.UpgradeIndex);
             upgrade.UpgradeInstance(instance);
         }
     }

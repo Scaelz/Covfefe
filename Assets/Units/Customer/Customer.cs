@@ -217,6 +217,8 @@ public class Customer : Unit, ICustomer, ILineable, IUpgradeable
         }
     }
 
+
+
     void ApplySpeedUpgrade(int lvl, int maxLvl)
     {
         float upgradeTick = (moveScript.GetMaxSpeed() - moveScript.GetDefaultSpeed())/maxLvl;

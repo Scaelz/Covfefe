@@ -48,6 +48,11 @@ public class CoffeeWorker : MonoBehaviour, IWorker, IUpgradeable
         stressScript.OnStressChanged += StressChangedHandler;
     }
 
+    private void OnEnable()
+    {
+        TestUpgradeSystem.UpgradeRequest(GetType(), this);
+    }
+
     public float GetWorkSpeed()
     {
         return timeToEndWork;
@@ -150,10 +155,7 @@ public class CoffeeWorker : MonoBehaviour, IWorker, IUpgradeable
     {
         float upgradeTick = (float)4 / (float)maxLvl;
         float proxySpeed = 5;
-        for (int i = 0; i < lvl; i++)
-        {
-            proxySpeed -= upgradeTick;
-        }
+        proxySpeed -= upgradeTick * lvl;
         timeToEndWork = proxySpeed;
     }
 }

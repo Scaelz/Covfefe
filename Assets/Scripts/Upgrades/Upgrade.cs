@@ -29,6 +29,8 @@ abstract public class BaseUpgrade: MonoBehaviour
     [SerializeField] protected double currentPrice;
     [SerializeField] protected List<IUpgradeable> objectsToUpgrade;
     [SerializeField] protected int Index;
+    [SerializeField] bool isLocked = false;
+    public event Action<bool> OnLockIsOff;
 
     public int GetLevel() => Level;
     public int GetMaxLevel() => maxLevel;
@@ -52,11 +54,17 @@ abstract public class BaseUpgrade: MonoBehaviour
         return false;
     }
 
+    public void UnlockUpgrade()
+    {
+        isLocked = false;
+        OnLockIsOff?.Invoke(isLocked);
+    }
+
     public int GetIndex() => Index;
 
-    public bool IsActive()
+    public bool IsLocked()
     {
-        return default;
+        return isLocked;
     }
     public double GetPrice()
     {

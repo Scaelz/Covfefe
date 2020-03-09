@@ -19,8 +19,15 @@ public class UpgradeMenuUI : MonoBehaviour
     [SerializeField] Button buttonSingle;
     [SerializeField] Button buttonMax;
     [SerializeField] Image icon;
+    [SerializeField] Image blockImage;
+
     public event Action<UpgradeMenuUI> OnSingleUpgradeClicked;
     public event Action<UpgradeMenuUI> OnMaxUpgradeClicked;
+
+    public void SetBlockScreenState(bool state)
+    {
+        blockImage.enabled = state;
+    }
 
     public void SetInfo(int lvl, int maxLvl, string name, string description, 
         double price, int maxUpgradesPossible, double maxPrice, Sprite sprite)

@@ -13,6 +13,8 @@ public class WorkPlaceOpenner : MonoBehaviour, IClickable
     [SerializeField] TextMeshPro priceText;
     [SerializeField] ParticleSystem pSystem;
     [SerializeField] float deactivationDelay;
+    [SerializeField] BaseUpgrade[] upgradesForWorkplace;
+
     MeshRenderer renderer;
     IdleConfig config;
     Coins coins;
@@ -93,7 +95,8 @@ public class WorkPlaceOpenner : MonoBehaviour, IClickable
         priceText.enabled = false;
         renderer.enabled = false;
         StartCoroutine(DelayedDeactivate(deactivationDelay));
-        ActivateWorkPlace();
+        ActivateWorkPlace(true);
+        UnlockUpgrades();
         if (!silent)
         {
             PlayEffect();
@@ -114,14 +117,22 @@ public class WorkPlaceOpenner : MonoBehaviour, IClickable
         gameObject.SetActive(false);
     }
 
-    void ActivateWorkPlace()
+    void ActivateWorkPlace(bool state)
     {
-        workPlaceObject.SetActive(true);
+        workPlaceObject.SetActive(state);
         Cafe.RefreshDepartments();
     }
 
     void PlayEffect()
     {
         pSystem.Play();
+    }
+
+    void UnlockUpgrades()
+    {
+        foreach (BaseUpgrade upgrade in upgradesForWorkplace)
+        {
+            upgrade.UnlockUpgrade();
+        }
     }
 }
