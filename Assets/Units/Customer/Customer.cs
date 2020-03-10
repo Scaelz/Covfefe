@@ -17,6 +17,7 @@ public class Customer : Unit, ICustomer, ILineable, IUpgradeable
     public Line CurrentLine { get; private set; }
     public event Action OnHappy;
     public event Action OnRage;
+    public event Action OnBored;
     [SerializeField] int upgradeIndex;
     public int UpgradeIndex { get; private set; }
 
@@ -146,6 +147,10 @@ public class Customer : Unit, ICustomer, ILineable, IUpgradeable
             }
             else
             {
+                if (UnityEngine.Random.value < 0.35f)
+                {
+                    OnBored?.Invoke();
+                }
                 PositionInLine--;
                 Vector3 newPosition = CurrentLine.GetProperSpot(PositionInLine);
                 moveScript.MoveTo(newPosition);

@@ -20,6 +20,7 @@ public class UpgradeMenuUI : MonoBehaviour
     [SerializeField] Button buttonMax;
     [SerializeField] Image icon;
     [SerializeField] Image blockImage;
+    [SerializeField] AudioClip buySound;
 
     public event Action<UpgradeMenuUI> OnSingleUpgradeClicked;
     public event Action<UpgradeMenuUI> OnMaxUpgradeClicked;
@@ -72,10 +73,17 @@ public class UpgradeMenuUI : MonoBehaviour
     public void SingleUpgradeHandler()
     {
         OnSingleUpgradeClicked?.Invoke(this);
+        PlayBuySound();
     }
 
     public void MaxUpgradeHandler()
     {
         OnMaxUpgradeClicked?.Invoke(this);
+        PlayBuySound();
+    }
+
+    void PlayBuySound()
+    {
+        AudioSource.PlayClipAtPoint(buySound, Camera.main.transform.position, 1.0f);
     }
 }

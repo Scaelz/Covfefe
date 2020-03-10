@@ -1690,6 +1690,7 @@ MonoBehaviour:
   buttonMax: {fileID: 8770966170996531833}
   icon: {fileID: 8770966171883411074}
   blockImage: {fileID: 7010049412569696165}
+  buySound: {fileID: 8300000, guid: ad017d480c7057240a543693389b7222, type: 3}
 --- !u!1 &8770966171655122868
 GameObject:
   m_ObjectHideFlags: 0

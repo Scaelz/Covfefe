@@ -61,7 +61,7 @@ public class FloatingText : MonoBehaviour
     private void Reset()
     {
         isActive = false;
-        double rounded = Math.Round(config.coinsClickValue, 1);
+        double rounded = Math.Floor(config.coinsClickValue);
         textMesh.text = $"+ {rounded.ToString()} $";
         transform.position = defaultPosition;
         currentColor = color;

@@ -101,7 +101,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb81c77f9e59a1f488a5783b57997d38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 0
   workSpeed: 0.35
   timeToEndWork: 5
   currentLine: {fileID: 0}
@@ -139,6 +138,10 @@ MonoBehaviour:
   stressEffectPrefab: {fileID: 4948546213144914053}
   floatingText: {fileID: 0}
   audioSource: {fileID: 8614917050741737589}
+  rage: {fileID: 8300000, guid: c9e68a0a2d40f1a4f99da55cc9e5ee66, type: 3}
+  cashRegister: {fileID: 8300000, guid: f4157e2990da86146a4804ebe548b8a7, type: 3}
+  coffeeMade: {fileID: 8300000, guid: e5f38c3461602954d90646c92ac8cb3a, type: 3}
+  volume: 0.55
 --- !u!82 &8614917050741737589
 AudioSource:
   m_ObjectHideFlags: 0
@@ -151,7 +154,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 795381259dc383b4896059dca9c76682, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.09
+  m_Volume: 0.185
   m_Pitch: 1
   Loop: 0
   Mute: 0

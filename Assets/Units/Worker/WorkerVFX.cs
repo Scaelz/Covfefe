@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,18 +10,44 @@ public class WorkerVFX : MonoBehaviour
     ParticleSystem stressEffectPrefab;
     [SerializeField] FloatingText floatingText;
     CoffeeWorker worker;
+    IStressable stressScript;
     [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip rage, cashRegister, coffeeMade;
+    [SerializeField] float volume;
 
     private void Start()
     {
+        stressScript = GetComponent<IStressable>();
         worker = GetComponent<CoffeeWorker>();
         worker.OnSpeedMultiplierChanged += ControllSystem;
         worker.OnWorkDone += SpawnAnnotation;
-        worker.OnWorkDone += PlaySound;
+        worker.OnWorkDone += PlayWorkDoneSound;
+        worker.OnWorkStarted += PlayWorkSound;
+        stressScript.OnStressOut += PlayRageSound;
     }
 
-    void PlaySound()
+    void PlayRageSound(object e, EventArgs args)
     {
+        //AudioSource.PlayClipAtPoint(rage, transform.position, 3f);
+        audioSource.clip = rage;
+        audioSource.pitch = UnityEngine.Random.Range(0.45f, 1.85f);
+        audioSource.volume = volume * 1.0f;
+        audioSource.Play();
+    }
+
+    void PlayWorkSound()
+    {
+        audioSource.clip = coffeeMade;
+        audioSource.pitch = UnityEngine.Random.Range(0.01f, 1.85f);
+        audioSource.volume = volume * 0.8f;
+        audioSource.Play();
+    }
+
+    void PlayWorkDoneSound()
+    {
+        audioSource.clip = cashRegister;
+        audioSource.pitch = UnityEngine.Random.Range(0.01f, 1.85f);
+        audioSource.volume = volume * 1.45f;
         audioSource.Play();
     }
 

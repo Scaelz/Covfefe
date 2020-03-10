@@ -8,6 +8,7 @@ public class CustomerSounds : MonoBehaviour
 {
     [SerializeField] AudioClip[] angrySounds;
     [SerializeField] AudioClip[] joySounds;
+    [SerializeField] AudioClip[] gossipSounds;
     [SerializeField] Customer customer;
     [SerializeField] AudioSource source;
 
@@ -15,6 +16,7 @@ public class CustomerSounds : MonoBehaviour
     {
         customer.OnHappy += PlayHappySound;
         customer.OnRage += PlayAngrySound;
+        customer.OnBored += PlayGossipSound;
     }
 
     AudioClip GetRandomClip(AudioClip[] audioClips)
@@ -31,6 +33,12 @@ public class CustomerSounds : MonoBehaviour
     void PlayAngrySound()
     {
         source.clip = GetRandomClip(angrySounds);
+        source.Play();
+    }
+
+    void PlayGossipSound()
+    {
+        source.clip = GetRandomClip(gossipSounds);
         source.Play();
     }
 }
