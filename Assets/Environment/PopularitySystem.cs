@@ -56,7 +56,7 @@ public class PopularitySystem : MonoBehaviour, IUpgradeable
         {
             float upgradeTick = (maxPositiveTik - minPositiveTik) / maxLvl;
             float newSpeed = minPositiveTik;
-            positiveTik = upgradeTick * lvl;
+            positiveTik = minPositiveTik + upgradeTick * lvl;
         }
     }
 }

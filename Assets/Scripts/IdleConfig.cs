@@ -2,6 +2,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class IdleConfig : MonoBehaviour, IUpgradeable
 {
@@ -221,6 +222,7 @@ public class IdleConfig : MonoBehaviour, IUpgradeable
         PlayerPrefs.SetInt(PrefsUtils.customerHappyPowerPrice, 0);
 
         PlayerPrefs.Save();
+        SceneManager.LoadScene(0);
     }
 
     public void Upgrade(CustomUpgrade upgrade, int lvl, int maxLvl)
