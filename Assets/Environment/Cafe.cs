@@ -9,10 +9,11 @@ public class Cafe : MonoBehaviour
     public Transform entrance;
     public static Transform Entrance { get; private set; }
 
-    public static List<Line> AllDepartments { get; private set; } = new List<Line>();
+    public static List<Line> AllDepartments { get; private set; }
 
     private void Awake()
     {
+        AllDepartments = new List<Line>();
         Exit = exit;
         Entrance = entrance;
         RefreshDepartments();
@@ -33,5 +34,6 @@ public class Cafe : MonoBehaviour
 
     private void Update()
     {
+        //Debug.Log(AllDepartments.Count);
     }
 }

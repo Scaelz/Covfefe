@@ -57,7 +57,16 @@ public class WorkerAnimator : MonoBehaviour
 
     void GreetHandle()
     {
-        coffeecup.SetActive(false);
+        try
+        {
+            coffeecup.SetActive(false);
+        }
+        catch (System.Exception)
+        {
+
+            Debug.Log("Null");
+        }
+        
         Play(CoffeeWorkerAnimation.Greet);
     }
 
