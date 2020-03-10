@@ -74,9 +74,9 @@ public class Customer : Unit, ICustomer, ILineable, IUpgradeable
     {
         routeBuilt = false;
         Initialize();
-        //LeaveLine();
-        withCoffe = false;
         happyTrigger = false;
+        LeaveLine();
+        withCoffe = false;
         SetWalkingAnimation();
         moveScript.SetPriority(50);
         moveScript.MoveTo(Cafe.Entrance.position);
