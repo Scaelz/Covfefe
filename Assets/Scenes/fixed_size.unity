@@ -10420,10 +10420,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 238221765, guid: 022db624191438942a4287ca4b05e7c7, type: 3}
+      propertyPath: multiply
+      value: 1.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 238221766, guid: 022db624191438942a4287ca4b05e7c7, type: 3}
+      propertyPath: multiply
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 238221767, guid: 022db624191438942a4287ca4b05e7c7, type: 3}
+      propertyPath: multiply
+      value: 1.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 238221768, guid: 022db624191438942a4287ca4b05e7c7, type: 3}
+      propertyPath: multiply
+      value: 1.25
+      objectReference: {fileID: 0}
     - target: {fileID: 4261630270307908632, guid: 022db624191438942a4287ca4b05e7c7,
         type: 3}
       propertyPath: upgradeType
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4261630270307908632, guid: 022db624191438942a4287ca4b05e7c7,
+        type: 3}
+      propertyPath: multiply
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4261630270307908632, guid: 022db624191438942a4287ca4b05e7c7,
+        type: 3}
+      propertyPath: startPrice
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 4836964974771332973, guid: 022db624191438942a4287ca4b05e7c7,
+        type: 3}
+      propertyPath: multiply
+      value: 1.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4850399072254601097, guid: 022db624191438942a4287ca4b05e7c7,
+        type: 3}
+      propertyPath: multiply
+      value: 1.3
       objectReference: {fileID: 0}
     - target: {fileID: 7450179665298317459, guid: 022db624191438942a4287ca4b05e7c7,
         type: 3}
