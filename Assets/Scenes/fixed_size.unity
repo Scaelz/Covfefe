@@ -10436,6 +10436,10 @@ PrefabInstance:
       propertyPath: multiply
       value: 1.25
       objectReference: {fileID: 0}
+    - target: {fileID: 238221768, guid: 022db624191438942a4287ca4b05e7c7, type: 3}
+      propertyPath: startPrice
+      value: 85
+      objectReference: {fileID: 0}
     - target: {fileID: 4261630270307908632, guid: 022db624191438942a4287ca4b05e7c7,
         type: 3}
       propertyPath: upgradeType
@@ -10444,7 +10448,7 @@ PrefabInstance:
     - target: {fileID: 4261630270307908632, guid: 022db624191438942a4287ca4b05e7c7,
         type: 3}
       propertyPath: multiply
-      value: 0
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 4261630270307908632, guid: 022db624191438942a4287ca4b05e7c7,
         type: 3}
@@ -10455,6 +10459,11 @@ PrefabInstance:
         type: 3}
       propertyPath: multiply
       value: 1.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4836964974771332973, guid: 022db624191438942a4287ca4b05e7c7,
+        type: 3}
+      propertyPath: startPrice
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4850399072254601097, guid: 022db624191438942a4287ca4b05e7c7,
         type: 3}
