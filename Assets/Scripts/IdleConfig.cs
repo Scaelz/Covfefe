@@ -203,7 +203,7 @@ public class IdleConfig : MonoBehaviour, IUpgradeable
 
     public void ClearProgress()
     {
-        PlayerPrefs.SetInt(PrefsUtils.coffee_lvl, 0);
+        //PlayerPrefs.SetInt(PrefsUtils.coffee_lvl, 0);
         PlayerPrefs.SetFloat(PrefsUtils.money, 0);
         PlayerPrefs.SetInt(PrefsUtils.cashbox, 0);
         PlayerPrefs.SetString(PrefsUtils.onlineDate, "");
@@ -228,6 +228,7 @@ public class IdleConfig : MonoBehaviour, IUpgradeable
     public void Upgrade(CustomUpgrade upgrade, int lvl, int maxLvl)
     {
         coinsClickValue = lvl * 2.43f;
+        clickUpgradeLevel = lvl;
         SetTextValue();
     }
 }
