@@ -69,7 +69,8 @@ public class Coins : MonoBehaviour
     
     private void SetCoinsText()
     {
-        _coins.SetExponentText(coins, coinsText);
+        //_coins.SetExponentText(coins, coinsText);
+        coinsText.text = Exponent.SetExponentText(coins);
         //coinsText.text = coins.ToString("F0");
     }
 }

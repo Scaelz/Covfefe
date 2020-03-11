@@ -66,7 +66,7 @@ public class OfflineWork : MonoBehaviour
         }
         value = CalculateOfflineTime() * PerSecond(workSpeed, cacshBoxes, cupPrice) / reduceMultiplier;
         value = (float) Math.Round(value, 2);
-        textVisual.text = $"Your offline income:\n{value}";
+        textVisual.text = string.Format("Your offline income: {0}", Exponent.SetExponentText(value));
     }
 
     IEnumerator SaveOnline()

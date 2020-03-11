@@ -69,9 +69,10 @@ public class IdleConfig : MonoBehaviour, IUpgradeable
     {
         buyMaxLevels = Math.Floor(Math.Log(_coins.GetCoins() * (multiply - 1) / (clickUpgradeCost) + 1, multiply)); // * Math.Pow(multiply, 0)
 
+        coinsPerCoffeeText.text = string.Format(stringFieldsText[2], Exponent.SetExponentText(coinsClickValue));
         //currentLevelText.text = stringFieldsText[0] + clickUpgradeLevel;
         //SetExponentText(Math.Round(coins), coinsText, stringFieldsText[1]);
-        SetExponentText(coinsClickValue, coinsPerCoffeeText, stringFieldsText[2]);
+        //SetExponentText(coinsClickValue, coinsPerCoffeeText, stringFieldsText[2]);
         //SetExponentText(Math.Round(clickUpgradeCost), clickUpgradeText, stringFieldsText[3]);
         //SetExponentText(Math.Round(buyMaxLevels), buyMaxText, stringFieldsText[4]);
     }

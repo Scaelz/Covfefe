@@ -643,9 +643,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Your offline income:
-
-    9999'
+  m_text: 'Your offline income: 999,99QW'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3ef5e12a88643e040a70bf1d965f277b, type: 2}
   m_sharedMaterial: {fileID: 21113905761075906, guid: 3ef5e12a88643e040a70bf1d965f277b,
@@ -674,10 +672,10 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 72
+  m_fontSize: 62
   m_fontSizeBase: 24
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -1087,7 +1085,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1
+  m_text: 999,99QW
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3ef5e12a88643e040a70bf1d965f277b, type: 2}
   m_sharedMaterial: {fileID: 21113905761075906, guid: 3ef5e12a88643e040a70bf1d965f277b,
@@ -1117,7 +1115,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 48
+  m_fontSize: 42
   m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
@@ -1333,6 +1331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff66cc7738fefe640ba3ec247f40e5f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  upgradeIndex: 0
   clickUpgradeText: {fileID: 0}
   currentLevelText: {fileID: 0}
   coinsPerCoffeeText: {fileID: 2520388549194242784}
@@ -1364,6 +1363,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menu: {fileID: 0}
   menuEnabled: 0
+  audioClips: []
+  audioSource: {fileID: 0}
 --- !u!1 &3401481892202674576
 GameObject:
   m_ObjectHideFlags: 0

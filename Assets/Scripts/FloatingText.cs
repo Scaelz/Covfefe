@@ -63,6 +63,7 @@ public class FloatingText : MonoBehaviour
         isActive = false;
         double rounded = Math.Floor(config.coinsClickValue);
         textMesh.text = $"+ {rounded.ToString()} $";
+        textMesh.text = Exponent.SetExponentText(rounded);
         transform.position = defaultPosition;
         currentColor = color;
         textMesh.color = decayColor;

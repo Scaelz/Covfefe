@@ -65,8 +65,8 @@ public class UpgradeMenuUI : MonoBehaviour
 
     public void UpgradePricesTexts(double single, double max, int upgradesCount)
     {
-        tmPriceForOne.text = single.ToString();
-        tmPriceForMax.text = max.ToString();
+        tmPriceForOne.text = Exponent.SetExponentText(single);
+        tmPriceForMax.text = Exponent.SetExponentText(max);
         tmBuyMaxButtonText.text = $"Buy max ({upgradesCount.ToString()})";
     }
 
