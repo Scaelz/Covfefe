@@ -95,13 +95,13 @@ abstract public class BaseUpgrade: MonoBehaviour
     public virtual void ApplyUpgrade(int times = 1)
     {
         UpdateObjectsList();
+        for (int i = 0; i < times; i++)
+        {
+            currentPrice *= multiply;
+        }
         foreach (IUpgradeable item in objectsToUpgrade)
         {
-            for (int i = 0; i < times; i++)
-            {
-                item.Upgrade(upgradeType, Level, maxLevel);
-                currentPrice *= multiply;
-            }
+            item.Upgrade(upgradeType, Level, maxLevel);
         }
 
         SaveData();

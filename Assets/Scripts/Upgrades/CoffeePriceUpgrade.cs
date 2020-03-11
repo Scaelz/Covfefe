@@ -20,6 +20,10 @@ public class CoffeePriceUpgrade : Upgrade<IdleConfig>
     public override void LoadData()
     {
         Level = PlayerPrefs.GetInt(PrefsUtils.coffeeCostUpgrade);
+        if (Level == 0)
+        {
+            Level = 1;
+        }
         float price = PlayerPrefs.GetFloat(PrefsUtils.coffeeCostUpgradePrice);
         if (price != 0)
         {

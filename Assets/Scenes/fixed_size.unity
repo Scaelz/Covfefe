@@ -6664,6 +6664,16 @@ PrefabInstance:
       propertyPath: spawnFrequincyText
       value: 
       objectReference: {fileID: 1335039358}
+    - target: {fileID: 2520388549779972971, guid: 74c5345b5118ed54ba5552e1ee3414b4,
+        type: 3}
+      propertyPath: multiply
+      value: 1.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 2520388549779972971, guid: 74c5345b5118ed54ba5552e1ee3414b4,
+        type: 3}
+      propertyPath: defaultCoinsPrice
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2520388550041851156, guid: 74c5345b5118ed54ba5552e1ee3414b4,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -6738,6 +6748,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_textInfo.pageCount
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3589876861693168876, guid: 74c5345b5118ed54ba5552e1ee3414b4,
+        type: 3}
+      propertyPath: coins
+      value: 999
       objectReference: {fileID: 0}
     - target: {fileID: 3786804436114835214, guid: 74c5345b5118ed54ba5552e1ee3414b4,
         type: 3}
@@ -10711,7 +10726,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 238221768, guid: 022db624191438942a4287ca4b05e7c7, type: 3}
       propertyPath: multiply
-      value: 1.25
+      value: 1.085
       objectReference: {fileID: 0}
     - target: {fileID: 238221768, guid: 022db624191438942a4287ca4b05e7c7, type: 3}
       propertyPath: startPrice

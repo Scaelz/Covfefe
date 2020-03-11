@@ -51,13 +51,13 @@ public class IdleConfig : MonoBehaviour, IUpgradeable
         UpgradeIndex = upgradeIndex;
         clickUpgradeCost = clickUpgradeCostStarting;
         _coins = FindObjectOfType<Coins>();
+        TestUpgradeSystem.UpgradeRequest(GetType(), this);
         FindObjectOfType<CustomerSpawner>().OnSpawnFrequencyChanged += UpdateFrequencyText;
         clickUpgradeLevel = PlayerPrefs.GetInt(PrefsUtils.coffee_lvl);
         //ClickUpgradeMultyplyCost();
         SetCoinsPriceViaLvl();
         SetUpgradeCostViaLvl();
         SetTextValue();
-        TestUpgradeSystem.UpgradeRequest(GetType(), this);
     }
 
     void UpdateFrequencyText(float value)
@@ -127,7 +127,11 @@ public class IdleConfig : MonoBehaviour, IUpgradeable
                 defaultCoinsPrice *= multyplyUpgrade[3];
                 coinsClickValue *= multyplyUpgrade[3];
                 break;
+            default:
+                coinsClickValue += defaultCoinsPrice;
+                break;
         }
+        Debug.Log(defaultCoinsPrice);
     }
 
     // Buttons
@@ -228,8 +232,14 @@ public class IdleConfig : MonoBehaviour, IUpgradeable
 
     public void Upgrade(CustomUpgrade upgrade, int lvl, int maxLvl)
     {
-        coinsClickValue = lvl * 2.43f;
+        coinsClickValue = defaultCoinsPrice;
         clickUpgradeLevel = lvl;
+        for (int i = 1; i < lvl + 1; i++)
+        {
+            ClickUpgradeMultyplyCost();
+        }
+        //coinsClickValue = lvl * multiply;
+        //clickUpgradeLevel = lvl;
         SetTextValue();
     }
 }
