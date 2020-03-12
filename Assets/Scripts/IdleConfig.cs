@@ -51,11 +51,12 @@ public class IdleConfig : MonoBehaviour, IUpgradeable
         UpgradeIndex = upgradeIndex;
         clickUpgradeCost = clickUpgradeCostStarting;
         _coins = FindObjectOfType<Coins>();
-        TestUpgradeSystem.UpgradeRequest(GetType(), this);
+        LoadProgress();
+        //TestUpgradeSystem.UpgradeRequest(GetType(), this);
         FindObjectOfType<CustomerSpawner>().OnSpawnFrequencyChanged += UpdateFrequencyText;
-        clickUpgradeLevel = PlayerPrefs.GetInt(PrefsUtils.coffee_lvl);
+        //clickUpgradeLevel = PlayerPrefs.GetInt(PrefsUtils.coffee_lvl);
         //ClickUpgradeMultyplyCost();
-        SetCoinsPriceViaLvl();
+        //SetCoinsPriceViaLvl();
         SetUpgradeCostViaLvl();
         SetTextValue();
     }
@@ -132,7 +133,6 @@ public class IdleConfig : MonoBehaviour, IUpgradeable
                 coinsClickValue += defaultCoinsPrice;
                 break;
         }
-        Debug.Log(defaultCoinsPrice);
     }
 
     // Buttons
@@ -181,7 +181,7 @@ public class IdleConfig : MonoBehaviour, IUpgradeable
             //clickUpgradeCost += clickUpgradeCostStarting * clickUpgradeLevel + clickUpgradeCostStarting / Math.Pow(clickUpgradeLevel, multiply);
             coinsClickValue += defaultCoinsPrice;
             clickUpgradeLevel++;
-            ClickUpgradeMultyplyCost();
+            //ClickUpgradeMultyplyCost();
             SetTextValue();
         }
         if (save_progress)
@@ -200,9 +200,32 @@ public class IdleConfig : MonoBehaviour, IUpgradeable
         SaveProgress();
     }
 
+    void LoadProgress()
+    {
+        int price = PlayerPrefs.GetInt(PrefsUtils.coffee_price);
+        if (price > 0)
+        {
+            coinsClickValue = price;
+        }
+        int default_price = PlayerPrefs.GetInt(PrefsUtils.coffee_default_price);
+        if (default_price > 0)
+        {
+            defaultCoinsPrice = default_price;
+        }
+        int lvl = PlayerPrefs.GetInt(PrefsUtils.coffeeCostUpgrade);
+        
+        if (lvl > 0)
+        {
+            clickUpgradeLevel = lvl;
+        }
+        
+    }
+
     void SaveProgress()
     {
-        PlayerPrefs.SetInt(PrefsUtils.coffee_lvl, clickUpgradeLevel);
+        //PlayerPrefs.SetInt(PrefsUtils.coffee_lvl, clickUpgradeLevel);
+        PlayerPrefs.SetInt(PrefsUtils.coffee_price, (int)coinsClickValue);
+        PlayerPrefs.SetInt(PrefsUtils.coffee_default_price, (int)defaultCoinsPrice);
         PlayerPrefs.Save();
     }
 
@@ -210,6 +233,8 @@ public class IdleConfig : MonoBehaviour, IUpgradeable
     {
         //PlayerPrefs.SetInt(PrefsUtils.coffee_lvl, 0);
         PlayerPrefs.SetFloat(PrefsUtils.money, 0);
+        PlayerPrefs.SetInt(PrefsUtils.coffee_price, 1);
+        PlayerPrefs.SetInt(PrefsUtils.coffee_default_price, 1);
         PlayerPrefs.SetInt(PrefsUtils.cashbox, 0);
         PlayerPrefs.SetString(PrefsUtils.onlineDate, "");
         PlayerPrefs.SetInt(PrefsUtils.customerSpeedUpgrade, 1);
@@ -233,12 +258,14 @@ public class IdleConfig : MonoBehaviour, IUpgradeable
 
     public void Upgrade(CustomUpgrade upgrade, int lvl, int maxLvl)
     {
-        coinsClickValue = defaultCoinsPrice;
-        clickUpgradeLevel = lvl;
-        for (int i = 1; i < lvl + 1; i++)
+        int times = lvl - clickUpgradeLevel;
+
+        for (int i = 0; i < times; i++)
         {
+            clickUpgradeLevel++;
             ClickUpgradeMultyplyCost();
         }
+        SaveProgress();
         //coinsClickValue = lvl * multiply;
         //clickUpgradeLevel = lvl;
         SetTextValue();

@@ -56,8 +56,8 @@ public class TestUpgradeSystem : MonoBehaviour
     {
         BaseUpgrade upgrade = GetUpgradeByUI(menuUI);
         double current_cost = upgrade.GetPrice();
-        upgrade.ApplyUpgrade();
         IncreaseUpgradeLevel(upgrade, menuUI, 1);
+        upgrade.ApplyUpgrade();
         config.SpentCoins(current_cost);
     }
 

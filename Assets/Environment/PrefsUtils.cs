@@ -6,6 +6,8 @@ public class PrefsUtils : MonoBehaviour
 {
     public static string cashbox = "cashbox";
     public static string coffee_lvl = "coffee_lvl";
+    public static string coffee_default_price = "default_price";
+    public static string coffee_price = "price";
     public static string money = "money";
     public static string onlineDate = "OnlineDate";
 
