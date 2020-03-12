@@ -152,7 +152,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5603774603577586440
 Transform:
   m_ObjectHideFlags: 0
@@ -198,7 +198,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2251092556169334573}
   m_Layer: 0
-  m_Name: Coffee Button
+  m_Name: coffeecostinfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -713,12 +713,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1717092896038261598}
-    characterCount: 25
+    characterCount: 29
     spriteCount: 0
     spaceCount: 3
-    wordCount: 4
+    wordCount: 5
     linkCount: 0
-    lineCount: 2
+    lineCount: 1
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -772,7 +772,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 152.79999, y: 17}
+  m_AnchoredPosition: {x: 152.7998, y: 17}
   m_SizeDelta: {x: 305.7, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7981724040679451258
@@ -1056,8 +1056,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 116.1, y: 95.2}
+  m_AnchoredPosition: {x: 22.98, y: 0}
+  m_SizeDelta: {x: 225.83, y: 95.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2520388549194242799
 CanvasRenderer:
@@ -1156,10 +1156,10 @@ MonoBehaviour:
   m_margin: {x: 1.4557973, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 2520388549194242784}
-    characterCount: 1
+    characterCount: 8
     spriteCount: 0
     spaceCount: 0
-    wordCount: 1
+    wordCount: 2
     linkCount: 0
     lineCount: 1
     pageCount: 1
@@ -1297,7 +1297,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2520388549779972972}
   - component: {fileID: 2520388549779972971}
-  - component: {fileID: 2023661014842291077}
   m_Layer: 0
   m_Name: My Config
   m_TagString: Untagged
@@ -1336,35 +1335,19 @@ MonoBehaviour:
   currentLevelText: {fileID: 0}
   coinsPerCoffeeText: {fileID: 2520388549194242784}
   buyMaxText: {fileID: 0}
-  spawnFrequincyText: {fileID: 0}
+  spawnFrequincyText: {fileID: 2988559401906244238}
   coinsClickValue: 1
   defaultCoinsPrice: 1
   clickUpgradeCostStarting: 3
   clickUpgradeLevel: 1
   multiply: 1.07
-  multyplyUpgrade: 02000000030000000200000004000000
+  multyplyUpgrade: 04000000050000000400000006000000
   stringFieldsText:
   - 'Level: '
   - '{0}'
   - '{0}'
   - 'Cost: {0}'
   - Buy Max {0}
---- !u!114 &2023661014842291077
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2520388549779972973}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8892592d390a13b4182361c664b67285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  menu: {fileID: 0}
-  menuEnabled: 0
-  audioClips: []
-  audioSource: {fileID: 0}
 --- !u!1 &3401481892202674576
 GameObject:
   m_ObjectHideFlags: 0
@@ -1480,7 +1463,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2023661014842291077}
+      - m_Target: {fileID: 2023661014842291077, guid: 74c5345b5118ed54ba5552e1ee3414b4,
+          type: 3}
         m_MethodName: OnEnabled
         m_Mode: 1
         m_Arguments:
@@ -1709,7 +1693,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinsText: {fileID: 2520388548723516388}
-  coins: 0
+  coins: 999
 --- !u!1 &7052393714708169699
 GameObject:
   m_ObjectHideFlags: 0
@@ -1996,6 +1980,102 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!82 &107632507
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7246297215073601574}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &7262517052962459300
 GameObject:
   m_ObjectHideFlags: 0
@@ -2149,7 +2229,7 @@ GameObject:
   - component: {fileID: 9163945688503140381}
   - component: {fileID: 5803992845320004677}
   m_Layer: 5
-  m_Name: Coffee Upgrade Menu (1)
+  m_Name: OfflineMoney
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2446,6 +2526,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2520388549341556573}
     m_Modifications:
+    - target: {fileID: 33945498, guid: bc2d3a4fbbd8c604ba1e58c078e3b8e9, type: 3}
+      propertyPath: audioClips.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 33945498, guid: bc2d3a4fbbd8c604ba1e58c078e3b8e9, type: 3}
+      propertyPath: audioClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: c1c8be35a43613b4a91bf92664eb8fb8, type: 3}
+    - target: {fileID: 33945498, guid: bc2d3a4fbbd8c604ba1e58c078e3b8e9, type: 3}
+      propertyPath: audioClips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 52f991766754d664e8bf6e7019135ffd, type: 3}
+    - target: {fileID: 33945498, guid: bc2d3a4fbbd8c604ba1e58c078e3b8e9, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 107632507}
+    - target: {fileID: 97296678, guid: bc2d3a4fbbd8c604ba1e58c078e3b8e9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EnableMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 97296678, guid: bc2d3a4fbbd8c604ba1e58c078e3b8e9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3541060740561256944, guid: bc2d3a4fbbd8c604ba1e58c078e3b8e9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2556,6 +2660,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UpgradePannel
       objectReference: {fileID: 0}
+    - target: {fileID: 3541060740561256945, guid: bc2d3a4fbbd8c604ba1e58c078e3b8e9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3541060740577157933, guid: bc2d3a4fbbd8c604ba1e58c078e3b8e9,
         type: 3}
       propertyPath: m_Value
@@ -2569,12 +2678,12 @@ PrefabInstance:
     - target: {fileID: 3541060740625582636, guid: bc2d3a4fbbd8c604ba1e58c078e3b8e9,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3541060740625582636, guid: bc2d3a4fbbd8c604ba1e58c078e3b8e9,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3541060740625582636, guid: bc2d3a4fbbd8c604ba1e58c078e3b8e9,
         type: 3}
@@ -2589,7 +2698,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 6175661146601753047}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 7246297215073601574}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8892592d390a13b4182361c664b67285, type: 3}
@@ -2598,6 +2707,12 @@ MonoBehaviour:
 --- !u!224 &7246297215073601575 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3541060740561256944, guid: bc2d3a4fbbd8c604ba1e58c078e3b8e9,
+    type: 3}
+  m_PrefabInstance: {fileID: 6175661146601753047}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7246297215073601574 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3541060740561256945, guid: bc2d3a4fbbd8c604ba1e58c078e3b8e9,
     type: 3}
   m_PrefabInstance: {fileID: 6175661146601753047}
   m_PrefabAsset: {fileID: 0}
